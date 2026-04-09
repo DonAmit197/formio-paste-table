@@ -1,0 +1,44 @@
+{
+  "name": "@bc/formio-paste-table",
+  "version": "1.0.0",
+  "description": "Custom formiojs PasteTable component",
+  "type": "module",
+  "main": "./dist/formio-paste-table.umd.js",
+  "module": "./dist/formio-paste-table.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/formio-paste-table.js",
+      "require": "./dist/formio-paste-table.umd.js",
+      "default": "./dist/formio-paste-table.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build:vite": "vite build",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:pega": "babel ./dist/pega/formio-paste-table.iife.js --out-file ./dist/pega/formio-paste-table.iife.js --config-file ./babel.pega.config.json",
+    "build": "npm run build:vite && npm run build:types && npm run build:pega",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "formiojs": "^4.19.1-rc.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.28.0",
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@types/node": "^25.5.2",
+    "@types/tabulator-tables": "^6.3.1",
+    "formiojs": "^4.19.1-rc.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.4"
+  },
+  "dependencies": {
+    "tabulator-tables": "^6.4.0"
+  }
+}
