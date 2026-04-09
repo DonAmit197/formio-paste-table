@@ -17,6 +17,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonAmit197/formio-paste-table.git"
+  },
   "scripts": {
     "dev": "vite",
     "build:vite": "vite build",
