@@ -10196,22 +10196,31 @@ var An = class extends Q {
 	constructor(...e) {
 		super(...e), i(this, "_table", null), i(this, "_tableValue", null), i(this, "_isMutatingTable", !1), i(this, "handleNativePaste", (e) => {
 			var t;
-			let n = this.getConfiguredHeaders();
-			if (!n.length || !this._table || this.isBuilderPreview()) return;
-			let r = ((t = e.clipboardData) == null ? void 0 : t.getData("text")) || "";
-			if (!r) return;
+			let n = this.getConfiguredColumnRules(), r = n.map((e) => e.header);
+			if (!r.length || !this._table || this.isBuilderPreview()) return;
+			let i = ((t = e.clipboardData) == null ? void 0 : t.getData("text")) || "";
+			if (!i) return;
 			e.preventDefault();
-			let i = this.parseClipboard(r);
-			if (!i.length || i.length === 1) {
+			let a = this.parseClipboard(i);
+			if (!a.length || a.length === 1) {
 				this.showError("Please copy at least one header row and one data row.");
 				return;
 			}
-			let a = i.slice(1);
-			if (!a.length) {
+			let o = a.slice(1);
+			if (!o.length) {
 				this.showError("Only a header row was pasted. Please copy data rows as well.");
 				return;
 			}
-			this.hideError(), this.appendRowsFromClipboard(n, a);
+			if (o.length > this.getMaxRows()) {
+				this.showError(`The pasted content exceeds the maximum allowed ${this.getMaxRows()} data rows.`);
+				return;
+			}
+			let s = this.validatePastedRows(o, n);
+			if (!s.isValid) {
+				this.showError(s.message);
+				return;
+			}
+			this.hideError(), this.appendRowsFromClipboard(r, o);
 		});
 	}
 	static schema(...e) {
@@ -10223,6 +10232,7 @@ var An = class extends Q {
 			tableHeaders: [],
 			maxRows: 10,
 			customMessage: "Please add at least one complete row and do not leave incomplete rows in the table.",
+			userInformation: "",
 			validate: { required: !0 }
 		}, ...e);
 	}
@@ -10281,17 +10291,63 @@ var An = class extends Q {
 						defaultValue: "Please add at least one complete row and do not leave incomplete rows in the table."
 					},
 					{
+						type: "textarea",
+						key: "userInformation",
+						label: "User Information",
+						input: !0,
+						rows: 3
+					},
+					{
 						type: "datagrid",
 						key: "tableHeaders",
 						label: "Table Column Headers",
 						input: !0,
 						addAnother: "Add Header",
-						components: [{
-							type: "textfield",
-							key: "value",
-							label: "Header Name",
-							input: !0
-						}]
+						components: [
+							{
+								type: "textfield",
+								key: "value",
+								label: "Header Name",
+								input: !0
+							},
+							{
+								type: "number",
+								key: "maxChars",
+								label: "Maximum characters allowed",
+								input: !0,
+								defaultValue: 20,
+								validate: {
+									min: 1,
+									integer: !0
+								}
+							},
+							{
+								type: "select",
+								key: "dataType",
+								label: "Data type allowed",
+								input: !0,
+								defaultValue: "alphabet",
+								dataSrc: "values",
+								data: { values: [
+									{
+										label: "Alphabet",
+										value: "alphabet"
+									},
+									{
+										label: "Numeric",
+										value: "numeric"
+									},
+									{
+										label: "Alphabet and Numeric",
+										value: "alphanumeric"
+									},
+									{
+										label: "Email",
+										value: "email"
+									}
+								] }
+							}
+						]
 					}
 				]
 			}, {
@@ -10309,9 +10365,6 @@ var An = class extends Q {
 	isBuilderPreview() {
 		return !!(this.builderMode || this.options && this.options.builder);
 	}
-	getConfiguredHeaders() {
-		return (this.component.tableHeaders || []).map((e) => typeof e == "string" ? e.trim() : e && e.value ? e.value.trim() : "").filter(Boolean);
-	}
 	getMaxRows() {
 		let e = Number(this.component.maxRows);
 		return !e || e < 1 ? 10 : Math.floor(e);
@@ -10320,16 +10373,44 @@ var An = class extends Q {
 		let e = this.component.customMessage;
 		return e && String(e).trim() ? String(e).trim() : "Please add at least one complete row and do not leave incomplete rows in the table.";
 	}
+	getUserInformation() {
+		let e = this.component.userInformation;
+		return e && String(e).trim() ? String(e).trim() : "";
+	}
 	getInfoMessage() {
 		return `Paste spreadsheet rows directly into the table below. The copied first row will be treated as headers and skipped automatically. Maximum allowed data rows: ${this.getMaxRows()}. Incomplete rows are not allowed.`;
 	}
+	getConfiguredColumnRules() {
+		return (this.component.tableHeaders || []).map((e) => {
+			if (typeof e == "string") {
+				let t = e.trim();
+				return t ? {
+					header: t,
+					maxChars: 20,
+					dataType: "alphabet"
+				} : null;
+			}
+			if (!e || !e.value || !String(e.value).trim()) return null;
+			let t = Number(e.maxChars), n = t && t > 0 ? Math.floor(t) : 20, r = String(e.dataType || "").trim().toLowerCase(), i = this.isValidDataType(r) ? r : "alphabet";
+			return {
+				header: String(e.value).trim(),
+				maxChars: n,
+				dataType: i
+			};
+		}).filter(Boolean);
+	}
+	isValidDataType(e) {
+		return e === "alphabet" || e === "numeric" || e === "alphanumeric" || e === "email";
+	}
 	render() {
-		let e = this.component.label ? String(this.component.label) : "", t = !!(this.component.validate && this.component.validate.required);
+		let e = this.component.label ? String(this.component.label) : "", t = !!(this.component.validate && this.component.validate.required), n = this.getUserInformation();
 		return super.render(`
       <div class="paste-table-root">
         ${e ? `<label class="control-label paste-table-label" ref="labelEl">
                 ${e}${t ? " <span class=\"field-required\">*</span>" : ""}
               </label>` : ""}
+
+        ${n ? `<div class="paste-table-userinfo" ref="userInfoEl">${n}</div>` : ""}
 
         <div class="paste-table-info" ref="infoMsg">
           ${this.getInfoMessage()}
@@ -10347,6 +10428,7 @@ var An = class extends Q {
 		let t = super.attach(e);
 		if (this.loadRefs(e, {
 			labelEl: "single",
+			userInfoEl: "single",
 			infoMsg: "single",
 			errorMsg: "single",
 			tabulatorTarget: "single"
@@ -10424,48 +10506,94 @@ var An = class extends Q {
 			this._isMutatingTable = !1, this.syncValueFromTable(e);
 		});
 	}
-	createInputEditor(e, t, n, r) {
-		let i = document.createElement("input"), a = e.getValue() == null ? "" : String(e.getValue());
-		i.setAttribute("type", "text"), i.value = a, i.style.padding = "4px", i.style.width = "100%", i.style.height = "100%", i.style.boxSizing = "border-box", i.style.border = "none", i.style.outline = "none", i.style.background = "transparent", t(function() {
-			i.focus();
-		}), i.addEventListener("mousedown", function(e) {
+	validateCellValue(e, t, n) {
+		let r = e == null ? "" : String(e);
+		return r === "" ? {
+			isValid: !0,
+			message: ""
+		} : this.containsUnsafePattern(r) ? {
+			isValid: !1,
+			message: n === "paste" ? `The pasted value for "${t.header}" contains unsafe content and was rejected.` : `The entered value for "${t.header}" contains unsafe content and was rejected.`
+		} : r.length > t.maxChars ? {
+			isValid: !1,
+			message: n === "paste" ? `The pasted value for "${t.header}" exceeds the maximum of ${t.maxChars} characters.` : `The entered value for "${t.header}" exceeds the maximum of ${t.maxChars} characters.`
+		} : this.matchesDataType(r, t.dataType) ? {
+			isValid: !0,
+			message: ""
+		} : {
+			isValid: !1,
+			message: n === "paste" ? `The pasted value for "${t.header}" does not match the allowed data type (${this.getDataTypeLabel(t.dataType)}).` : `The entered value for "${t.header}" does not match the allowed data type (${this.getDataTypeLabel(t.dataType)}).`
+		};
+	}
+	containsUnsafePattern(e) {
+		return /<|>|javascript:|vbscript:|data:text\/html|on\w+\s*=|<script|<img|<svg|<iframe|&lt;|&gt;/i.test(e);
+	}
+	getDataTypeLabel(e) {
+		return e === "alphabet" ? "Alphabet" : e === "numeric" ? "Numeric" : e === "alphanumeric" ? "Alphabet and Numeric" : "Email";
+	}
+	matchesDataType(e, t) {
+		return t === "alphabet" ? /^[A-Za-z\s'-]+$/.test(e) : t === "numeric" ? /^\d+(\.\d{1,2})?$/.test(e) : t === "alphanumeric" ? /^[A-Za-z0-9\s'-]+$/.test(e) : /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(e);
+	}
+	getRuleByHeader(e, t) {
+		let n = 0;
+		for (n = 0; n < t.length; n += 1) if (t[n].header === e) return t[n];
+		return null;
+	}
+	createInputEditor(e, t, n, r, i) {
+		let a = document.createElement("input"), o = e.getValue() == null ? "" : String(e.getValue()), s = String(e.getField() || ""), c = this.getRuleByHeader(s, i);
+		a.setAttribute("type", "text"), a.value = o, a.style.padding = "4px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function() {
+			a.focus();
+		}), a.addEventListener("mousedown", function(e) {
 			e.stopPropagation();
-		}), i.addEventListener("click", function(e) {
+		}), a.addEventListener("click", function(e) {
 			e.stopPropagation();
 		});
-		function o() {
-			i.value === a ? r() : n(i.value);
+		let l = this;
+		function u() {
+			let e = a.value;
+			if (e === o) {
+				r();
+				return;
+			}
+			if (c) {
+				let t = l.validateCellValue(e, c, "manual");
+				if (!t.isValid) {
+					l.showError(t.message), r();
+					return;
+				}
+			}
+			l.hideError(), n(e);
 		}
-		return i.addEventListener("blur", o), i.addEventListener("keydown", function(e) {
-			e.key === "Enter" && o(), e.key === "Escape" && r();
-		}), i;
+		return a.addEventListener("blur", u), a.addEventListener("keydown", function(e) {
+			e.key === "Enter" && u(), e.key === "Escape" && r();
+		}), a;
 	}
 	initTableFromConfiguredHeaders() {
 		var e;
-		let t = this.getConfiguredHeaders();
+		let t = this.getConfiguredColumnRules(), n = t.map((e) => e.header);
 		if (!this.refs.tabulatorTarget) return;
-		if (!t.length) {
+		if (!n.length) {
 			this.showError("Please configure at least one table header in the builder.");
 			return;
 		}
 		this.hideError(), (e = this._table) == null || e.destroy(), this._table = null;
-		let n = this.isBuilderPreview(), r = t.map((e, t) => e && e.trim() ? e.trim() : `Column ${t + 1}`), i = [this.createBlankRow(r)], a = this, o = r.map((e) => ({
+		let r = this.isBuilderPreview(), i = [this.createBlankRow(n)], a = this, o = n.map((e) => ({
 			title: e,
 			field: e,
-			editor: n ? void 0 : function(e, t, n, r) {
-				return a.createInputEditor(e, t, n, r);
+			editor: r ? void 0 : function(e, n, r, i) {
+				return a.createInputEditor(e, n, r, i, t);
 			}
 		}));
 		this._table = new An(this.refs.tabulatorTarget, {
 			data: i,
 			layout: "fitDataStretch",
 			renderHorizontal: "virtual",
-			selectableRange: n ? !1 : 1,
-			selectableRangeColumns: !n,
-			selectableRangeRows: !n,
-			selectableRangeClearCells: !n,
+			selectableRange: r ? !1 : 1,
+			selectableRangeColumns: !r,
+			selectableRangeRows: !r,
+			selectableRangeClearCells: !r,
 			editTriggerEvent: "dblclick",
-			clipboard: !n,
+			clipboard: !r,
 			clipboardCopyStyled: !1,
 			clipboardCopyConfig: {
 				rowHeaders: !1,
@@ -10488,28 +10616,52 @@ var An = class extends Q {
 				width: 180
 			},
 			columns: o
-		}), n || (this._table.on("cellEdited", () => {
-			this._isMutatingTable || this.normalizeTableRows(r);
+		}), r || (this._table.on("cellEdited", () => {
+			this._isMutatingTable || (this.hideError(), this.normalizeTableRows(n));
 		}), this._table.on("dataChanged", () => {
-			this._isMutatingTable || this.syncValueFromTable(r);
+			this._isMutatingTable || this.syncValueFromTable(n);
 		}));
 		let s = this.getValue();
 		if (s && Array.isArray(s.rows) && s.rows.length) {
-			let e = s.rows.slice(0, this.getMaxRows()).map((e) => this.mapRowArrayToObject(e, r));
-			e.length < this.getMaxRows() && e.push(this.createBlankRow(r)), this._isMutatingTable = !0, this._table.setData(e).finally(() => {
-				this._isMutatingTable = !1, this.syncValueFromTable(r);
+			let e = s.rows.slice(0, this.getMaxRows()).map((e) => this.mapRowArrayToObject(e, n));
+			e.length < this.getMaxRows() && e.push(this.createBlankRow(n)), this._isMutatingTable = !0, this._table.setData(e).finally(() => {
+				this._isMutatingTable = !1, this.syncValueFromTable(n);
 			});
 		} else this.setStoredValue({
-			headers: r,
+			headers: n,
 			rows: []
 		}, !1);
+	}
+	validatePastedRows(e, t) {
+		let n = 0, r = 0;
+		for (n = 0; n < e.length; n += 1) {
+			let a = e[n];
+			if (a.length > t.length) return {
+				isValid: !1,
+				message: "The pasted content has more columns than this table allows."
+			};
+			for (r = 0; r < a.length; r += 1) {
+				var i;
+				let e = t[r], n = (i = a[r]) == null ? "" : i, o = this.validateCellValue(n, e, "paste");
+				if (!o.isValid) return o;
+			}
+		}
+		return {
+			isValid: !0,
+			message: ""
+		};
 	}
 	appendRowsFromClipboard(e, t) {
 		if (!this._table) return;
 		let n = this.getMaxRows(), r = this._table.getData().map((t) => this.mapRowObjectToArray(t, e)).filter((e) => e.some((e) => String(e).trim() !== "")), i = t.map((t) => e.map((e, n) => {
 			var r;
 			return (r = t[n]) == null ? "" : r;
-		})), a = r.concat(i).slice(0, n), o = a.map((t) => this.mapRowArrayToObject(t, e));
+		})), a = r.concat(i);
+		if (a.length > n) {
+			this.showError(`The pasted content exceeds the maximum allowed ${n} data rows.`);
+			return;
+		}
+		let o = a.map((t) => this.mapRowArrayToObject(t, e));
 		a.length < n && o.push(this.createBlankRow(e)), this._isMutatingTable = !0, this._table.setData(o).finally(() => {
 			this._isMutatingTable = !1, this.syncValueFromTable(e);
 		});

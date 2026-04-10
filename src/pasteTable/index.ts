@@ -11,16 +11,32 @@ type PasteTableValue = {
 
 type PasteTableRefs = {
   labelEl?: HTMLLabelElement;
+  userInfoEl?: HTMLDivElement;
   infoMsg?: HTMLDivElement;
   errorMsg?: HTMLDivElement;
   tabulatorTarget?: HTMLDivElement;
 };
 
+type PasteTableDataType = 'alphabet' | 'numeric' | 'alphanumeric' | 'email';
+
+type PasteTableHeaderSetting = {
+  value?: string;
+  maxChars?: number;
+  dataType?: PasteTableDataType;
+};
+
+type PasteTableColumnRule = {
+  header: string;
+  maxChars: number;
+  dataType: PasteTableDataType;
+};
+
 type PasteTableSchema = {
   label?: string;
-  tableHeaders?: Array<{ value?: string } | string>;
+  tableHeaders?: Array<PasteTableHeaderSetting | string>;
   maxRows?: number;
   customMessage?: string;
+  userInformation?: string;
   validate?: {
     required?: boolean;
     [key: string]: any;
@@ -64,6 +80,7 @@ export default class PasteTableComponent
         maxRows: 10,
         customMessage:
           'Please add at least one complete row and do not leave incomplete rows in the table.',
+        userInformation: '',
         validate: {
           required: true,
         },
@@ -132,6 +149,13 @@ export default class PasteTableComponent
                     'Please add at least one complete row and do not leave incomplete rows in the table.',
                 },
                 {
+                  type: 'textarea',
+                  key: 'userInformation',
+                  label: 'User Information',
+                  input: true,
+                  rows: 3,
+                },
+                {
                   type: 'datagrid',
                   key: 'tableHeaders',
                   label: 'Table Column Headers',
@@ -143,6 +167,36 @@ export default class PasteTableComponent
                       key: 'value',
                       label: 'Header Name',
                       input: true,
+                    },
+                    {
+                      type: 'number',
+                      key: 'maxChars',
+                      label: 'Maximum characters allowed',
+                      input: true,
+                      defaultValue: 20,
+                      validate: {
+                        min: 1,
+                        integer: true,
+                      },
+                    },
+                    {
+                      type: 'select',
+                      key: 'dataType',
+                      label: 'Data type allowed',
+                      input: true,
+                      defaultValue: 'alphabet',
+                      dataSrc: 'values',
+                      data: {
+                        values: [
+                          { label: 'Alphabet', value: 'alphabet' },
+                          { label: 'Numeric', value: 'numeric' },
+                          {
+                            label: 'Alphabet and Numeric',
+                            value: 'alphanumeric',
+                          },
+                          { label: 'Email', value: 'email' },
+                        ],
+                      },
                     },
                   ],
                 },
@@ -167,8 +221,8 @@ export default class PasteTableComponent
   }
 
   /**
-   * Detect whether component is being rendered in builder/edit preview mode.
-   * In this mode the grid should be read-only and should not emit user-change events.
+   * Detect builder/edit preview mode.
+   * In this mode the grid remains read-only and does not emit runtime change behavior.
    */
   private isBuilderPreview(): boolean {
     return !!(
@@ -178,19 +232,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns configured headers from builder schema.
-   */
-  private getConfiguredHeaders(): string[] {
-    return (this.component.tableHeaders || [])
-      .map((item: any) => {
-        if (typeof item === 'string') return item.trim();
-        return item && item.value ? item.value.trim() : '';
-      })
-      .filter(Boolean);
-  }
-
-  /**
-   * Returns max row limit set by builder.
+   * Return max data rows configured by builder.
    */
   private getMaxRows(): number {
     const raw = Number(this.component.maxRows);
@@ -201,7 +243,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns validation message.
+   * Return configured validation message.
    */
   private getValidationMessage(): string {
     const msg = this.component.customMessage;
@@ -213,20 +255,93 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns helper text displayed above the table.
+   * Optional builder-provided user information shown under label.
+   */
+  private getUserInformation(): string {
+    const info = this.component.userInformation;
+    return info && String(info).trim() ? String(info).trim() : '';
+  }
+
+  /**
+   * Standard helper text shown above table.
    */
   private getInfoMessage(): string {
     return `Paste spreadsheet rows directly into the table below. The copied first row will be treated as headers and skipped automatically. Maximum allowed data rows: ${this.getMaxRows()}. Incomplete rows are not allowed.`;
   }
 
   /**
-   * Render label + helper text + error text + table target.
+   * Normalize column rules from builder settings.
+   */
+  private getConfiguredColumnRules(): PasteTableColumnRule[] {
+    return (this.component.tableHeaders || [])
+      .map((item) => {
+        if (typeof item === 'string') {
+          const header = item.trim();
+          if (!header) return null;
+
+          return {
+            header,
+            maxChars: 20,
+            dataType: 'alphabet' as PasteTableDataType,
+          };
+        }
+
+        if (!item || !item.value || !String(item.value).trim()) {
+          return null;
+        }
+
+        const rawMaxChars = Number(item.maxChars);
+        const maxChars =
+          rawMaxChars && rawMaxChars > 0 ? Math.floor(rawMaxChars) : 20;
+
+        // const dataType = this.isValidDataType(item.dataType)
+        //   ? item.dataType
+        //   : 'alphabet';
+        const normalizedDataType = String(item.dataType || '')
+          .trim()
+          .toLowerCase();
+
+        const dataType = this.isValidDataType(normalizedDataType)
+          ? normalizedDataType
+          : 'alphabet';
+
+        return {
+          header: String(item.value).trim(),
+          maxChars,
+          dataType,
+        };
+      })
+      .filter(Boolean) as PasteTableColumnRule[];
+  }
+
+  /**
+   * Return header titles only for submission payload.
+   */
+  // private getConfiguredHeaders(): string[] {
+  //   return this.getConfiguredColumnRules().map((rule) => rule.header);
+  // }
+
+  /**
+   * Check if a provided value is a supported data type.
+   */
+  private isValidDataType(value: any): value is PasteTableDataType {
+    return (
+      value === 'alphabet' ||
+      value === 'numeric' ||
+      value === 'alphanumeric' ||
+      value === 'email'
+    );
+  }
+
+  /**
+   * Render label + optional user info + helper text + error + table target.
    */
   render() {
     const labelText = this.component.label ? String(this.component.label) : '';
     const isRequired = !!(
       this.component.validate && this.component.validate.required
     );
+    const userInformation = this.getUserInformation();
 
     return super.render(`
       <div class="paste-table-root">
@@ -235,6 +350,12 @@ export default class PasteTableComponent
             ? `<label class="control-label paste-table-label" ref="labelEl">
                 ${labelText}${isRequired ? ' <span class="field-required">*</span>' : ''}
               </label>`
+            : ''
+        }
+
+        ${
+          userInformation
+            ? `<div class="paste-table-userinfo" ref="userInfoEl">${userInformation}</div>`
             : ''
         }
 
@@ -252,13 +373,14 @@ export default class PasteTableComponent
   }
 
   /**
-   * Attach refs, events and initialize Tabulator.
+   * Attach refs, listeners and initialize grid.
    */
   attach(element: HTMLElement) {
     const attached = super.attach(element);
 
     this.loadRefs(element, {
       labelEl: 'single',
+      userInfoEl: 'single',
       infoMsg: 'single',
       errorMsg: 'single',
       tabulatorTarget: 'single',
@@ -294,20 +416,19 @@ export default class PasteTableComponent
   }
 
   /**
-   * Form.io required checks call isEmpty in many flows.
-   * We treat the component as empty when there is no complete row.
+   * Form.io empty-state check.
    */
   isEmpty(value: PasteTableValue) {
     const enteredRows = this.getEnteredRowsFromValue(value);
     const completeRows = enteredRows.filter((row) =>
       this.isCompleteRowArray(row),
     );
+
     return completeRows.length === 0;
   }
 
   /**
    * Hook into Form.io validation lifecycle.
-   * This supports change / next / submit flows.
    */
   checkValidity(
     data: any,
@@ -344,7 +465,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns component-specific validation message or empty string.
+   * Component-specific validation message.
    */
   private getComponentValidationMessage(value: PasteTableValue): string {
     const required = !!(
@@ -371,7 +492,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns row arrays from saved value.
+   * Extract entered rows from current stored value.
    */
   private getEnteredRowsFromValue(value: PasteTableValue): string[][] {
     if (!value || !Array.isArray(value.rows)) {
@@ -389,7 +510,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns true when every cell in the row has a non-empty value.
+   * True when every cell in row has a non-empty value.
    */
   private isCompleteRowArray(row: string[]): boolean {
     if (!row.length) return false;
@@ -405,7 +526,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Returns true when a row has some values but not all values.
+   * True when row has some values but not all.
    */
   private isPartiallyFilledRowArray(row: string[]): boolean {
     const hasAny = row.some((cell) => String(cell || '').trim() !== '');
@@ -415,7 +536,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Create a blank row object from headers.
+   * Create one blank row object aligned to headers.
    */
   private createBlankRow(headers: string[]): Record<string, string> {
     const row: Record<string, string> = {};
@@ -428,7 +549,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Parse tab/newline clipboard text into a 2D array.
+   * Parse clipboard text into 2D row array.
    */
   private parseClipboard(text: string): string[][] {
     return text
@@ -440,7 +561,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Normalize a row object into a simple string array aligned with headers.
+   * Normalize table row object into string array aligned to headers.
    */
   private mapRowObjectToArray(
     rowObj: Record<string, any>,
@@ -453,7 +574,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Normalize a row array into an object aligned with headers.
+   * Normalize row array into object aligned to headers.
    */
   private mapRowArrayToObject(
     row: string[],
@@ -469,8 +590,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Internal value setter.
-   * Use emitChange=false during initialization/preview so builder dialog does not lose focus.
+   * Internal setter to avoid unnecessary change firing in builder preview.
    */
   private setStoredValue(value: PasteTableValue, emitChange: boolean) {
     this._tableValue = value;
@@ -482,8 +602,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Convert current table data into submission shape.
-   * Preserve all non-blank rows so validation can inspect partial rows.
+   * Persist current table rows into submission shape.
    */
   private syncValueFromTable(headers: string[]) {
     if (!this._table) return;
@@ -504,10 +623,8 @@ export default class PasteTableComponent
   }
 
   /**
-   * Ensure the table keeps:
-   * - entered rows only
-   * - maximum row limit
-   * - one blank row at bottom when limit is not reached
+   * Ensure table keeps only entered rows, respects max rows,
+   * and adds one blank row at bottom while space remains.
    */
   private normalizeTableRows(headers: string[]) {
     if (!this._table) return;
@@ -536,16 +653,133 @@ export default class PasteTableComponent
   }
 
   /**
-   * Small custom text editor for better mouse interaction inside cell editing.
+   * Validate a single cell value against suspicious content, length and data type.
+   * Empty values are allowed here and handled later by required/incomplete-row validation.
+   */
+  private validateCellValue(
+    value: string,
+    rule: PasteTableColumnRule,
+    mode: 'paste' | 'manual',
+  ): { isValid: boolean; message: string } {
+    const trimmedValue = value == null ? '' : String(value);
+
+    if (trimmedValue === '') {
+      return { isValid: true, message: '' };
+    }
+
+    if (this.containsUnsafePattern(trimmedValue)) {
+      return {
+        isValid: false,
+        message:
+          mode === 'paste'
+            ? `The pasted value for "${rule.header}" contains unsafe content and was rejected.`
+            : `The entered value for "${rule.header}" contains unsafe content and was rejected.`,
+      };
+    }
+
+    if (trimmedValue.length > rule.maxChars) {
+      return {
+        isValid: false,
+        message:
+          mode === 'paste'
+            ? `The pasted value for "${rule.header}" exceeds the maximum of ${rule.maxChars} characters.`
+            : `The entered value for "${rule.header}" exceeds the maximum of ${rule.maxChars} characters.`,
+      };
+    }
+
+    if (!this.matchesDataType(trimmedValue, rule.dataType)) {
+      return {
+        isValid: false,
+        message:
+          mode === 'paste'
+            ? `The pasted value for "${rule.header}" does not match the allowed data type (${this.getDataTypeLabel(rule.dataType)}).`
+            : `The entered value for "${rule.header}" does not match the allowed data type (${this.getDataTypeLabel(rule.dataType)}).`,
+      };
+    }
+
+    return { isValid: true, message: '' };
+  }
+
+  /**
+   * Basic unsafe-content detection for plain-text cell input.
+   * This is a practical first-pass rejection, not full OWASP coverage.
+   */
+  private containsUnsafePattern(value: string): boolean {
+    return /<|>|javascript:|vbscript:|data:text\/html|on\w+\s*=|<script|<img|<svg|<iframe|&lt;|&gt;/i.test(
+      value,
+    );
+  }
+
+  /**
+   * Human-readable data type label.
+   */
+  private getDataTypeLabel(dataType: PasteTableDataType): string {
+    if (dataType === 'alphabet') return 'Alphabet';
+    if (dataType === 'numeric') return 'Numeric';
+    if (dataType === 'alphanumeric') return 'Alphabet and Numeric';
+    return 'Email';
+  }
+
+  /**
+   * Data type matcher.
+   */
+  private matchesDataType(
+    value: string,
+    dataType: PasteTableDataType,
+  ): boolean {
+    const alphabetRegex = /^[A-Za-z\s'-]+$/;
+    const numericRegex = /^\d+(\.\d{1,2})?$/;
+    const alphaNumericRegex = /^[A-Za-z0-9\s'-]+$/;
+    const emailRegex = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+
+    if (dataType === 'alphabet') {
+      return alphabetRegex.test(value);
+    }
+
+    if (dataType === 'numeric') {
+      return numericRegex.test(value);
+    }
+
+    if (dataType === 'alphanumeric') {
+      return alphaNumericRegex.test(value);
+    }
+
+    return emailRegex.test(value);
+  }
+
+  /**
+   * Find column rule by header field.
+   */
+  private getRuleByHeader(
+    header: string,
+    rules: PasteTableColumnRule[],
+  ): PasteTableColumnRule | null {
+    let i = 0;
+
+    for (i = 0; i < rules.length; i += 1) {
+      if (rules[i].header === header) {
+        return rules[i];
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Custom input editor used for runtime editing.
+   * Invalid manual edits are rejected and previous value is restored.
    */
   private createInputEditor(
     cell: any,
     onRendered: any,
     success: any,
     cancel: any,
+    rules: PasteTableColumnRule[],
   ) {
     const input = document.createElement('input');
     const currentValue = cell.getValue() == null ? '' : String(cell.getValue());
+    const field = String(cell.getField() || '');
+    const rule = this.getRuleByHeader(field, rules);
 
     input.setAttribute('type', 'text');
     input.value = currentValue;
@@ -569,12 +803,28 @@ export default class PasteTableComponent
       e.stopPropagation();
     });
 
+    const self = this;
+
     function onChange() {
-      if (input.value !== currentValue) {
-        success(input.value);
-      } else {
+      const nextValue = input.value;
+
+      if (nextValue === currentValue) {
         cancel();
+        return;
       }
+
+      if (rule) {
+        const validation = self.validateCellValue(nextValue, rule, 'manual');
+
+        if (!validation.isValid) {
+          self.showError(validation.message);
+          cancel();
+          return;
+        }
+      }
+
+      self.hideError();
+      success(nextValue);
     }
 
     input.addEventListener('blur', onChange);
@@ -596,7 +846,8 @@ export default class PasteTableComponent
    * Initialize Tabulator from configured headers.
    */
   private initTableFromConfiguredHeaders() {
-    const headers = this.getConfiguredHeaders();
+    const rules = this.getConfiguredColumnRules();
+    const headers = rules.map((rule) => rule.header);
 
     if (!this.refs.tabulatorTarget) {
       return;
@@ -615,23 +866,23 @@ export default class PasteTableComponent
     this._table = null;
 
     const isPreview = this.isBuilderPreview();
-
-    const safeHeaders = headers.map((header, index) =>
-      header && header.trim() ? header.trim() : `Column ${index + 1}`,
-    );
-
-    const initialRows = [this.createBlankRow(safeHeaders)];
-
+    const initialRows = [this.createBlankRow(headers)];
     const self = this;
 
-    const columns = safeHeaders.map((header) => {
+    const columns: any[] = headers.map((header) => {
       return {
         title: header,
         field: header,
         editor: isPreview
           ? undefined
           : function (cell: any, onRendered: any, success: any, cancel: any) {
-              return self.createInputEditor(cell, onRendered, success, cancel);
+              return self.createInputEditor(
+                cell,
+                onRendered,
+                success,
+                cancel,
+                rules,
+              );
             },
       };
     });
@@ -679,12 +930,14 @@ export default class PasteTableComponent
     if (!isPreview) {
       this._table.on('cellEdited', () => {
         if (this._isMutatingTable) return;
-        this.normalizeTableRows(safeHeaders);
+        this.hideError();
+        this.normalizeTableRows(headers);
       });
 
       this._table.on('dataChanged', () => {
         if (this._isMutatingTable) return;
-        this.syncValueFromTable(safeHeaders);
+        //this.hideError();
+        this.syncValueFromTable(headers);
       });
     }
 
@@ -696,21 +949,21 @@ export default class PasteTableComponent
     ) {
       const seededRows = existingValue.rows
         .slice(0, this.getMaxRows())
-        .map((row) => this.mapRowArrayToObject(row, safeHeaders));
+        .map((row) => this.mapRowArrayToObject(row, headers));
 
       if (seededRows.length < this.getMaxRows()) {
-        seededRows.push(this.createBlankRow(safeHeaders));
+        seededRows.push(this.createBlankRow(headers));
       }
 
       this._isMutatingTable = true;
       this._table.setData(seededRows).finally(() => {
         this._isMutatingTable = false;
-        this.syncValueFromTable(safeHeaders);
+        this.syncValueFromTable(headers);
       });
     } else {
       this.setStoredValue(
         {
-          headers: safeHeaders,
+          headers,
           rows: [],
         },
         false,
@@ -719,12 +972,12 @@ export default class PasteTableComponent
   }
 
   /**
-   * Intercept native paste, skip first row as header,
-   * truncate extra rows and columns silently,
-   * then normalize the table.
+   * Handle paste into table area.
+   * Entire paste is rejected if any row/column/value fails validation.
    */
   private handleNativePaste = (e: ClipboardEvent) => {
-    const headers = this.getConfiguredHeaders();
+    const rules = this.getConfiguredColumnRules();
+    const headers = rules.map((rule) => rule.header);
 
     if (!headers.length || !this._table || this.isBuilderPreview()) {
       return;
@@ -753,13 +1006,62 @@ export default class PasteTableComponent
       return;
     }
 
+    if (dataRows.length > this.getMaxRows()) {
+      this.showError(
+        `The pasted content exceeds the maximum allowed ${this.getMaxRows()} data rows.`,
+      );
+      return;
+    }
+
+    const pasteValidation = this.validatePastedRows(dataRows, rules);
+
+    if (!pasteValidation.isValid) {
+      this.showError(pasteValidation.message);
+      return;
+    }
+
     this.hideError();
     this.appendRowsFromClipboard(headers, dataRows);
   };
 
   /**
-   * Append pasted rows, enforce max row limit,
-   * and keep one blank row at bottom when possible.
+   * Validate all pasted rows before accepting any value.
+   * Rejects extra columns and any invalid cell.
+   */
+  private validatePastedRows(
+    dataRows: string[][],
+    rules: PasteTableColumnRule[],
+  ): { isValid: boolean; message: string } {
+    let rowIndex = 0;
+    let colIndex = 0;
+
+    for (rowIndex = 0; rowIndex < dataRows.length; rowIndex += 1) {
+      const row = dataRows[rowIndex];
+
+      if (row.length > rules.length) {
+        return {
+          isValid: false,
+          message:
+            'The pasted content has more columns than this table allows.',
+        };
+      }
+
+      for (colIndex = 0; colIndex < row.length; colIndex += 1) {
+        const rule = rules[colIndex];
+        const value = row[colIndex] ?? '';
+        const validation = this.validateCellValue(value, rule, 'paste');
+
+        if (!validation.isValid) {
+          return validation;
+        }
+      }
+    }
+
+    return { isValid: true, message: '' };
+  }
+
+  /**
+   * Append pasted rows after validation succeeds.
    */
   private appendRowsFromClipboard(headers: string[], dataRows: string[][]) {
     if (!this._table) return;
@@ -775,15 +1077,20 @@ export default class PasteTableComponent
       return headers.map((_, index) => row[index] ?? '');
     });
 
-    const finalEnteredRows = enteredRows
-      .concat(normalizedIncomingRows)
-      .slice(0, maxRows);
+    const combinedRows = enteredRows.concat(normalizedIncomingRows);
 
-    const nextRows = finalEnteredRows.map((row) =>
+    if (combinedRows.length > maxRows) {
+      this.showError(
+        `The pasted content exceeds the maximum allowed ${maxRows} data rows.`,
+      );
+      return;
+    }
+
+    const nextRows = combinedRows.map((row) =>
       this.mapRowArrayToObject(row, headers),
     );
 
-    if (finalEnteredRows.length < maxRows) {
+    if (combinedRows.length < maxRows) {
       nextRows.push(this.createBlankRow(headers));
     }
 
@@ -795,8 +1102,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Show inline component message.
-   * Used for validation message and paste-specific helper message.
+   * Show component-level message.
    */
   private showError(msg: string) {
     if (!this.refs.errorMsg) return;
@@ -805,7 +1111,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Hide inline component message.
+   * Hide component-level message.
    */
   private hideError() {
     if (!this.refs.errorMsg) return;
@@ -814,7 +1120,7 @@ export default class PasteTableComponent
   }
 
   /**
-   * Return current value.
+   * Return current stored value.
    */
   getValue(): PasteTableValue {
     return this._tableValue;
