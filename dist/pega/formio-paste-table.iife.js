@@ -14802,21 +14802,21 @@ var BCFormioPasteTable = function (e, t) {
           _e562.preventDefault();
           var a = _this242.parseClipboard(i);
           if (!a.length || a.length === 1) {
-            _this242.showError("Please copy at least one header row and one data row."), _this242.clearComponentToEmpty(r);
+            _this242.showError("Please copy at least one header row and one data row.");
             return;
           }
           var o = a.slice(1);
           if (!o.length) {
-            _this242.showError("Only a header row was pasted. Please copy data rows as well."), _this242.clearComponentToEmpty(r);
+            _this242.showError("Only a header row was pasted. Please copy data rows as well.");
             return;
           }
           if (o.length > _this242.getMaxRows()) {
-            _this242.showError("The pasted content exceeds the maximum allowed ".concat(_this242.getMaxRows(), " data rows.")), _this242.clearComponentToEmpty(r);
+            _this242.showError("The pasted content exceeds the maximum allowed ".concat(_this242.getMaxRows(), " data rows."));
             return;
           }
           var s = _this242.validatePastedRows(o, n);
           if (!s.isValid) {
-            _this242.showError(s.message), _this242.clearComponentToEmpty(r);
+            _this242.showError(s.message), s.severity === "security" && _this242.clearComponentToEmpty(r);
             return;
           }
           _this242.hideError(), _this242.appendRowsFromClipboard(r, o);
@@ -15116,18 +15116,23 @@ var BCFormioPasteTable = function (e, t) {
           var r = _e607 == null ? "" : String(_e607);
           return r === "" ? {
             isValid: !0,
-            message: ""
+            message: "",
+            severity: "none"
           } : this.containsUnsafePattern(r) ? {
             isValid: !1,
+            severity: "security",
             message: n === "paste" ? "The pasted value for \"".concat(t.header, "\" contains unsafe content and was rejected.") : "The entered value for \"".concat(t.header, "\" contains unsafe content and was rejected.")
           } : r.length > t.maxChars ? {
             isValid: !1,
+            severity: "business",
             message: n === "paste" ? "The pasted value for \"".concat(t.header, "\" exceeds the maximum of ").concat(t.maxChars, " characters.") : "The entered value for \"".concat(t.header, "\" exceeds the maximum of ").concat(t.maxChars, " characters.")
           } : this.matchesDataType(r, t.dataType) ? {
             isValid: !0,
-            message: ""
+            message: "",
+            severity: "none"
           } : {
             isValid: !1,
+            severity: "business",
             message: n === "paste" ? "The pasted value for \"".concat(t.header, "\" does not match the allowed data type (").concat(this.getDataTypeLabel(t.dataType), ").") : "The entered value for \"".concat(t.header, "\" does not match the allowed data type (").concat(this.getDataTypeLabel(t.dataType), ").")
           };
         }
@@ -15188,7 +15193,7 @@ var BCFormioPasteTable = function (e, t) {
             if (c) {
               var _t31 = l.validateCellValue(e, c, "manual");
               if (!_t31.isValid) {
-                l.showError(_t31.message), l.clearComponentToEmpty(i.map(function (e) {
+                l.showError(_t31.message), _t31.severity === "security" && l.clearComponentToEmpty(i.map(function (e) {
                   return e.header;
                 })), r();
                 return;
@@ -15304,6 +15309,7 @@ var BCFormioPasteTable = function (e, t) {
             var _a4 = _e622[n];
             if (_a4.length > t.length) return {
               isValid: !1,
+              severity: "business",
               message: "The pasted content has more columns than this table allows."
             };
             for (r = 0; r < _a4.length; r += 1) {
@@ -15316,7 +15322,8 @@ var BCFormioPasteTable = function (e, t) {
           }
           return {
             isValid: !0,
-            message: ""
+            message: "",
+            severity: "none"
           };
         }
       }, {
@@ -15340,7 +15347,7 @@ var BCFormioPasteTable = function (e, t) {
             }),
             a = r.concat(i);
           if (a.length > n) {
-            this.showError("The pasted content exceeds the maximum allowed ".concat(n, " data rows.")), this.clearComponentToEmpty(_e624);
+            this.showError("The pasted content exceeds the maximum allowed ".concat(n, " data rows."));
             return;
           }
           var o = a.map(function (t) {

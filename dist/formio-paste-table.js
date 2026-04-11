@@ -10203,21 +10203,21 @@ var An = class extends Q {
 			e.preventDefault();
 			let a = this.parseClipboard(i);
 			if (!a.length || a.length === 1) {
-				this.showError("Please copy at least one header row and one data row."), this.clearComponentToEmpty(r);
+				this.showError("Please copy at least one header row and one data row.");
 				return;
 			}
 			let o = a.slice(1);
 			if (!o.length) {
-				this.showError("Only a header row was pasted. Please copy data rows as well."), this.clearComponentToEmpty(r);
+				this.showError("Only a header row was pasted. Please copy data rows as well.");
 				return;
 			}
 			if (o.length > this.getMaxRows()) {
-				this.showError(`The pasted content exceeds the maximum allowed ${this.getMaxRows()} data rows.`), this.clearComponentToEmpty(r);
+				this.showError(`The pasted content exceeds the maximum allowed ${this.getMaxRows()} data rows.`);
 				return;
 			}
 			let s = this.validatePastedRows(o, n);
 			if (!s.isValid) {
-				this.showError(s.message), this.clearComponentToEmpty(r);
+				this.showError(s.message), s.severity === "security" && this.clearComponentToEmpty(r);
 				return;
 			}
 			this.hideError(), this.appendRowsFromClipboard(r, o);
@@ -10558,18 +10558,23 @@ var An = class extends Q {
 		let r = e == null ? "" : String(e);
 		return r === "" ? {
 			isValid: !0,
-			message: ""
+			message: "",
+			severity: "none"
 		} : this.containsUnsafePattern(r) ? {
 			isValid: !1,
+			severity: "security",
 			message: n === "paste" ? `The pasted value for "${t.header}" contains unsafe content and was rejected.` : `The entered value for "${t.header}" contains unsafe content and was rejected.`
 		} : r.length > t.maxChars ? {
 			isValid: !1,
+			severity: "business",
 			message: n === "paste" ? `The pasted value for "${t.header}" exceeds the maximum of ${t.maxChars} characters.` : `The entered value for "${t.header}" exceeds the maximum of ${t.maxChars} characters.`
 		} : this.matchesDataType(r, t.dataType) ? {
 			isValid: !0,
-			message: ""
+			message: "",
+			severity: "none"
 		} : {
 			isValid: !1,
+			severity: "business",
 			message: n === "paste" ? `The pasted value for "${t.header}" does not match the allowed data type (${this.getDataTypeLabel(t.dataType)}).` : `The entered value for "${t.header}" does not match the allowed data type (${this.getDataTypeLabel(t.dataType)}).`
 		};
 	}
@@ -10614,7 +10619,7 @@ var An = class extends Q {
 			if (c) {
 				let t = l.validateCellValue(e, c, "manual");
 				if (!t.isValid) {
-					l.showError(t.message), l.clearComponentToEmpty(i.map(function(e) {
+					l.showError(t.message), t.severity === "security" && l.clearComponentToEmpty(i.map(function(e) {
 						return e.header;
 					})), r();
 					return;
@@ -10701,6 +10706,7 @@ var An = class extends Q {
 			let a = e[n];
 			if (a.length > t.length) return {
 				isValid: !1,
+				severity: "business",
 				message: "The pasted content has more columns than this table allows."
 			};
 			for (r = 0; r < a.length; r += 1) {
@@ -10711,7 +10717,8 @@ var An = class extends Q {
 		}
 		return {
 			isValid: !0,
-			message: ""
+			message: "",
+			severity: "none"
 		};
 	}
 	appendRowsFromClipboard(e, t) {
@@ -10721,7 +10728,7 @@ var An = class extends Q {
 			return (r = t[n]) == null ? "" : r;
 		})), a = r.concat(i);
 		if (a.length > n) {
-			this.showError(`The pasted content exceeds the maximum allowed ${n} data rows.`), this.clearComponentToEmpty(e);
+			this.showError(`The pasted content exceeds the maximum allowed ${n} data rows.`);
 			return;
 		}
 		let o = a.map((t) => this.mapRowArrayToObject(t, e));

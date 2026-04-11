@@ -45,6 +45,12 @@ type PasteTableSchema = {
   [key: string]: any;
 };
 
+type CellValidationResult = {
+  isValid: boolean;
+  message: string;
+  severity: 'none' | 'business' | 'security';
+};
+
 const BaseComponent = Components.components.base;
 
 interface BaseComponentInstance {
@@ -663,20 +669,25 @@ export default class PasteTableComponent
     });
   }
 
+  /**
+   * Security patterns should trigger hard-clear behavior.
+   * Business-rule mismatches should not.
+   */
   private validateCellValue(
     value: string,
     rule: PasteTableColumnRule,
     mode: 'paste' | 'manual',
-  ): { isValid: boolean; message: string } {
+  ): CellValidationResult {
     const trimmedValue = value == null ? '' : String(value);
 
     if (trimmedValue === '') {
-      return { isValid: true, message: '' };
+      return { isValid: true, message: '', severity: 'none' };
     }
 
     if (this.containsUnsafePattern(trimmedValue)) {
       return {
         isValid: false,
+        severity: 'security',
         message:
           mode === 'paste'
             ? `The pasted value for "${rule.header}" contains unsafe content and was rejected.`
@@ -687,6 +698,7 @@ export default class PasteTableComponent
     if (trimmedValue.length > rule.maxChars) {
       return {
         isValid: false,
+        severity: 'business',
         message:
           mode === 'paste'
             ? `The pasted value for "${rule.header}" exceeds the maximum of ${rule.maxChars} characters.`
@@ -697,6 +709,7 @@ export default class PasteTableComponent
     if (!this.matchesDataType(trimmedValue, rule.dataType)) {
       return {
         isValid: false,
+        severity: 'business',
         message:
           mode === 'paste'
             ? `The pasted value for "${rule.header}" does not match the allowed data type (${this.getDataTypeLabel(rule.dataType)}).`
@@ -704,7 +717,7 @@ export default class PasteTableComponent
       };
     }
 
-    return { isValid: true, message: '' };
+    return { isValid: true, message: '', severity: 'none' };
   }
 
   private containsUnsafePattern(value: string): boolean {
@@ -759,6 +772,9 @@ export default class PasteTableComponent
     return null;
   }
 
+  /**
+   * Hard clear only for security-level issues.
+   */
   private clearComponentToEmpty(headers: string[]) {
     this._tableValue = null;
     this.dataValue = (this as any).emptyValue ?? null;
@@ -831,11 +847,15 @@ export default class PasteTableComponent
 
         if (!validation.isValid) {
           self.showError(validation.message);
-          self.clearComponentToEmpty(
-            rules.map(function (item) {
-              return item.header;
-            }),
-          );
+
+          if (validation.severity === 'security') {
+            self.clearComponentToEmpty(
+              rules.map(function (item) {
+                return item.header;
+              }),
+            );
+          }
+
           cancel();
           return;
         }
@@ -1036,7 +1056,6 @@ export default class PasteTableComponent
 
     if (!parsedRows.length || parsedRows.length === 1) {
       this.showError('Please copy at least one header row and one data row.');
-      this.clearComponentToEmpty(headers);
       return;
     }
 
@@ -1046,7 +1065,6 @@ export default class PasteTableComponent
       this.showError(
         'Only a header row was pasted. Please copy data rows as well.',
       );
-      this.clearComponentToEmpty(headers);
       return;
     }
 
@@ -1054,7 +1072,6 @@ export default class PasteTableComponent
       this.showError(
         `The pasted content exceeds the maximum allowed ${this.getMaxRows()} data rows.`,
       );
-      this.clearComponentToEmpty(headers);
       return;
     }
 
@@ -1062,7 +1079,11 @@ export default class PasteTableComponent
 
     if (!pasteValidation.isValid) {
       this.showError(pasteValidation.message);
-      this.clearComponentToEmpty(headers);
+
+      if (pasteValidation.severity === 'security') {
+        this.clearComponentToEmpty(headers);
+      }
+
       return;
     }
 
@@ -1073,7 +1094,7 @@ export default class PasteTableComponent
   private validatePastedRows(
     dataRows: string[][],
     rules: PasteTableColumnRule[],
-  ): { isValid: boolean; message: string } {
+  ): CellValidationResult {
     let rowIndex = 0;
     let colIndex = 0;
 
@@ -1083,6 +1104,7 @@ export default class PasteTableComponent
       if (row.length > rules.length) {
         return {
           isValid: false,
+          severity: 'business',
           message:
             'The pasted content has more columns than this table allows.',
         };
@@ -1099,7 +1121,7 @@ export default class PasteTableComponent
       }
     }
 
-    return { isValid: true, message: '' };
+    return { isValid: true, message: '', severity: 'none' };
   }
 
   private appendRowsFromClipboard(headers: string[], dataRows: string[][]) {
@@ -1122,7 +1144,6 @@ export default class PasteTableComponent
       this.showError(
         `The pasted content exceeds the maximum allowed ${maxRows} data rows.`,
       );
-      this.clearComponentToEmpty(headers);
       return;
     }
 
