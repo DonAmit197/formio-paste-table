@@ -395,10 +395,6 @@ export default class PasteTableComponent
     return super.detach();
   }
 
-  /**
-   * Delay Tabulator initialization until the target element is visible/measurable.
-   * This avoids wizard lifecycle races on Next/Previous.
-   */
   private scheduleSafeInit(attemptId: number, retryCount: number) {
     const self = this;
 
@@ -420,10 +416,27 @@ export default class PasteTableComponent
     });
   }
 
-  /**
-   * The target is considered ready when it exists, is attached,
-   * and has measurable layout.
-   */
+  private scheduleSafeHydrate(attemptId: number, retryCount: number) {
+    const self = this;
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (self._isDetached || attemptId !== self._initAttemptId) {
+          return;
+        }
+
+        if (!self._table || !self.isTargetReadyForInit()) {
+          if (retryCount < 12) {
+            self.scheduleSafeHydrate(attemptId, retryCount + 1);
+          }
+          return;
+        }
+
+        self.applyStoredValueToTable();
+      });
+    });
+  }
+
   private isTargetReadyForInit(): boolean {
     const target = this.refs.tabulatorTarget;
 
@@ -437,7 +450,7 @@ export default class PasteTableComponent
 
     const rect = target.getBoundingClientRect();
     const hasSize = rect.width > 0 || rect.height > 0;
-    const hasParent = !!target.offsetParent || target.closest('body');
+    const hasParent = !!target.offsetParent || !!target.closest('body');
 
     return !!(hasSize && hasParent);
   }
@@ -847,19 +860,13 @@ export default class PasteTableComponent
     return input;
   }
 
-  private getInitialTableData(
+  private buildRowsFromValue(
+    value: PasteTableValue,
     headers: string[],
     isReadOnly: boolean,
   ): Record<string, string>[] {
-    const existingValue =
-      (this.dataValue as PasteTableValue) || this.getValue();
-
-    if (
-      existingValue &&
-      Array.isArray(existingValue.rows) &&
-      existingValue.rows.length
-    ) {
-      const seededRows = existingValue.rows
+    if (value && Array.isArray(value.rows) && value.rows.length) {
+      const seededRows = value.rows
         .slice(0, this.getMaxRows())
         .map((row) => this.mapRowArrayToObject(row, headers));
 
@@ -867,10 +874,27 @@ export default class PasteTableComponent
         seededRows.push(this.createBlankRow(headers));
       }
 
+      return seededRows;
+    }
+
+    if (!isReadOnly && headers.length) {
+      return [this.createBlankRow(headers)];
+    }
+
+    return [];
+  }
+
+  private getInitialTableData(
+    headers: string[],
+    isReadOnly: boolean,
+  ): Record<string, string>[] {
+    const existingValue =
+      (this.dataValue as PasteTableValue) || this.getValue();
+
+    if (existingValue) {
       this._tableValue = existingValue;
       this.dataValue = existingValue;
-
-      return seededRows;
+      return this.buildRowsFromValue(existingValue, headers, isReadOnly);
     }
 
     this._tableValue = null;
@@ -881,6 +905,23 @@ export default class PasteTableComponent
     }
 
     return [];
+  }
+
+  private applyStoredValueToTable() {
+    if (!this._table) {
+      return;
+    }
+
+    const rules = this.getConfiguredColumnRules();
+    const headers = rules.map((rule) => rule.header);
+    const isReadOnly = this.isReadOnlyMode();
+    const value = (this.dataValue as PasteTableValue) || this._tableValue;
+    const rows = this.buildRowsFromValue(value, headers, isReadOnly);
+
+    this._isMutatingTable = true;
+    this._table.setData(rows).finally(() => {
+      this._isMutatingTable = false;
+    });
   }
 
   private initTableFromConfiguredHeaders() {
@@ -1119,6 +1160,11 @@ export default class PasteTableComponent
   setValue(value: PasteTableValue) {
     this._tableValue = value;
     this.dataValue = value;
+
+    if (this._table) {
+      this.scheduleSafeHydrate(this._initAttemptId, 0);
+    }
+
     return true;
   }
 }

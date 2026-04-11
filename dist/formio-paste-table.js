@@ -10465,10 +10465,24 @@ var An = class extends Q {
 			});
 		});
 	}
+	scheduleSafeHydrate(e, t) {
+		let n = this;
+		requestAnimationFrame(function() {
+			requestAnimationFrame(function() {
+				if (!(n._isDetached || e !== n._initAttemptId)) {
+					if (!n._table || !n.isTargetReadyForInit()) {
+						t < 12 && n.scheduleSafeHydrate(e, t + 1);
+						return;
+					}
+					n.applyStoredValueToTable();
+				}
+			});
+		});
+	}
 	isTargetReadyForInit() {
 		let e = this.refs.tabulatorTarget;
 		if (!e || !e.isConnected) return !1;
-		let t = e.getBoundingClientRect(), n = t.width > 0 || t.height > 0, r = !!e.offsetParent || e.closest("body");
+		let t = e.getBoundingClientRect(), n = t.width > 0 || t.height > 0, r = !!e.offsetParent || !!e.closest("body");
 		return !!(n && r);
 	}
 	isEmpty(e) {
@@ -10612,14 +10626,24 @@ var An = class extends Q {
 			e.key === "Enter" && u(), e.key === "Escape" && r();
 		}), a;
 	}
+	buildRowsFromValue(e, t, n) {
+		if (e && Array.isArray(e.rows) && e.rows.length) {
+			let r = e.rows.slice(0, this.getMaxRows()).map((e) => this.mapRowArrayToObject(e, t));
+			return r.length < this.getMaxRows() && !n && r.push(this.createBlankRow(t)), r;
+		}
+		return !n && t.length ? [this.createBlankRow(t)] : [];
+	}
 	getInitialTableData(e, t) {
 		var n;
 		let r = this.dataValue || this.getValue();
-		if (r && Array.isArray(r.rows) && r.rows.length) {
-			let n = r.rows.slice(0, this.getMaxRows()).map((t) => this.mapRowArrayToObject(t, e));
-			return n.length < this.getMaxRows() && !t && n.push(this.createBlankRow(e)), this._tableValue = r, this.dataValue = r, n;
-		}
-		return this._tableValue = null, this.dataValue = (n = this.emptyValue) == null ? null : n, !t && e.length ? [this.createBlankRow(e)] : [];
+		return r ? (this._tableValue = r, this.dataValue = r, this.buildRowsFromValue(r, e, t)) : (this._tableValue = null, this.dataValue = (n = this.emptyValue) == null ? null : n, !t && e.length ? [this.createBlankRow(e)] : []);
+	}
+	applyStoredValueToTable() {
+		if (!this._table) return;
+		let e = this.getConfiguredColumnRules().map((e) => e.header), t = this.isReadOnlyMode(), n = this.dataValue || this._tableValue, r = this.buildRowsFromValue(n, e, t);
+		this._isMutatingTable = !0, this._table.setData(r).finally(() => {
+			this._isMutatingTable = !1;
+		});
 	}
 	initTableFromConfiguredHeaders() {
 		let e = this.getConfiguredColumnRules(), t = e.map((e) => e.header);
@@ -10715,7 +10739,7 @@ var An = class extends Q {
 		return this._tableValue;
 	}
 	setValue(e) {
-		return this._tableValue = e, this.dataValue = e, !0;
+		return this._tableValue = e, this.dataValue = e, this._table && this.scheduleSafeHydrate(this._initAttemptId, 0), !0;
 	}
 };
 e.addComponent("pasteTable", $);

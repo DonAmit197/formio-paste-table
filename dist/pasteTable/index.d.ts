@@ -176,15 +176,8 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     render(): string;
     attach(element: HTMLElement): void | Promise<void>;
     detach(): void;
-    /**
-     * Delay Tabulator initialization until the target element is visible/measurable.
-     * This avoids wizard lifecycle races on Next/Previous.
-     */
     private scheduleSafeInit;
-    /**
-     * The target is considered ready when it exists, is attached,
-     * and has measurable layout.
-     */
+    private scheduleSafeHydrate;
     private isTargetReadyForInit;
     isEmpty(value: PasteTableValue): boolean;
     checkValidity(data: any, dirty: boolean, rowData?: any, options?: any, silentCheck?: boolean): any;
@@ -206,7 +199,9 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     private getRuleByHeader;
     private clearComponentToEmpty;
     private createInputEditor;
+    private buildRowsFromValue;
     private getInitialTableData;
+    private applyStoredValueToTable;
     private initTableFromConfiguredHeaders;
     private handleNativePaste;
     private validatePastedRows;
