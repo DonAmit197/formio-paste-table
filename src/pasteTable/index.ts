@@ -323,6 +323,7 @@ export default class PasteTableComponent
 
   render() {
     const labelText = this.component.label ? String(this.component.label) : '';
+    console.log('labelText', labelText);
     const isRequired = !!(
       this.component.validate && this.component.validate.required
     );
@@ -348,7 +349,7 @@ export default class PasteTableComponent
 
         <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
 
-        <div class="paste-table-wrap">
+        <div class="paste-table-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <div ref="tabulatorTarget"></div>
         </div>
 
@@ -389,8 +390,16 @@ export default class PasteTableComponent
         'paste',
         this.handleNativePaste,
       );
+      this.refs.tabulatorTarget?.addEventListener(
+        'keydown',
+        this.handleTableKeyDown,
+      );
       this.refs.addRowBtn?.addEventListener('click', this.handleAddRow);
       this.refs.deleteRowBtn?.addEventListener('click', this.handleDeleteRow);
+      this.refs.deleteRowBtn?.addEventListener(
+        'keydown',
+        this.handleDeleteButtonKeyDown,
+      );
     }
 
     this.scheduleSafeInit(this._initAttemptId, 0);
@@ -406,8 +415,16 @@ export default class PasteTableComponent
       'paste',
       this.handleNativePaste,
     );
+    this.refs.tabulatorTarget?.removeEventListener(
+      'keydown',
+      this.handleTableKeyDown,
+    );
     this.refs.addRowBtn?.removeEventListener('click', this.handleAddRow);
     this.refs.deleteRowBtn?.removeEventListener('click', this.handleDeleteRow);
+    this.refs.deleteRowBtn?.removeEventListener(
+      'keydown',
+      this.handleDeleteButtonKeyDown,
+    );
 
     if (this._table) {
       try {
@@ -422,7 +439,24 @@ export default class PasteTableComponent
 
     return super.detach();
   }
+  private handleTableKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Delete') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+  private handleDeleteButtonKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Delete') {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
 
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.handleDeleteRow();
+    }
+  };
   private scheduleSafeInit(attemptId: number, retryCount: number) {
     const self = this;
 
@@ -843,15 +877,23 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      input.focus();
+      setTimeout(() => {
+        input.focus();
+      }, 0);
     });
 
     input.addEventListener('mousedown', function (e) {
-      e.stopPropagation();
+      if (!('ontouchstart' in window)) {
+        // desktop only
+        e.stopPropagation();
+      }
     });
 
     input.addEventListener('click', function (e) {
-      e.stopPropagation();
+      if (!('ontouchstart' in window)) {
+        // desktop only
+        e.stopPropagation();
+      }
     });
 
     const self = this;
@@ -1017,15 +1059,23 @@ export default class PasteTableComponent
             },
       };
     });
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const tableOptions: any = {
       data: initialData,
       layout: 'fitDataStretch',
-      renderHorizontal: 'virtual',
+      //layout: 'fitData',
+      //renderHorizontal: 'virtual',
+      //renderHorizontal: headers.length > 10 ? 'virtual' : 'basic',
+      renderHorizontal: 'basic',
 
-      selectableRange: !isReadOnly ? 1 : false,
-      selectableRangeColumns: !isReadOnly,
-      selectableRangeRows: !isReadOnly,
-      selectableRangeClearCells: !isReadOnly,
+      selectableRange: !isReadOnly && !isTouchDevice ? 1 : false,
+
+      selectableRangeColumns: !isReadOnly && !isTouchDevice,
+      selectableRangeRows: !isReadOnly && !isTouchDevice,
+      //selectableRangeClearCells: !isReadOnly,
+      selectableRangeClearCells: false,
       selectableRangeAutoFocus: false,
       selectableRangeBlurEditOnNavigate: false,
 
@@ -1054,8 +1104,20 @@ export default class PasteTableComponent
 
     if (!isReadOnly) {
       this._table.on('cellClick', (_e: any, cell: any) => {
-        const row = cell.getRow();
-        this.handleRowSelection(row);
+        if (isTouchDevice) {
+          return;
+        }
+
+        this.handleRowSelection(cell.getRow());
+      });
+
+      this._table.on('cellTap', (_e: any, cell: any) => {
+        if (!isTouchDevice) {
+          return;
+        }
+
+        this.handleRowSelection(cell.getRow());
+        cell.edit(true);
       });
 
       this._table.on('cellEdited', () => {

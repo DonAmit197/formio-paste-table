@@ -180,6 +180,8 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     render(): string;
     attach(element: HTMLElement): void | Promise<void>;
     detach(): void;
+    private handleTableKeyDown;
+    private handleDeleteButtonKeyDown;
     private scheduleSafeInit;
     private scheduleSafeHydrate;
     private isTargetReadyForInit;

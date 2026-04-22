@@ -10194,7 +10194,15 @@ var An = class extends Q {
 	}
 }, jn = e.components.base, $ = class e extends jn {
 	constructor(...e) {
-		super(...e), i(this, "_table", null), i(this, "_tableValue", null), i(this, "_isMutatingTable", !1), i(this, "_isDetached", !1), i(this, "_initAttemptId", 0), i(this, "_selectedRow", null), i(this, "handleNativePaste", (e) => {
+		super(...e), i(this, "_table", null), i(this, "_tableValue", null), i(this, "_isMutatingTable", !1), i(this, "_isDetached", !1), i(this, "_initAttemptId", 0), i(this, "_selectedRow", null), i(this, "handleTableKeyDown", (e) => {
+			e.key === "Delete" && (e.preventDefault(), e.stopPropagation());
+		}), i(this, "handleDeleteButtonKeyDown", (e) => {
+			if (e.key === "Delete") {
+				e.preventDefault(), e.stopPropagation();
+				return;
+			}
+			(e.key === "Enter" || e.key === " ") && (e.preventDefault(), this.handleDeleteRow());
+		}), i(this, "handleNativePaste", (e) => {
 			var t;
 			let n = this.getConfiguredColumnRules(), r = n.map((e) => e.header);
 			if (!r.length || !this._table || this.isReadOnlyMode()) return;
@@ -10430,7 +10438,9 @@ var An = class extends Q {
 		return e === "alphabet" || e === "numeric" || e === "alphanumeric" || e === "email";
 	}
 	render() {
-		let e = this.component.label ? String(this.component.label) : "", t = !!(this.component.validate && this.component.validate.required), n = this.getUserInformation();
+		let e = this.component.label ? String(this.component.label) : "";
+		console.log("labelText", e);
+		let t = !!(this.component.validate && this.component.validate.required), n = this.getUserInformation();
 		return super.render(`
       <div class="paste-table-root">
         ${e ? `<label class="control-label paste-table-label" ref="labelEl">
@@ -10443,7 +10453,7 @@ var An = class extends Q {
 
         <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
 
-        <div class="paste-table-wrap">
+        <div class="paste-table-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <div ref="tabulatorTarget"></div>
         </div>
 
@@ -10469,14 +10479,14 @@ var An = class extends Q {
 			maxRowMsg: "single",
 			deleteHint: "single"
 		}), !this.isReadOnlyMode()) {
-			var n, r, i;
-			(n = this.refs.tabulatorTarget) == null || n.addEventListener("paste", this.handleNativePaste), (r = this.refs.addRowBtn) == null || r.addEventListener("click", this.handleAddRow), (i = this.refs.deleteRowBtn) == null || i.addEventListener("click", this.handleDeleteRow);
+			var n, r, i, a, o;
+			(n = this.refs.tabulatorTarget) == null || n.addEventListener("paste", this.handleNativePaste), (r = this.refs.tabulatorTarget) == null || r.addEventListener("keydown", this.handleTableKeyDown), (i = this.refs.addRowBtn) == null || i.addEventListener("click", this.handleAddRow), (a = this.refs.deleteRowBtn) == null || a.addEventListener("click", this.handleDeleteRow), (o = this.refs.deleteRowBtn) == null || o.addEventListener("keydown", this.handleDeleteButtonKeyDown);
 		}
 		return this.scheduleSafeInit(this._initAttemptId, 0), t;
 	}
 	detach() {
-		var e, t, n;
-		if (this._isDetached = !0, this._initAttemptId += 1, (e = this.refs.tabulatorTarget) == null || e.removeEventListener("paste", this.handleNativePaste), (t = this.refs.addRowBtn) == null || t.removeEventListener("click", this.handleAddRow), (n = this.refs.deleteRowBtn) == null || n.removeEventListener("click", this.handleDeleteRow), this._table) {
+		var e, t, n, r, i;
+		if (this._isDetached = !0, this._initAttemptId += 1, (e = this.refs.tabulatorTarget) == null || e.removeEventListener("paste", this.handleNativePaste), (t = this.refs.tabulatorTarget) == null || t.removeEventListener("keydown", this.handleTableKeyDown), (n = this.refs.addRowBtn) == null || n.removeEventListener("click", this.handleAddRow), (r = this.refs.deleteRowBtn) == null || r.removeEventListener("click", this.handleDeleteRow), (i = this.refs.deleteRowBtn) == null || i.removeEventListener("keydown", this.handleDeleteButtonKeyDown), this._table) {
 			try {
 				this._table.destroy();
 			} catch (e) {}
@@ -10634,11 +10644,13 @@ var An = class extends Q {
 	createInputEditor(e, t, n, r, i) {
 		let a = document.createElement("input"), o = e.getValue() == null ? "" : String(e.getValue()), s = String(e.getField() || ""), c = this.getRuleByHeader(s, i);
 		a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function() {
-			a.focus();
+			setTimeout(() => {
+				a.focus();
+			}, 0);
 		}), a.addEventListener("mousedown", function(e) {
-			e.stopPropagation();
+			"ontouchstart" in window || e.stopPropagation();
 		}), a.addEventListener("click", function(e) {
-			e.stopPropagation();
+			"ontouchstart" in window || e.stopPropagation();
 		});
 		let l = this;
 		function u() {
@@ -10699,14 +10711,14 @@ var An = class extends Q {
 			editor: n ? void 0 : function(t, n, i, a) {
 				return r.createInputEditor(t, n, i, a, e);
 			}
-		})), o = {
+		})), o = typeof window < "u" && ("ontouchstart" in window || navigator.maxTouchPoints > 0), s = {
 			data: i,
 			layout: "fitDataStretch",
-			renderHorizontal: "virtual",
-			selectableRange: n ? !1 : 1,
-			selectableRangeColumns: !n,
-			selectableRangeRows: !n,
-			selectableRangeClearCells: !n,
+			renderHorizontal: "basic",
+			selectableRange: !n && !o ? 1 : !1,
+			selectableRangeColumns: !n && !o,
+			selectableRangeRows: !n && !o,
+			selectableRangeClearCells: !1,
 			selectableRangeAutoFocus: !1,
 			selectableRangeBlurEditOnNavigate: !1,
 			editTriggerEvent: "click",
@@ -10726,9 +10738,10 @@ var An = class extends Q {
 			},
 			columns: a
 		};
-		this._table = new An(this.refs.tabulatorTarget, o), n || (this._table.on("cellClick", (e, t) => {
-			let n = t.getRow();
-			this.handleRowSelection(n);
+		this._table = new An(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", (e, t) => {
+			o || this.handleRowSelection(t.getRow());
+		}), this._table.on("cellTap", (e, t) => {
+			o && (this.handleRowSelection(t.getRow()), t.edit(!0));
 		}), this._table.on("cellEdited", () => {
 			this._isMutatingTable || this._isDetached || this.normalizeTableRows(t);
 		}), this._table.on("dataChanged", () => {
