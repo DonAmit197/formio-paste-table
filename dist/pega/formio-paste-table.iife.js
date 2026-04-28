@@ -15301,7 +15301,7 @@ var BCFormioPasteTable = function (e, t) {
                 }
               };
             }),
-            o = (typeof window === "undefined" ? "undefined" : _typeof(window)) < "u" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+            o = (typeof navigator === "undefined" ? "undefined" : _typeof(navigator)) < "u" && navigator.maxTouchPoints > 0;
           console.log("isTouchDevice", o);
           var s = {
             data: i,
@@ -15333,7 +15333,7 @@ var BCFormioPasteTable = function (e, t) {
           this._table = new jn(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", function (_e630, t) {
             o || _this251.handleRowSelection(t.getRow());
           }), this._table.on("cellTap", function (_e631, t) {
-            o && (_this251.handleRowSelection(t.getRow()), t.edit(!0));
+            o && t.edit(!0);
           }), this._table.on("rowClick", function (_e632, t) {
             _this251.handleRowSelection(t);
           }), this._table.on("rowTap", function (_e633, t) {

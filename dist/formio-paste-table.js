@@ -10711,7 +10711,7 @@ var An = class extends Q {
 			editor: n ? void 0 : function(t, n, i, a) {
 				return r.createInputEditor(t, n, i, a, e);
 			}
-		})), o = typeof window < "u" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+		})), o = typeof navigator < "u" && navigator.maxTouchPoints > 0;
 		console.log("isTouchDevice", o);
 		let s = {
 			data: i,
@@ -10743,7 +10743,7 @@ var An = class extends Q {
 		this._table = new An(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", (e, t) => {
 			o || this.handleRowSelection(t.getRow());
 		}), this._table.on("cellTap", (e, t) => {
-			o && (this.handleRowSelection(t.getRow()), t.edit(!0));
+			o && t.edit(!0);
 		}), this._table.on("rowClick", (e, t) => {
 			this.handleRowSelection(t);
 		}), this._table.on("rowTap", (e, t) => {

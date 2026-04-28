@@ -1059,13 +1059,13 @@ export default class PasteTableComponent
             },
       };
     });
-    const isTouchDevice =
-      typeof window !== 'undefined' &&
-      ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    console.log('isTouchDevice', isTouchDevice);
     // const isTouchDevice =
     //   typeof window !== 'undefined' &&
-    //   window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    //   ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const isTouchDevice =
+      typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+    console.log('isTouchDevice', isTouchDevice);
+
     const tableOptions: any = {
       data: initialData,
       layout: 'fitDataStretch',
@@ -1120,7 +1120,7 @@ export default class PasteTableComponent
           return;
         }
 
-        this.handleRowSelection(cell.getRow());
+        //this.handleRowSelection(cell.getRow());
         cell.edit(true);
       });
 
