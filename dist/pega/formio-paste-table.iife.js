@@ -15301,34 +15301,35 @@ var BCFormioPasteTable = function (e, t) {
                 }
               };
             }),
-            o = (typeof window === "undefined" ? "undefined" : _typeof(window)) < "u" && window.matchMedia("(hover: none) and (pointer: coarse)").matches,
-            s = {
-              data: i,
-              layout: "fitDataStretch",
-              renderHorizontal: "basic",
-              selectableRange: !n && !o ? 1 : !1,
-              selectableRangeColumns: !n && !o,
-              selectableRangeRows: !n && !o,
-              selectableRangeClearCells: !1,
-              selectableRangeAutoFocus: !1,
-              selectableRangeBlurEditOnNavigate: !1,
-              editTriggerEvent: "click",
-              clipboard: !1,
-              rowHeader: {
-                resizable: !1,
-                frozen: !0,
-                width: 60,
-                hozAlign: "center",
-                formatter: "rownum"
-              },
-              columnDefaults: {
-                headerSort: !1,
-                headerHozAlign: "center",
-                resizable: "header",
-                width: 180
-              },
-              columns: a
-            };
+            o = (typeof window === "undefined" ? "undefined" : _typeof(window)) < "u" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+          console.log("isTouchDevice", o);
+          var s = {
+            data: i,
+            layout: "fitDataStretch",
+            renderHorizontal: "basic",
+            selectableRange: !n && !o ? 1 : !1,
+            selectableRangeColumns: !n && !o,
+            selectableRangeRows: !n && !o,
+            selectableRangeClearCells: !1,
+            selectableRangeAutoFocus: !1,
+            selectableRangeBlurEditOnNavigate: !1,
+            editTriggerEvent: "click",
+            clipboard: !1,
+            rowHeader: {
+              resizable: !1,
+              frozen: !0,
+              width: 60,
+              hozAlign: "center",
+              formatter: "rownum"
+            },
+            columnDefaults: {
+              headerSort: !1,
+              headerHozAlign: "center",
+              resizable: "header",
+              width: 180
+            },
+            columns: a
+          };
           this._table = new jn(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", function (_e630, t) {
             o || _this251.handleRowSelection(t.getRow());
           }), this._table.on("cellTap", function (_e631, t) {

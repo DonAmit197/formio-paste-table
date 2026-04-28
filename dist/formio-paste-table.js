@@ -10711,7 +10711,9 @@ var An = class extends Q {
 			editor: n ? void 0 : function(t, n, i, a) {
 				return r.createInputEditor(t, n, i, a, e);
 			}
-		})), o = typeof window < "u" && window.matchMedia("(hover: none) and (pointer: coarse)").matches, s = {
+		})), o = typeof window < "u" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+		console.log("isTouchDevice", o);
+		let s = {
 			data: i,
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
