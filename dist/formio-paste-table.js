@@ -10397,6 +10397,14 @@ var An = class extends Q {
 			}]
 		}] };
 	}
+	get defaultValue() {
+		var e;
+		let t = ((e = this.component.defaultValue) == null ? "" : e).trim();
+		return t === "" ? null : {
+			headers: this.getConfiguredColumnRules().map((e) => e.header),
+			rows: [t.split(",").map((e) => e.trim())]
+		};
+	}
 	isBuilderPreview() {
 		return !!(this.builderMode || this.options && this.options.builder);
 	}
@@ -10438,18 +10446,14 @@ var An = class extends Q {
 		return e === "alphabet" || e === "numeric" || e === "alphanumeric" || e === "email";
 	}
 	render() {
-		let e = this.component.label ? String(this.component.label) : "";
-		console.log("labelText", e);
-		let t = !!(this.component.validate && this.component.validate.required), n = this.getUserInformation();
+		let e = this.component.label ? String(this.component.label) : "", t = !!(this.component.validate && this.component.validate.required), n = this.getUserInformation();
 		return super.render(`
       <div class="paste-table-root">
         ${e ? `<label class="control-label paste-table-label" ref="labelEl">
                 ${e}${t ? " <span class=\"field-required\">*</span>" : ""}
               </label>` : ""}
 
-        ${n ? `<div class="paste-table-userinfo" ref="userInfoEl">${n}</div>` : ""}
-
-       
+        ${n ? `<div class="paste-table-userinfo" ref="userInfoEl">${n}</div>` : ""}       
 
         <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
 
@@ -10711,9 +10715,7 @@ var An = class extends Q {
 			editor: n ? void 0 : function(t, n, i, a) {
 				return r.createInputEditor(t, n, i, a, e);
 			}
-		})), o = typeof navigator < "u" && navigator.maxTouchPoints > 0;
-		console.log("isTouchDevice", o);
-		let s = {
+		})), o = typeof navigator < "u" && navigator.maxTouchPoints > 0, s = {
 			data: i,
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
