@@ -170,6 +170,10 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
             }[];
         }[];
     };
+    get defaultValue(): {
+        headers: string[];
+        rows: any[];
+    } | null;
     private isBuilderPreview;
     private isReadOnlyMode;
     private getMaxRows;
