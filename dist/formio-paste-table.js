@@ -10194,7 +10194,11 @@ var An = class extends Q {
 	}
 }, jn = e.components.base, $ = class e extends jn {
 	constructor(...e) {
-		super(...e), i(this, "_table", null), i(this, "_tableValue", null), i(this, "_isMutatingTable", !1), i(this, "_isDetached", !1), i(this, "_initAttemptId", 0), i(this, "_selectedRow", null), i(this, "handleTableKeyDown", (e) => {
+		super(...e), i(this, "_table", null), i(this, "_tableValue", null), i(this, "_isMutatingTable", !1), i(this, "_isDetached", !1), i(this, "_initAttemptId", 0), i(this, "_selectedRow", null), i(this, "_lastPointerType", ""), i(this, "handlePointerUp", (e) => {
+			this._lastPointerType = e.pointerType;
+		}), i(this, "handleCaptureClick", (e) => {
+			this._lastPointerType === "touch" && (this._lastPointerType = "", e.stopPropagation(), e.stopImmediatePropagation());
+		}), i(this, "handleTableKeyDown", (e) => {
 			e.key === "Delete" && (e.preventDefault(), e.stopPropagation());
 		}), i(this, "handleDeleteButtonKeyDown", (e) => {
 			if (e.key === "Delete") {
@@ -10483,14 +10487,14 @@ var An = class extends Q {
 			maxRowMsg: "single",
 			deleteHint: "single"
 		}), !this.isReadOnlyMode()) {
-			var n, r, i, a, o;
-			(n = this.refs.tabulatorTarget) == null || n.addEventListener("paste", this.handleNativePaste), (r = this.refs.tabulatorTarget) == null || r.addEventListener("keydown", this.handleTableKeyDown), (i = this.refs.addRowBtn) == null || i.addEventListener("click", this.handleAddRow), (a = this.refs.deleteRowBtn) == null || a.addEventListener("click", this.handleDeleteRow), (o = this.refs.deleteRowBtn) == null || o.addEventListener("keydown", this.handleDeleteButtonKeyDown);
+			var n, r, i, a, o, s, c;
+			(n = this.refs.tabulatorTarget) == null || n.addEventListener("paste", this.handleNativePaste), (r = this.refs.tabulatorTarget) == null || r.addEventListener("keydown", this.handleTableKeyDown), (i = this.refs.tabulatorTarget) == null || i.addEventListener("pointerup", this.handlePointerUp, { passive: !0 }), (a = this.refs.tabulatorTarget) == null || a.addEventListener("click", this.handleCaptureClick, !0), (o = this.refs.addRowBtn) == null || o.addEventListener("click", this.handleAddRow), (s = this.refs.deleteRowBtn) == null || s.addEventListener("click", this.handleDeleteRow), (c = this.refs.deleteRowBtn) == null || c.addEventListener("keydown", this.handleDeleteButtonKeyDown);
 		}
 		return this.scheduleSafeInit(this._initAttemptId, 0), t;
 	}
 	detach() {
-		var e, t, n, r, i;
-		if (this._isDetached = !0, this._initAttemptId += 1, (e = this.refs.tabulatorTarget) == null || e.removeEventListener("paste", this.handleNativePaste), (t = this.refs.tabulatorTarget) == null || t.removeEventListener("keydown", this.handleTableKeyDown), (n = this.refs.addRowBtn) == null || n.removeEventListener("click", this.handleAddRow), (r = this.refs.deleteRowBtn) == null || r.removeEventListener("click", this.handleDeleteRow), (i = this.refs.deleteRowBtn) == null || i.removeEventListener("keydown", this.handleDeleteButtonKeyDown), this._table) {
+		var e, t, n, r, i, a, o;
+		if (this._isDetached = !0, this._initAttemptId += 1, (e = this.refs.tabulatorTarget) == null || e.removeEventListener("paste", this.handleNativePaste), (t = this.refs.tabulatorTarget) == null || t.removeEventListener("keydown", this.handleTableKeyDown), (n = this.refs.tabulatorTarget) == null || n.removeEventListener("pointerup", this.handlePointerUp), (r = this.refs.tabulatorTarget) == null || r.removeEventListener("click", this.handleCaptureClick, !0), (i = this.refs.addRowBtn) == null || i.removeEventListener("click", this.handleAddRow), (a = this.refs.deleteRowBtn) == null || a.removeEventListener("click", this.handleDeleteRow), (o = this.refs.deleteRowBtn) == null || o.removeEventListener("keydown", this.handleDeleteButtonKeyDown), this._table) {
 			try {
 				this._table.destroy();
 			} catch (e) {}
@@ -10648,7 +10652,7 @@ var An = class extends Q {
 	createInputEditor(e, t, n, r, i) {
 		let a = document.createElement("input"), o = e.getValue() == null ? "" : String(e.getValue()), s = String(e.getField() || ""), c = this.getRuleByHeader(s, i);
 		a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function() {
-			setTimeout(() => {
+			typeof navigator < "u" && navigator.maxTouchPoints > 0 ? a.focus() : setTimeout(() => {
 				a.focus();
 			}, 0);
 		}), a.addEventListener("mousedown", function(e) {
@@ -10747,7 +10751,7 @@ var An = class extends Q {
 		}), this._table.on("cellTap", (e, t) => {
 			o && t.edit(!0);
 		}), this._table.on("rowClick", (e, t) => {
-			this.handleRowSelection(t);
+			o || this.handleRowSelection(t);
 		}), this._table.on("rowTap", (e, t) => {
 			this.handleRowSelection(t);
 		}), this._table.on("cellEdited", () => {

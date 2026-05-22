@@ -87,6 +87,19 @@ export default class PasteTableComponent
   private _isDetached = false;
   private _initAttemptId = 0;
   private _selectedRow: any = null;
+  private _lastPointerType: string = '';
+
+  private handlePointerUp = (e: PointerEvent) => {
+    this._lastPointerType = e.pointerType;
+  };
+
+  private handleCaptureClick = (e: MouseEvent) => {
+    if (this._lastPointerType === 'touch') {
+      this._lastPointerType = '';
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+  };
 
   static schema(...extend: any[]) {
     return (BaseComponent.schema as any)(
@@ -407,6 +420,8 @@ export default class PasteTableComponent
         'keydown',
         this.handleTableKeyDown,
       );
+      this.refs.tabulatorTarget?.addEventListener('pointerup', this.handlePointerUp, {passive: true});
+      this.refs.tabulatorTarget?.addEventListener('click', this.handleCaptureClick, true);
       this.refs.addRowBtn?.addEventListener('click', this.handleAddRow);
       this.refs.deleteRowBtn?.addEventListener('click', this.handleDeleteRow);
       this.refs.deleteRowBtn?.addEventListener(
@@ -432,6 +447,8 @@ export default class PasteTableComponent
       'keydown',
       this.handleTableKeyDown,
     );
+    this.refs.tabulatorTarget?.removeEventListener('pointerup', this.handlePointerUp);
+    this.refs.tabulatorTarget?.removeEventListener('click', this.handleCaptureClick, true);
     this.refs.addRowBtn?.removeEventListener('click', this.handleAddRow);
     this.refs.deleteRowBtn?.removeEventListener('click', this.handleDeleteRow);
     this.refs.deleteRowBtn?.removeEventListener(
@@ -892,9 +909,14 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      setTimeout(() => {
+      const isTouch = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+      if (isTouch) {
         input.focus();
-      }, 0);
+      } else {
+        setTimeout(() => {
+          input.focus();
+        }, 0);
+      }
     });
 
     input.addEventListener('mousedown', function (e) {
@@ -1127,6 +1149,7 @@ export default class PasteTableComponent
       });
 
       this._table.on('rowClick', (_e: any, row: any) => {
+        if (isTouchDevice) return;
         this.handleRowSelection(row);
       });
 
