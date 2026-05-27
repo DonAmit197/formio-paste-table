@@ -1128,7 +1128,8 @@ export default class PasteTableComponent
       // selectableRangeAutoFocus: false,
       // selectableRangeBlurEditOnNavigate: false,
       selectableRange: false,
-      editTriggerEvent: 'click',
+      // editTriggerEvent: 'click',
+      editTriggerEvent: 'dblclick',
       clipboard: false,
       rowHeader: {
         resizable: false,
@@ -1156,6 +1157,7 @@ export default class PasteTableComponent
         }
 
         this.handleRowSelection(cell.getRow());
+        cell.edit(true);
       });
 
       this._table.on('cellTap', (_e: any, cell: any) => {

@@ -10724,7 +10724,7 @@ var An = class extends Q {
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
 			selectableRange: !1,
-			editTriggerEvent: "click",
+			editTriggerEvent: "dblclick",
 			clipboard: !1,
 			rowHeader: {
 				resizable: !1,
@@ -10742,7 +10742,7 @@ var An = class extends Q {
 			columns: a
 		};
 		this._table = new An(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", (e, t) => {
-			o || this.handleRowSelection(t.getRow());
+			o || (this.handleRowSelection(t.getRow()), t.edit(!0));
 		}), this._table.on("cellTap", (e, t) => {
 			o && t.edit(!0);
 		}), this._table.on("rowClick", (e, t) => {
