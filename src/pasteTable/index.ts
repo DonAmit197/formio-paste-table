@@ -1,7 +1,7 @@
 /** @format */
 
-import {Components} from 'formiojs';
-import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { Components } from 'formiojs';
+import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import 'tabulator-tables/dist/css/tabulator.min.css';
 
 type PasteTableValue = {
@@ -78,7 +78,8 @@ export default class PasteTableComponent
   extends (BaseComponent as unknown as new (
     ...args: unknown[]
   ) => BaseComponentInstance)
-  implements BaseComponentInstance {
+  implements BaseComponentInstance
+{
   declare refs: PasteTableRefs;
 
   private _table: Tabulator | null = null;
@@ -218,13 +219,13 @@ export default class PasteTableComponent
                       dataSrc: 'values',
                       data: {
                         values: [
-                          {label: 'Alphabet', value: 'alphabet'},
-                          {label: 'Numeric', value: 'numeric'},
+                          { label: 'Alphabet', value: 'alphabet' },
+                          { label: 'Numeric', value: 'numeric' },
                           {
                             label: 'Alphabet and Numeric',
                             value: 'alphanumeric',
                           },
-                          {label: 'Email', value: 'email'},
+                          { label: 'Email', value: 'email' },
                         ],
                       },
                     },
@@ -260,7 +261,7 @@ export default class PasteTableComponent
     const headers = this.getConfiguredColumnRules().map((rule) => rule.header);
     return {
       headers: headers,
-      rows: [defaultValue.split(',').map((d: string) => d.trim())]
+      rows: [defaultValue.split(',').map((d: string) => d.trim())],
     };
   }
 
@@ -360,18 +361,18 @@ export default class PasteTableComponent
     return super.render(`
       <div class="paste-table-root">
         ${
-      labelText
-        ? `<label class="control-label paste-table-label" ref="labelEl">
+          labelText
+            ? `<label class="control-label paste-table-label" ref="labelEl">
                 ${labelText}${isRequired ? ' <span class="field-required">*</span>' : ''}
               </label>`
-        : ''
-    }
+            : ''
+        }
 
         ${
-      userInformation
-        ? `<div class="paste-table-userinfo" ref="userInfoEl">${userInformation}</div>`
-        : ''
-    }       
+          userInformation
+            ? `<div class="paste-table-userinfo" ref="userInfoEl">${userInformation}</div>`
+            : ''
+        }       
 
         <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
 
@@ -380,15 +381,15 @@ export default class PasteTableComponent
         </div>
 
          ${
-      !this.isReadOnlyMode()
-        ? `<div class="paste-table-add-row-footer">
+           !this.isReadOnlyMode()
+             ? `<div class="paste-table-add-row-footer">
               <button type="button" class="btn btn-secondary btn-sm paste-table-add-row-btn" ref="addRowBtn">+ Add Row</button>
               <button type="button" class="btn btn-warning btn-sm paste-table-delete-row-btn" ref="deleteRowBtn" style="display:none;">Delete Row</button>
               <div class="paste-table-max-row-msg text-muted" ref="maxRowMsg" style="display:none;">Maximum row limit of ${this.getMaxRows()} has been reached.</div>
               <div class="paste-table-delete-hint text-muted" ref="deleteHint">Select a row, then click Delete row.</div>
             </div>`
-        : ''
-    }
+             : ''
+         }
       </div>
     `);
   }
@@ -420,8 +421,16 @@ export default class PasteTableComponent
         'keydown',
         this.handleTableKeyDown,
       );
-      this.refs.tabulatorTarget?.addEventListener('pointerup', this.handlePointerUp, {passive: true});
-      this.refs.tabulatorTarget?.addEventListener('click', this.handleCaptureClick, true);
+      this.refs.tabulatorTarget?.addEventListener(
+        'pointerup',
+        this.handlePointerUp,
+        { passive: true },
+      );
+      this.refs.tabulatorTarget?.addEventListener(
+        'click',
+        this.handleCaptureClick,
+        true,
+      );
       this.refs.addRowBtn?.addEventListener('click', this.handleAddRow);
       this.refs.deleteRowBtn?.addEventListener('click', this.handleDeleteRow);
       this.refs.deleteRowBtn?.addEventListener(
@@ -447,8 +456,15 @@ export default class PasteTableComponent
       'keydown',
       this.handleTableKeyDown,
     );
-    this.refs.tabulatorTarget?.removeEventListener('pointerup', this.handlePointerUp);
-    this.refs.tabulatorTarget?.removeEventListener('click', this.handleCaptureClick, true);
+    this.refs.tabulatorTarget?.removeEventListener(
+      'pointerup',
+      this.handlePointerUp,
+    );
+    this.refs.tabulatorTarget?.removeEventListener(
+      'click',
+      this.handleCaptureClick,
+      true,
+    );
     this.refs.addRowBtn?.removeEventListener('click', this.handleAddRow);
     this.refs.deleteRowBtn?.removeEventListener('click', this.handleDeleteRow);
     this.refs.deleteRowBtn?.removeEventListener(
@@ -768,7 +784,7 @@ export default class PasteTableComponent
     const trimmedValue = value == null ? '' : String(value);
 
     if (trimmedValue === '') {
-      return {isValid: true, message: '', severity: 'none'};
+      return { isValid: true, message: '', severity: 'none' };
     }
 
     if (this.containsUnsafePattern(trimmedValue)) {
@@ -804,7 +820,7 @@ export default class PasteTableComponent
       };
     }
 
-    return {isValid: true, message: '', severity: 'none'};
+    return { isValid: true, message: '', severity: 'none' };
   }
 
   private containsUnsafePattern(value: string): boolean {
@@ -909,7 +925,8 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      const isTouch = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+      const isTouch =
+        typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
       if (isTouch) {
         input.focus();
       } else {
@@ -1086,14 +1103,14 @@ export default class PasteTableComponent
         editor: isReadOnly
           ? undefined
           : function (cell: any, onRendered: any, success: any, cancel: any) {
-            return self.createInputEditor(
-              cell,
-              onRendered,
-              success,
-              cancel,
-              rules,
-            );
-          },
+              return self.createInputEditor(
+                cell,
+                onRendered,
+                success,
+                cancel,
+                rules,
+              );
+            },
       };
     });
 
@@ -1104,12 +1121,13 @@ export default class PasteTableComponent
       data: initialData,
       layout: 'fitDataStretch',
       renderHorizontal: 'basic',
-      selectableRange: !isReadOnly && !isTouchDevice ? 1 : false,
-      selectableRangeColumns: !isReadOnly && !isTouchDevice,
-      selectableRangeRows: !isReadOnly && !isTouchDevice,
-      selectableRangeClearCells: false,
-      selectableRangeAutoFocus: false,
-      selectableRangeBlurEditOnNavigate: false,
+      // selectableRange: !isReadOnly && !isTouchDevice ? 1 : false,
+      // selectableRangeColumns: !isReadOnly && !isTouchDevice,
+      // selectableRangeRows: !isReadOnly && !isTouchDevice,
+      // selectableRangeClearCells: false,
+      // selectableRangeAutoFocus: false,
+      // selectableRangeBlurEditOnNavigate: false,
+      selectableRange: false,
       editTriggerEvent: 'click',
       clipboard: false,
       rowHeader: {
@@ -1247,7 +1265,7 @@ export default class PasteTableComponent
       }
     }
 
-    return {isValid: true, message: '', severity: 'none'};
+    return { isValid: true, message: '', severity: 'none' };
   }
 
   private appendRowsFromClipboard(headers: string[], dataRows: string[][]) {

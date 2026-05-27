@@ -10723,12 +10723,7 @@ var An = class extends Q {
 			data: i,
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
-			selectableRange: !n && !o ? 1 : !1,
-			selectableRangeColumns: !n && !o,
-			selectableRangeRows: !n && !o,
-			selectableRangeClearCells: !1,
-			selectableRangeAutoFocus: !1,
-			selectableRangeBlurEditOnNavigate: !1,
+			selectableRange: !1,
 			editTriggerEvent: "click",
 			clipboard: !1,
 			rowHeader: {
