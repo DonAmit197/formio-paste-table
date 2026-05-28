@@ -10706,17 +10706,11 @@ var An = class extends Q {
 			} catch (e) {}
 			this._table = null;
 		}
-		let n = this.isReadOnlyMode(), r = this, i = this.getInitialTableData(t, n), a = t.map((t) => ({
-			title: t,
-			field: t,
-			editor: n ? void 0 : function(t, n, i, a) {
-				return r.createInputEditor(t, n, i, a, e);
-			}
-		})), o = typeof navigator < "u" && navigator.maxTouchPoints > 0, s = {
-			data: i,
+		let n = this.isReadOnlyMode(), r = this, i = {
+			data: this.getInitialTableData(t, n),
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
-			editTriggerEvent: "dblclick",
+			editTriggerEvent: "click",
 			clipboard: !1,
 			rowHeader: {
 				resizable: !1,
@@ -10731,14 +10725,20 @@ var An = class extends Q {
 				resizable: "header",
 				width: 180
 			},
-			columns: a
+			columns: t.map((t) => ({
+				title: t,
+				field: t,
+				editor: n ? void 0 : function(t, n, i, a) {
+					return r.createInputEditor(t, n, i, a, e);
+				}
+			}))
 		};
-		this._table = new An(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", (e, t) => {
-			o || this.handleRowSelection(t.getRow());
+		this._table = new An(this.refs.tabulatorTarget, i), n || (this._table.on("cellClick", (e, t) => {
+			this.handleRowSelection(t.getRow());
 		}), this._table.on("cellTap", (e, t) => {
-			o && t.edit(!0);
+			this.handleRowSelection(t.getRow()), t.edit(!0);
 		}), this._table.on("rowClick", (e, t) => {
-			o || this.handleRowSelection(t);
+			this.handleRowSelection(t);
 		}), this._table.on("rowTap", (e, t) => {
 			this.handleRowSelection(t);
 		}), this._table.on("cellEdited", () => {

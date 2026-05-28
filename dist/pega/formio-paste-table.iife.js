@@ -15297,22 +15297,11 @@ var BCFormioPasteTable = function (e, t) {
           }
           var n = this.isReadOnlyMode(),
             r = this,
-            i = this.getInitialTableData(t, n),
-            a = t.map(function (t) {
-              return {
-                title: t,
-                field: t,
-                editor: n ? void 0 : function (t, n, i, a) {
-                  return r.createInputEditor(t, n, i, a, _e631);
-                }
-              };
-            }),
-            o = (typeof navigator === "undefined" ? "undefined" : _typeof(navigator)) < "u" && navigator.maxTouchPoints > 0,
-            s = {
-              data: i,
+            i = {
+              data: this.getInitialTableData(t, n),
               layout: "fitDataStretch",
               renderHorizontal: "basic",
-              editTriggerEvent: "dblclick",
+              editTriggerEvent: "click",
               clipboard: !1,
               rowHeader: {
                 resizable: !1,
@@ -15327,14 +15316,22 @@ var BCFormioPasteTable = function (e, t) {
                 resizable: "header",
                 width: 180
               },
-              columns: a
+              columns: t.map(function (t) {
+                return {
+                  title: t,
+                  field: t,
+                  editor: n ? void 0 : function (t, n, i, a) {
+                    return r.createInputEditor(t, n, i, a, _e631);
+                  }
+                };
+              })
             };
-          this._table = new jn(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", function (_e634, t) {
-            o || _this250.handleRowSelection(t.getRow());
+          this._table = new jn(this.refs.tabulatorTarget, i), n || (this._table.on("cellClick", function (_e634, t) {
+            _this250.handleRowSelection(t.getRow());
           }), this._table.on("cellTap", function (_e635, t) {
-            o && t.edit(!0);
+            _this250.handleRowSelection(t.getRow()), t.edit(!0);
           }), this._table.on("rowClick", function (_e636, t) {
-            o || _this250.handleRowSelection(t);
+            _this250.handleRowSelection(t);
           }), this._table.on("rowTap", function (_e637, t) {
             _this250.handleRowSelection(t);
           }), this._table.on("cellEdited", function () {

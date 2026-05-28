@@ -1153,6 +1153,7 @@ export default class PasteTableComponent
         if (this._isMutatingTable || this._isDetached) return;
         // normalizeTableRows calls setData which re-renders the whole table,
         // destroying any editor that just opened on an adjacent cell.
+        // a change done
         this.syncValueFromTable(headers);
       });
 
