@@ -749,29 +749,6 @@ export default class PasteTableComponent
     this.updateAddRowButtonVisibility();
   }
 
-  private normalizeTableRows(headers: string[]) {
-    if (!this._table) return;
-
-    const maxRows = this.getMaxRows();
-    const currentRows = this._table.getData() as Record<string, any>[];
-
-    const normalizedRows = currentRows
-      .map((rowObj) =>
-        this.mapRowArrayToObject(
-          this.mapRowObjectToArray(rowObj, headers),
-          headers,
-        ),
-      )
-      .slice(0, maxRows);
-
-    this._isMutatingTable = true;
-    this._table.setData(normalizedRows).finally(() => {
-      this._isMutatingTable = false;
-      this.syncValueFromTable(headers);
-      this.updateAddRowButtonVisibility();
-    });
-  }
-
   /**
    * Security patterns should trigger hard-clear behavior.
    * Business-rule mismatches should not.
@@ -925,7 +902,15 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      //input.focus();
+      const isTouch =
+        typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+      if (isTouch) {
+        input.focus();
+      } else {
+        setTimeout(() => {
+          input.focus();
+        }, 0);
+      }
     });
 
     input.addEventListener('mousedown', function (e) {
@@ -1120,8 +1105,8 @@ export default class PasteTableComponent
       // selectableRangeAutoFocus: false,
       // selectableRangeBlurEditOnNavigate: false,
       //selectableRange: false,
-      editTriggerEvent: 'click',
-      // editTriggerEvent: 'dblclick',
+      // editTriggerEvent: 'click',
+      editTriggerEvent: 'dblclick',
       clipboard: false,
       rowHeader: {
         resizable: false,
@@ -1147,8 +1132,10 @@ export default class PasteTableComponent
         if (isTouchDevice) {
           return;
         }
-        console.log('cell click');
+
         this.handleRowSelection(cell.getRow());
+        // const clickedCell = cell;
+        // setTimeout(() => clickedCell.edit(true), 0);
       });
 
       this._table.on('cellTap', (_e: any, cell: any) => {
@@ -1170,7 +1157,9 @@ export default class PasteTableComponent
 
       this._table.on('cellEdited', () => {
         if (this._isMutatingTable || this._isDetached) return;
-        this.normalizeTableRows(headers);
+        // normalizeTableRows calls setData which re-renders the whole table,
+        // destroying any editor that just opened on an adjacent cell.
+        this.syncValueFromTable(headers);
       });
 
       this._table.on('dataChanged', () => {

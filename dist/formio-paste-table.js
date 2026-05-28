@@ -10598,13 +10598,6 @@ var An = class extends Q {
 			rows: t
 		}, !this.isBuilderPreview()), this.updateAddRowButtonVisibility();
 	}
-	normalizeTableRows(e) {
-		if (!this._table) return;
-		let t = this.getMaxRows(), n = this._table.getData().map((t) => this.mapRowArrayToObject(this.mapRowObjectToArray(t, e), e)).slice(0, t);
-		this._isMutatingTable = !0, this._table.setData(n).finally(() => {
-			this._isMutatingTable = !1, this.syncValueFromTable(e), this.updateAddRowButtonVisibility();
-		});
-	}
 	validateCellValue(e, t, n) {
 		let r = e == null ? "" : String(e);
 		return r === "" ? {
@@ -10651,7 +10644,11 @@ var An = class extends Q {
 	}
 	createInputEditor(e, t, n, r, i) {
 		let a = document.createElement("input"), o = e.getValue() == null ? "" : String(e.getValue()), s = String(e.getField() || ""), c = this.getRuleByHeader(s, i);
-		a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function() {}), a.addEventListener("mousedown", function(e) {
+		a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function() {
+			typeof navigator < "u" && navigator.maxTouchPoints > 0 ? a.focus() : setTimeout(() => {
+				a.focus();
+			}, 0);
+		}), a.addEventListener("mousedown", function(e) {
 			"ontouchstart" in window || e.stopPropagation();
 		}), a.addEventListener("click", function(e) {
 			"ontouchstart" in window || e.stopPropagation();
@@ -10719,7 +10716,7 @@ var An = class extends Q {
 			data: i,
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
-			editTriggerEvent: "click",
+			editTriggerEvent: "dblclick",
 			clipboard: !1,
 			rowHeader: {
 				resizable: !1,
@@ -10737,7 +10734,7 @@ var An = class extends Q {
 			columns: a
 		};
 		this._table = new An(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", (e, t) => {
-			o || (console.log("cell click"), this.handleRowSelection(t.getRow()));
+			o || this.handleRowSelection(t.getRow());
 		}), this._table.on("cellTap", (e, t) => {
 			o && t.edit(!0);
 		}), this._table.on("rowClick", (e, t) => {
@@ -10745,7 +10742,7 @@ var An = class extends Q {
 		}), this._table.on("rowTap", (e, t) => {
 			this.handleRowSelection(t);
 		}), this._table.on("cellEdited", () => {
-			this._isMutatingTable || this._isDetached || this.normalizeTableRows(t);
+			this._isMutatingTable || this._isDetached || this.syncValueFromTable(t);
 		}), this._table.on("dataChanged", () => {
 			this._isMutatingTable || this._isDetached || this.syncValueFromTable(t);
 		})), this.clearSelectedRow(), this.updateAddRowButtonVisibility(), this.updateDeleteRowButtonVisibility();

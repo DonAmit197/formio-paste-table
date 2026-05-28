@@ -204,7 +204,6 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     private mapRowArrayToObject;
     private setStoredValue;
     private syncValueFromTable;
-    private normalizeTableRows;
     /**
      * Security patterns should trigger hard-clear behavior.
      * Business-rule mismatches should not.
