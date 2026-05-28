@@ -731,7 +731,7 @@ var BCFormioPasteTable = function (e, t) {
         }), a) : !1;
       }
     },
-    C = {
+    ee = {
       keybindings: {
         bindings: {
           copyToClipboard: ["ctrl + 67", "meta + 67"]
@@ -743,7 +743,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }
     },
-    w = /*#__PURE__*/function (_u3) {
+    C = /*#__PURE__*/function (_u3) {
       function e(_e23) {
         var _this10;
         _classCallCheck(this, e);
@@ -848,17 +848,17 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(w, "moduleName", "clipboard"), a(w, "moduleExtensions", C), a(w, "pasteActions", x), a(w, "pasteParsers", S);
-  var ee = /*#__PURE__*/function () {
-      function ee(e) {
-        _classCallCheck(this, ee);
+  a(C, "moduleName", "clipboard"), a(C, "moduleExtensions", ee), a(C, "pasteActions", x), a(C, "pasteParsers", S);
+  var te = /*#__PURE__*/function () {
+      function te(e) {
+        _classCallCheck(this, te);
         return this._row = e, new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._row.table.componentFunctionBinder.handle("row", e._row, t) : e[t];
           }
         });
       }
-      return _createClass(ee, [{
+      return _createClass(te, [{
         key: "getData",
         value: function getData(e) {
           return this._row.getData(e);
@@ -894,16 +894,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    te = /*#__PURE__*/function () {
-      function te(e) {
-        _classCallCheck(this, te);
+    ne = /*#__PURE__*/function () {
+      function ne(e) {
+        _classCallCheck(this, ne);
         return this._cell = e, new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._cell.table.componentFunctionBinder.handle("cell", e._cell, t) : e[t];
           }
         });
       }
-      return _createClass(te, [{
+      return _createClass(ne, [{
         key: "getValue",
         value: function getValue() {
           return this._cell.getValue();
@@ -980,15 +980,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    T = /*#__PURE__*/function (_s3) {
-      function T(e, t) {
+    w = /*#__PURE__*/function (_s3) {
+      function w(e, t) {
         var _this13;
-        _classCallCheck(this, T);
-        _this13 = _callSuper(this, T, [e.table]), _this13.table = e.table, _this13.column = e, _this13.row = t, _this13.element = null, _this13.value = null, _this13.initialValue, _this13.oldValue = null, _this13.modules = {}, _this13.height = null, _this13.width = null, _this13.minWidth = null, _this13.component = null, _this13.loaded = !1, _this13.build();
+        _classCallCheck(this, w);
+        _this13 = _callSuper(this, w, [e.table]), _this13.table = e.table, _this13.column = e, _this13.row = t, _this13.element = null, _this13.value = null, _this13.initialValue, _this13.oldValue = null, _this13.modules = {}, _this13.height = null, _this13.width = null, _this13.minWidth = null, _this13.component = null, _this13.loaded = !1, _this13.build();
         return _this13;
       }
-      _inherits(T, _s3);
-      return _createClass(T, [{
+      _inherits(w, _s3);
+      return _createClass(w, [{
         key: "build",
         value: function build() {
           this.generateElement(), this.setWidth(), this._configureCell(), this.setValueActual(this.column.getFieldValue(this.row.data)), this.initialValue = this.value;
@@ -1147,20 +1147,20 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getComponent",
         value: function getComponent() {
-          return this.component || (this.component = new te(this)), this.component;
+          return this.component || (this.component = new ne(this)), this.component;
         }
       }]);
     }(s),
-    ne = /*#__PURE__*/function () {
-      function ne(e) {
-        _classCallCheck(this, ne);
+    re = /*#__PURE__*/function () {
+      function re(e) {
+        _classCallCheck(this, re);
         return this._column = e, this.type = "ColumnComponent", new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._column.table.componentFunctionBinder.handle("column", e._column, t) : e[t];
           }
         });
       }
-      return _createClass(ne, [{
+      return _createClass(re, [{
         key: "getElement",
         value: function getElement() {
           return this._column.getElement();
@@ -1281,7 +1281,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    re = {
+    ie = {
       title: void 0,
       field: void 0,
       columns: void 0,
@@ -1299,7 +1299,7 @@ var BCFormioPasteTable = function (e, t) {
       headerWordWrap: !1,
       editableTitle: void 0
     },
-    E = /*#__PURE__*/function (_s4) {
+    T = /*#__PURE__*/function (_s4) {
       function e(t, n, r) {
         var _this15;
         _classCallCheck(this, e);
@@ -1656,7 +1656,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "generateCell",
         value: function generateCell(_e74) {
-          var t = new T(this, _e74);
+          var t = new w(this, _e74);
           return this.cells.push(t), t;
         }
       }, {
@@ -1725,7 +1725,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getComponent",
         value: function getComponent() {
-          return this.component || (this.component = new ne(this)), this.component;
+          return this.component || (this.component = new re(this)), this.component;
         }
       }, {
         key: "getPosition",
@@ -1739,17 +1739,17 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s);
-  a(E, "defaultOptionList", re);
-  var D = /*#__PURE__*/function () {
-      function D(e) {
-        _classCallCheck(this, D);
+  a(T, "defaultOptionList", ie);
+  var E = /*#__PURE__*/function () {
+      function E(e) {
+        _classCallCheck(this, E);
         return this._row = e, new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._row.table.componentFunctionBinder.handle("row", e._row, t) : e[t];
           }
         });
       }
-      return _createClass(D, [{
+      return _createClass(E, [{
         key: "getData",
         value: function getData(e) {
           return this._row.getData(e);
@@ -1842,16 +1842,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    O = /*#__PURE__*/function (_s5) {
-      function O(e, t) {
+    D = /*#__PURE__*/function (_s5) {
+      function D(e, t) {
         var _this22;
         var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "row";
-        _classCallCheck(this, O);
-        _this22 = _callSuper(this, O, [t.table]), _this22.parent = t, _this22.data = {}, _this22.type = n, _this22.element = !1, _this22.modules = {}, _this22.cells = [], _this22.height = 0, _this22.heightStyled = "", _this22.manualHeight = !1, _this22.outerHeight = 0, _this22.initialized = !1, _this22.heightInitialized = !1, _this22.position = 0, _this22.positionWatchers = [], _this22.component = null, _this22.created = !1, _this22.setData(e);
+        _classCallCheck(this, D);
+        _this22 = _callSuper(this, D, [t.table]), _this22.parent = t, _this22.data = {}, _this22.type = n, _this22.element = !1, _this22.modules = {}, _this22.cells = [], _this22.height = 0, _this22.heightStyled = "", _this22.manualHeight = !1, _this22.outerHeight = 0, _this22.initialized = !1, _this22.heightInitialized = !1, _this22.position = 0, _this22.positionWatchers = [], _this22.component = null, _this22.created = !1, _this22.setData(e);
         return _this22;
       }
-      _inherits(O, _s5);
-      return _createClass(O, [{
+      _inherits(D, _s5);
+      return _createClass(D, [{
         key: "create",
         value: function create() {
           this.created || (this.created = !0, this.generateElement());
@@ -2118,11 +2118,11 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getComponent",
         value: function getComponent() {
-          return this.component || (this.component = new D(this)), this.component;
+          return this.component || (this.component = new E(this)), this.component;
         }
       }]);
     }(s),
-    ie = {
+    ae = {
       avg: function avg(e, t, n) {
         var r = 0,
           i = n.precision === void 0 ? 2 : n.precision;
@@ -2169,7 +2169,7 @@ var BCFormioPasteTable = function (e, t) {
         }).length;
       }
     },
-    k = /*#__PURE__*/function (_u4) {
+    O = /*#__PURE__*/function (_u4) {
       function e(_e91) {
         var _this25;
         _classCallCheck(this, e);
@@ -2186,7 +2186,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "initialize",
         value: function initialize() {
-          this.genColumn = new E({
+          this.genColumn = new T({
             field: "value"
           }, this), this.subscribe("cell-value-changed", this.cellValueChanged.bind(this)), this.subscribe("column-init", this.initializeColumnCheck.bind(this)), this.subscribe("row-deleted", this.rowsUpdated.bind(this)), this.subscribe("scroll-horizontal", this.scrollHorizontal.bind(this)), this.subscribe("row-added", this.rowsUpdated.bind(this)), this.subscribe("column-moved", this.recalcActiveRows.bind(this)), this.subscribe("column-add", this.recalcActiveRows.bind(this)), this.subscribe("data-refreshed", this.recalcActiveRowsRefresh.bind(this)), this.subscribe("table-redraw", this.tableRedraw.bind(this)), this.subscribe("rows-visible", this.visibleRows.bind(this)), this.subscribe("scrollbar-vertical", this.adjustForScrollbar.bind(this)), this.subscribe("redraw-blocked", this.blockRedraw.bind(this)), this.subscribe("redraw-restored", this.restoreRedraw.bind(this)), this.subscribe("table-redrawing", this.resizeHolderWidth.bind(this)), this.subscribe("column-resized", this.resizeHolderWidth.bind(this)), this.subscribe("column-show", this.resizeHolderWidth.bind(this)), this.subscribe("column-hide", this.resizeHolderWidth.bind(this)), this.registerTableFunction("getCalcResults", this.getResults.bind(this)), this.registerTableFunction("recalc", this.userRecalc.bind(this)), this.resizeHolderWidth();
         }
@@ -2376,8 +2376,8 @@ var BCFormioPasteTable = function (e, t) {
           var _this28 = this;
           var n = this.generateRowData(_e109, t),
             r;
-          return this.table.modExists("mutator") && this.table.modules.mutator.disable(), r = new O(n, this, "calc"), this.table.modExists("mutator") && this.table.modules.mutator.enable(), r.getElement().classList.add("tabulator-calcs", "tabulator-calcs-" + _e109), r.component = !1, r.getComponent = function () {
-            return r.component || (r.component = new ee(r)), r.component;
+          return this.table.modExists("mutator") && this.table.modules.mutator.disable(), r = new D(n, this, "calc"), this.table.modExists("mutator") && this.table.modules.mutator.enable(), r.getElement().classList.add("tabulator-calcs", "tabulator-calcs-" + _e109), r.component = !1, r.getComponent = function () {
+            return r.component || (r.component = new te(r)), r.component;
           }, r.generateCells = function () {
             var t = [];
             _this28.table.columnManager.columnsByIndex.forEach(function (n) {
@@ -2388,7 +2388,7 @@ var BCFormioPasteTable = function (e, t) {
                 formatter: _this28.table.modules.format.lookupFormatter("plaintext"),
                 params: {}
               }, _this28.genColumn.definition.cssClass = n.definition.cssClass;
-              var i = new T(_this28.genColumn, r);
+              var i = new w(_this28.genColumn, r);
               i.getElement(), i.column = n, i.setWidth(), n.cells.push(i), t.push(i), n.visible || i.hide();
             }), r.cells = t;
           }, r;
@@ -2459,16 +2459,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(k, "moduleName", "columnCalcs"), a(k, "calculations", ie);
-  var ae = /*#__PURE__*/function (_u5) {
-    function ae(e) {
+  a(O, "moduleName", "columnCalcs"), a(O, "calculations", ae);
+  var oe = /*#__PURE__*/function (_u5) {
+    function oe(e) {
       var _this31;
-      _classCallCheck(this, ae);
-      _this31 = _callSuper(this, ae, [e]), _this31.indent = 10, _this31.field = "", _this31.collapseEl = null, _this31.expandEl = null, _this31.branchEl = null, _this31.elementField = !1, _this31.startOpen = function () {}, _this31.registerTableOption("dataTree", !1), _this31.registerTableOption("dataTreeFilter", !0), _this31.registerTableOption("dataTreeSort", !0), _this31.registerTableOption("dataTreeElementColumn", !1), _this31.registerTableOption("dataTreeBranchElement", !0), _this31.registerTableOption("dataTreeChildIndent", 9), _this31.registerTableOption("dataTreeChildField", "_children"), _this31.registerTableOption("dataTreeCollapseElement", !1), _this31.registerTableOption("dataTreeExpandElement", !1), _this31.registerTableOption("dataTreeStartExpanded", !1), _this31.registerTableOption("dataTreeChildColumnCalcs", !1), _this31.registerTableOption("dataTreeSelectPropagate", !1), _this31.registerComponentFunction("row", "treeCollapse", _this31.collapseRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "treeExpand", _this31.expandRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "treeToggle", _this31.toggleRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "getTreeParent", _this31.getTreeParent.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "getTreeChildren", _this31.getRowChildren.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "addTreeChild", _this31.addTreeChildRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "isTreeExpanded", _this31.isRowExpanded.bind(_assertThisInitialized(_this31)));
+      _classCallCheck(this, oe);
+      _this31 = _callSuper(this, oe, [e]), _this31.indent = 10, _this31.field = "", _this31.collapseEl = null, _this31.expandEl = null, _this31.branchEl = null, _this31.elementField = !1, _this31.startOpen = function () {}, _this31.registerTableOption("dataTree", !1), _this31.registerTableOption("dataTreeFilter", !0), _this31.registerTableOption("dataTreeSort", !0), _this31.registerTableOption("dataTreeElementColumn", !1), _this31.registerTableOption("dataTreeBranchElement", !0), _this31.registerTableOption("dataTreeChildIndent", 9), _this31.registerTableOption("dataTreeChildField", "_children"), _this31.registerTableOption("dataTreeCollapseElement", !1), _this31.registerTableOption("dataTreeExpandElement", !1), _this31.registerTableOption("dataTreeStartExpanded", !1), _this31.registerTableOption("dataTreeChildColumnCalcs", !1), _this31.registerTableOption("dataTreeSelectPropagate", !1), _this31.registerComponentFunction("row", "treeCollapse", _this31.collapseRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "treeExpand", _this31.expandRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "treeToggle", _this31.toggleRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "getTreeParent", _this31.getTreeParent.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "getTreeChildren", _this31.getRowChildren.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "addTreeChild", _this31.addTreeChildRow.bind(_assertThisInitialized(_this31))), _this31.registerComponentFunction("row", "isTreeExpanded", _this31.isRowExpanded.bind(_assertThisInitialized(_this31)));
       return _this31;
     }
-    _inherits(ae, _u5);
-    return _createClass(ae, [{
+    _inherits(oe, _u5);
+    return _createClass(oe, [{
       key: "initialize",
       value: function initialize() {
         if (this.table.options.dataTree) {
@@ -2581,7 +2581,7 @@ var BCFormioPasteTable = function (e, t) {
         var t = [];
         return e.forEach(function (e, n) {
           var r, i;
-          t.push(e), e instanceof O && (e.create(), r = e.modules.dataTree, !r.index && r.children !== !1 && (i = _this35.getChildren(e, !1, !0), i.forEach(function (e) {
+          t.push(e), e instanceof D && (e.create(), r = e.modules.dataTree, !r.index && r.children !== !1 && (i = _this35.getChildren(e, !1, !0), i.forEach(function (e) {
             e.create(), t.push(e);
           })));
         }), t;
@@ -2606,7 +2606,7 @@ var BCFormioPasteTable = function (e, t) {
         var t = [],
           n = e.getData()[this.field];
         return Array.isArray(n) || (n = [n]), n.forEach(function (n) {
-          var r = new O(n || {}, _this37.table.rowManager);
+          var r = new D(n || {}, _this37.table.rowManager);
           r.create(), r.modules.dataTree.index = e.modules.dataTree.index + 1, r.modules.dataTree.parent = e, r.modules.dataTree.children && (r.modules.dataTree.open = _this37.startOpen(r.getComponent(), r.modules.dataTree.index)), t.push(r);
         }), t;
       }
@@ -2650,7 +2650,7 @@ var BCFormioPasteTable = function (e, t) {
           n = [],
           r;
         return t.children && (Array.isArray(t.children) || (t.children = this.generateChildren(e)), r = this.table.modExists("filter") && this.table.options.dataTreeFilter ? this.table.modules.filter.filter(t.children) : t.children, r.forEach(function (e) {
-          e instanceof O && n.push(e);
+          e instanceof D && n.push(e);
         })), n;
       }
     }, {
@@ -2658,7 +2658,7 @@ var BCFormioPasteTable = function (e, t) {
       value: function rowDeleting(e) {
         var t = e.modules.dataTree;
         t && t.children && Array.isArray(t.children) && t.children.forEach(function (e) {
-          e instanceof O && e.wipe();
+          e instanceof D && e.wipe();
         });
       }
     }, {
@@ -2679,8 +2679,8 @@ var BCFormioPasteTable = function (e, t) {
       value: function findChildIndex(e, t) {
         var _this38 = this;
         var n = !1;
-        return _typeof(e) == "object" ? e instanceof O ? n = e.data : e instanceof D ? n = e._getSelf().data : (typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) < "u" && e instanceof HTMLElement ? t.modules.dataTree && (n = t.modules.dataTree.children.find(function (t) {
-          return t instanceof O ? t.element === e : !1;
+        return _typeof(e) == "object" ? e instanceof D ? n = e.data : e instanceof E ? n = e._getSelf().data : (typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) < "u" && e instanceof HTMLElement ? t.modules.dataTree && (n = t.modules.dataTree.children.find(function (t) {
+          return t instanceof D ? t.element === e : !1;
         }), n && (n = n.data)) : e === null && (n = !1) : n = e === void 0 ? !1 : t.data[this.field].find(function (t) {
           return t.data[_this38.table.options.index] == e;
         }), n && (Array.isArray(t.data[this.field]) && (n = t.data[this.field].indexOf(n)), n == -1 && (n = !1)), n;
@@ -2692,7 +2692,7 @@ var BCFormioPasteTable = function (e, t) {
         var r = e.modules.dataTree,
           i = [];
         return r && r.children && (Array.isArray(r.children) || (r.children = this.generateChildren(e)), r.children.forEach(function (e) {
-          e instanceof O && (i.push(t ? e.getComponent() : e), n && _this39.getTreeChildren(e, t, n).forEach(function (e) {
+          e instanceof D && (i.push(t ? e.getComponent() : e), n && _this39.getTreeChildren(e, t, n).forEach(function (e) {
             i.push(e);
           }));
         })), i;
@@ -2709,8 +2709,8 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(ae, "moduleName", "dataTree");
-  function oe(e) {
+  a(oe, "moduleName", "dataTree");
+  function se(e) {
     var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var n = arguments.length > 2 ? arguments[2] : undefined;
     var r = t.delimiter ? t.delimiter : ",",
@@ -2748,7 +2748,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), a.length && i.unshift(a.join(r)), i = i.join("\n"), t.bom && (i = "\uFEFF" + i), n(i, "text/csv");
   }
-  function se(e, t, n) {
+  function ce(e, t, n) {
     var r = [];
     e.forEach(function (e) {
       var t = {};
@@ -2769,7 +2769,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), r = JSON.stringify(r, null, "\t"), n(r, "application/json");
   }
-  function ce(e) {
+  function le(e) {
     var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var n = arguments.length > 2 ? arguments[2] : undefined;
     var r = [],
@@ -2832,7 +2832,7 @@ var BCFormioPasteTable = function (e, t) {
       d.text(l, 40, 30);
     }), a.head = r, a.body = i, d.autoTable(a), t.documentProcessing && t.documentProcessing(d), n(d.output("arraybuffer"), "application/pdf");
   }
-  function le(e, t, n) {
+  function ue(e, t, n) {
     var r = this,
       i = t.sheetName || "Sheet1",
       a = this.dependencyRegistry.lookup("XLSX"),
@@ -2899,10 +2899,10 @@ var BCFormioPasteTable = function (e, t) {
     }
     d = a.write(o, u), n(m(d), "application/octet-stream");
   }
-  function ue(e, t, n) {
+  function de(e, t, n) {
     this.modExists("export", !0) && n(this.modules.export.generateHTMLTable(e), "text/html");
   }
-  function de(e, t, n) {
+  function fe(e, t, n) {
     var r = [];
     e.forEach(function (e) {
       var t = {};
@@ -2923,15 +2923,15 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), n(r.join("\n"), "application/x-ndjson");
   }
-  var fe = {
-      csv: oe,
-      json: se,
-      jsonLines: de,
-      pdf: ce,
-      xlsx: le,
-      html: ue
+  var pe = {
+      csv: se,
+      json: ce,
+      jsonLines: fe,
+      pdf: le,
+      xlsx: ue,
+      html: de
     },
-    A = /*#__PURE__*/function (_u6) {
+    k = /*#__PURE__*/function (_u6) {
       function e(_e115) {
         var _this40;
         _classCallCheck(this, e);
@@ -2996,8 +2996,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(A, "moduleName", "download"), a(A, "downloaders", fe);
-  function j(e, t) {
+  a(k, "moduleName", "download"), a(k, "downloaders", pe);
+  function A(e, t) {
     var n = t.mask,
       r = t.maskLetterChar === void 0 ? "A" : t.maskLetterChar,
       i = t.maskNumberChar === void 0 ? "9" : t.maskNumberChar,
@@ -3028,7 +3028,7 @@ var BCFormioPasteTable = function (e, t) {
       n.key.length === 1 && t.maskAutoFill && o(e.value.length);
     }), e.placeholder || (e.placeholder = n), t.maskAutoFill && o(e.value.length);
   }
-  function pe(e, t, n, r, i) {
+  function me(e, t, n, r, i) {
     var a = e.getValue(),
       o = document.createElement("input");
     if (o.setAttribute("type", i.search ? "search" : "text"), o.style.padding = "4px", o.style.width = "100%", o.style.boxSizing = "border-box", i.elementAttributes && _typeof(i.elementAttributes) == "object") for (var _e121 in i.elementAttributes) _e121.charAt(0) == "+" ? (_e121 = _e121.slice(1), o.setAttribute(_e121, o.getAttribute(_e121) + i.elementAttributes["+" + _e121])) : o.setAttribute(_e121, i.elementAttributes[_e121]);
@@ -3053,9 +3053,9 @@ var BCFormioPasteTable = function (e, t) {
           e.stopPropagation();
           break;
       }
-    }), i.mask && j(o, i), o;
+    }), i.mask && A(o, i), o;
   }
-  function me(e, t, n, r, i) {
+  function he(e, t, n, r, i) {
     var a = e.getValue(),
       o = i.verticalNavigation || "hybrid",
       s = String(a == null ? "" : a),
@@ -3095,9 +3095,9 @@ var BCFormioPasteTable = function (e, t) {
           e.stopPropagation();
           break;
       }
-    }), i.mask && j(c, i), c;
+    }), i.mask && A(c, i), c;
   }
-  function he(e, t, n, r, i) {
+  function ge(e, t, n, r, i) {
     var a = e.getValue(),
       o = i.verticalNavigation || "editor",
       s = document.createElement("input");
@@ -3132,9 +3132,9 @@ var BCFormioPasteTable = function (e, t) {
           e.stopPropagation();
           break;
       }
-    }), i.mask && j(s, i), s;
+    }), i.mask && A(s, i), s;
   }
-  function ge(e, t, n, r, i) {
+  function _e(e, t, n, r, i) {
     var a = e.getValue(),
       o = document.createElement("input");
     if (o.setAttribute("type", "range"), i.max !== void 0 && o.setAttribute("max", i.max), i.min !== void 0 && o.setAttribute("min", i.min), i.step !== void 0 && o.setAttribute("step", i.step), o.style.padding = "4px", o.style.width = "100%", o.style.boxSizing = "border-box", i.elementAttributes && _typeof(i.elementAttributes) == "object") for (var _e124 in i.elementAttributes) _e124.charAt(0) == "+" ? (_e124 = _e124.slice(1), o.setAttribute(_e124, o.getAttribute(_e124) + i.elementAttributes["+" + _e124])) : o.setAttribute(_e124, i.elementAttributes[_e124]);
@@ -3160,7 +3160,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), o;
   }
-  function _e(e, t, n, r, i) {
+  function ve(e, t, n, r, i) {
     var a = i.format,
       o = i.verticalNavigation || "editor",
       s = a ? window.DateTime || luxon.DateTime : null,
@@ -3213,7 +3213,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), l;
   }
-  function ve(e, t, n, r, i) {
+  function ye(e, t, n, r, i) {
     var a = i.format,
       o = i.verticalNavigation || "editor",
       s = a ? window.DateTime || luxon.DateTime : null,
@@ -3264,7 +3264,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), u;
   }
-  function ye(e, t, n, r, i) {
+  function be(e, t, n, r, i) {
     var a = i.format,
       o = i.verticalNavigation || "editor",
       s = a ? this.table.dependencyRegistry.lookup(["luxon", "DateTime"], "DateTime") : null,
@@ -3315,15 +3315,15 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), u;
   }
-  var be = /*#__PURE__*/function () {
-    function be(e, t, n, r, i, a) {
-      _classCallCheck(this, be);
+  var xe = /*#__PURE__*/function () {
+    function xe(e, t, n, r, i, a) {
+      _classCallCheck(this, xe);
       this.edit = e, this.table = e.table, this.cell = t, this.params = this._initializeParams(a), this.data = [], this.displayItems = [], this.currentItems = [], this.focusedItem = null, this.input = this._createInputElement(), this.listEl = this._createListElement(), this.initialValues = null, this.isFilter = t.getType() === "header", this.filterTimeout = null, this.filtered = !1, this.typing = !1, this.values = [], this.popup = null, this.listIteration = 0, this.lastAction = "", this.filterTerm = "", this.blurable = !0, this.actions = {
         success: r,
         cancel: i
       }, this._deprecatedOptionsCheck(), this._initializeValue(), n(this._onRendered.bind(this));
     }
-    return _createClass(be, [{
+    return _createClass(xe, [{
       key: "_deprecatedOptionsCheck",
       value: function _deprecatedOptionsCheck() {}
     }, {
@@ -3363,7 +3363,7 @@ var BCFormioPasteTable = function (e, t) {
         var e = this.params.elementAttributes,
           t = document.createElement("input");
         if (t.setAttribute("type", this.params.clearable ? "search" : "text"), t.style.padding = "4px", t.style.width = "100%", t.style.boxSizing = "border-box", this.params.autocomplete || (t.style.cursor = "default", t.style.caretColor = "transparent"), e && _typeof(e) == "object") for (var _n3 in e) _n3.charAt(0) == "+" ? (_n3 = _n3.slice(1), t.setAttribute(_n3, t.getAttribute(_n3) + e["+" + _n3])) : t.setAttribute(_n3, e[_n3]);
-        return this.params.mask && j(t, this.params), this._bindInputEvents(t), t;
+        return this.params.mask && A(t, this.params), this._bindInputEvents(t), t;
       }
     }, {
       key: "_initializeParams",
@@ -3819,10 +3819,10 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }();
-  function xe(e, t, n, r, i) {
-    return new be(this, e, t, n, r, i).input;
-  }
   function Se(e, t, n, r, i) {
+    return new xe(this, e, t, n, r, i).input;
+  }
+  function Ce(e, t, n, r, i) {
     var a = this,
       o = e.getElement(),
       s = e.getValue(),
@@ -3875,7 +3875,7 @@ var BCFormioPasteTable = function (e, t) {
       }
     }), d;
   }
-  function Ce(e, t, n, r, i) {
+  function we(e, t, n, r, i) {
     var a = e.getElement(),
       o = i.max === void 0 ? a.getElementsByTagName("div")[0] && a.getElementsByTagName("div")[0].getAttribute("max") || 100 : i.max,
       s = i.min === void 0 ? a.getElementsByTagName("div")[0] && a.getElementsByTagName("div")[0].getAttribute("min") || 0 : i.min,
@@ -3919,7 +3919,7 @@ var BCFormioPasteTable = function (e, t) {
       r();
     }), d;
   }
-  function we(e, t, n, r, i) {
+  function Te(e, t, n, r, i) {
     var a = e.getValue(),
       o = document.createElement("input"),
       s = i.tristate,
@@ -3945,7 +3945,7 @@ var BCFormioPasteTable = function (e, t) {
       e.key == "Enter" && n(f()), e.key == "Escape" && r();
     }), o;
   }
-  function Te(e, t, n, r, i) {
+  function Ee(e, t, n, r, i) {
     var a = e._getSelf().column,
       o,
       s,
@@ -3968,21 +3968,21 @@ var BCFormioPasteTable = function (e, t) {
     }
     return o = i.editorLookup ? i.editorLookup(e) : l(e), i.paramsLookup && (c = _typeof(i.paramsLookup) == "function" ? i.paramsLookup(o, e) : i.paramsLookup[o]), s = this.table.modules.edit.lookupEditor(o, a), s.call(this, e, t, n, r, c || {});
   }
-  var Ee = {
-      input: pe,
-      textarea: me,
-      number: he,
-      range: ge,
-      date: _e,
-      time: ve,
-      datetime: ye,
-      list: xe,
-      star: Se,
-      progress: Ce,
-      tickCross: we,
-      adaptable: Te
+  var De = {
+      input: me,
+      textarea: he,
+      number: ge,
+      range: _e,
+      date: ve,
+      time: ye,
+      datetime: be,
+      list: Se,
+      star: Ce,
+      progress: we,
+      tickCross: Te,
+      adaptable: Ee
     },
-    M = /*#__PURE__*/function (_u7) {
+    Oe = /*#__PURE__*/function (_u7) {
       function e(t) {
         var _this56;
         _classCallCheck(this, e);
@@ -4346,17 +4346,17 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(M, "moduleName", "edit"), a(M, "editors", Ee);
-  var De = /*#__PURE__*/_createClass(function De(e, t, n, r) {
-      _classCallCheck(this, De);
+  a(Oe, "moduleName", "edit"), a(Oe, "editors", De);
+  var ke = /*#__PURE__*/_createClass(function ke(e, t, n, r) {
+      _classCallCheck(this, ke);
       this.type = e, this.columns = t, this.component = n || !1, this.indent = r || 0;
     }),
-    Oe = /*#__PURE__*/_createClass(function Oe(e, t, n, r, i) {
-      _classCallCheck(this, Oe);
+    Ae = /*#__PURE__*/_createClass(function Ae(e, t, n, r, i) {
+      _classCallCheck(this, Ae);
       this.value = e, this.component = t || !1, this.width = n, this.height = r, this.depth = i;
     }),
-    ke = {},
-    Ae = {
+    je = {},
+    Me = {
       visible: function visible() {
         return this.rowManager.getVisibleRows(!1, !0);
       },
@@ -4370,7 +4370,7 @@ var BCFormioPasteTable = function (e, t) {
         return this.options.pagination ? this.rowManager.getDisplayRows(this.rowManager.displayRows.length - 2) : this.rowManager.getDisplayRows();
       }
     },
-    N = /*#__PURE__*/function (_u8) {
+    j = /*#__PURE__*/function (_u8) {
       function e(_e166) {
         var _this59;
         _classCallCheck(this, e);
@@ -4468,9 +4468,9 @@ var BCFormioPasteTable = function (e, t) {
             _e177.forEach(function (_e178) {
               if (_e178) {
                 var _n7 = _e178.title === void 0 ? "" : _e178.title;
-                t.push(new Oe(_n7, _e178.column.getComponent(), _e178.width, _e178.height, _e178.depth));
+                t.push(new Ae(_n7, _e178.column.getComponent(), _e178.width, _e178.height, _e178.depth));
               } else t.push(null);
-            }), r.push(new De("header", t));
+            }), r.push(new ke("header", t));
           }), r;
         }
       }, {
@@ -4497,16 +4497,16 @@ var BCFormioPasteTable = function (e, t) {
               o = 0;
             switch (_e182.type) {
               case "group":
-                o = _e182.level, a.push(new Oe(_e182.key, _e182.getComponent(), t.length, 1));
+                o = _e182.level, a.push(new Ae(_e182.key, _e182.getComponent(), t.length, 1));
                 break;
               case "calc":
               case "row":
                 t.forEach(function (_e183) {
-                  a.push(new Oe(_e183._column.getFieldValue(i), _e183, 1, 1));
+                  a.push(new Ae(_e183._column.getFieldValue(i), _e183, 1, 1));
                 }), _this64.table.options.dataTree && _this64.config.dataTree !== !1 && (o = _e182.modules.dataTree.index);
                 break;
             }
-            n.push(new De(_e182.type, a, _e182.getComponent(), o));
+            n.push(new ke(_e182.type, a, _e182.getComponent(), o));
           }), n;
         }
       }, {
@@ -4680,8 +4680,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(N, "moduleName", "export"), a(N, "columnLookups", ke), a(N, "rowLookups", Ae);
-  var je = {
+  a(j, "moduleName", "export"), a(j, "columnLookups", je), a(j, "rowLookups", Me);
+  var Ne = {
       "=": function _(e, t, n, r) {
         return t == e;
       },
@@ -4724,7 +4724,7 @@ var BCFormioPasteTable = function (e, t) {
         return Array.isArray(e) ? e.length ? e.indexOf(t) > -1 : !0 : (console.warn("Filter Error - filter value is not an array:", e), !1);
       }
     },
-    Me = /*#__PURE__*/function (_u9) {
+    M = /*#__PURE__*/function (_u9) {
       function e(_e195) {
         var _this68;
         _classCallCheck(this, e);
@@ -5181,17 +5181,17 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(Me, "moduleName", "filter"), a(Me, "filters", je);
-  function Ne(e, t, n) {
+  a(M, "moduleName", "filter"), a(M, "filters", Ne);
+  function Pe(e, t, n) {
     return this.emptyToSpace(this.sanitizeHTML(e.getValue()));
   }
-  function Pe(e, t, n) {
+  function Fe(e, t, n) {
     return e.getValue();
   }
-  function Fe(e, t, n) {
+  function Ie(e, t, n) {
     return e.getElement().style.whiteSpace = "pre-wrap", this.emptyToSpace(this.sanitizeHTML(e.getValue()));
   }
-  function Ie(e, t, n) {
+  function Le(e, t, n) {
     var r = parseFloat(e.getValue()),
       i = "",
       a,
@@ -5209,7 +5209,7 @@ var BCFormioPasteTable = function (e, t) {
     if (r < 0 && (r = Math.abs(r), i = f), a = h === !1 ? r : r.toFixed(h), a = String(a).split("."), o = a[0], s = a.length > 1 ? u + a[1] : "", t.thousand !== !1) for (c = /(\d+)(\d{3})/; c.test(o);) o = o.replace(c, "$1" + d + "$2");
     return l = o + s, i === !0 ? (l = "(" + l + ")", m ? l + p : p + l) : m ? i + l + p : i + p + l;
   }
-  function Le(e, t, n) {
+  function Re(e, t, n) {
     var r = e.getValue(),
       i = t.urlPrefix || "",
       a = t.download,
@@ -5240,7 +5240,7 @@ var BCFormioPasteTable = function (e, t) {
       return s.setAttribute("href", i + r), t.target && s.setAttribute("target", t.target), t.download && (a = _typeof(a) == "function" ? a(e) : a === !0 ? "" : a, s.setAttribute("download", a)), s.innerHTML = this.emptyToSpace(this.sanitizeHTML(o)), s;
     } else return "&nbsp;";
   }
-  function Re(e, t, n) {
+  function ze(e, t, n) {
     var r = document.createElement("img"),
       i = e.getValue();
     switch (t.urlPrefix && (i = t.urlPrefix + e.getValue()), t.urlSuffix && (i += t.urlSuffix), r.setAttribute("src", i), _typeof(t.height)) {
@@ -5263,7 +5263,7 @@ var BCFormioPasteTable = function (e, t) {
       e.getRow().normalizeHeight();
     }), r;
   }
-  function ze(e, t, n) {
+  function Be(e, t, n) {
     var r = e.getValue(),
       i = e.getElement(),
       a = t.allowEmpty,
@@ -5273,7 +5273,7 @@ var BCFormioPasteTable = function (e, t) {
       l = t.crossElement === void 0 ? "<svg enable-background=\"new 0 0 24 24\" height=\"14\" width=\"14\"  viewBox=\"0 0 24 24\" xml:space=\"preserve\" ><path fill=\"#CE1515\" d=\"M22.245,4.015c0.313,0.313,0.313,0.826,0,1.139l-6.276,6.27c-0.313,0.312-0.313,0.826,0,1.14l6.273,6.272  c0.313,0.313,0.313,0.826,0,1.14l-2.285,2.277c-0.314,0.312-0.828,0.312-1.142,0l-6.271-6.271c-0.313-0.313-0.828-0.313-1.141,0  l-6.276,6.267c-0.313,0.313-0.828,0.313-1.141,0l-2.282-2.28c-0.313-0.313-0.313-0.826,0-1.14l6.278-6.269  c0.313-0.312,0.313-0.826,0-1.14L1.709,5.147c-0.314-0.313-0.314-0.827,0-1.14l2.284-2.278C4.308,1.417,4.821,1.417,5.135,1.73  L11.405,8c0.314,0.314,0.828,0.314,1.141,0.001l6.276-6.267c0.312-0.312,0.826-0.312,1.141,0L22.245,4.015z\"/></svg>" : t.crossElement;
     return s && r === t.trueValue || !s && (o && r || r === !0 || r === "true" || r === "True" || r === 1 || r === "1") ? (i.setAttribute("aria-checked", !0), c || "") : a && (r === "null" || r === "" || r == null) ? (i.setAttribute("aria-checked", "mixed"), "") : (i.setAttribute("aria-checked", !1), l || "");
   }
-  function Be(e, t, n) {
+  function Ve(e, t, n) {
     var r = this.table.dependencyRegistry.lookup(["luxon", "DateTime"], "DateTime"),
       i = t.inputFormat || "yyyy-MM-dd HH:mm:ss",
       a = t.outputFormat || "dd/MM/yyyy HH:mm:ss",
@@ -5284,7 +5284,7 @@ var BCFormioPasteTable = function (e, t) {
       return c.isValid ? (t.timezone && (c = c.setZone(t.timezone)), c.toFormat(a)) : o === !0 || !s ? s : _typeof(o) == "function" ? o(s) : o;
     } else console.error("Format Error - 'datetime' formatter is dependant on luxon.js");
   }
-  function Ve(e, t, n) {
+  function He(e, t, n) {
     var r = this.table.dependencyRegistry.lookup(["luxon", "DateTime"], "DateTime"),
       i = t.inputFormat || "yyyy-MM-dd HH:mm:ss",
       a = t.invalidPlaceholder === void 0 ? "" : t.invalidPlaceholder,
@@ -5298,11 +5298,11 @@ var BCFormioPasteTable = function (e, t) {
       return d.isValid ? c ? d.diff(l, s).toHuman() + (o ? " " + o : "") : parseInt(d.diff(l, s)[s]) + (o ? " " + o : "") : a === !0 ? u : _typeof(a) == "function" ? a(u) : a;
     } else console.error("Format Error - 'datetimediff' formatter is dependant on luxon.js");
   }
-  function He(e, t, n) {
+  function Ue(e, t, n) {
     var r = e.getValue();
     return t[r] === void 0 ? (console.warn("Missing display value for " + r), r) : t[r];
   }
-  function Ue(e, t, n) {
+  function We(e, t, n) {
     var r = e.getValue(),
       i = e.getElement(),
       a = t && t.stars ? t.stars : 5,
@@ -5317,7 +5317,7 @@ var BCFormioPasteTable = function (e, t) {
     }
     return i.style.whiteSpace = "nowrap", i.style.overflow = "hidden", i.style.textOverflow = "ellipsis", i.setAttribute("aria-label", r), o;
   }
-  function We(e, t, n) {
+  function Ge(e, t, n) {
     var r = this.sanitizeHTML(e.getValue()) || 0,
       i = document.createElement("span"),
       a = t && t.max ? t.max : 100,
@@ -5345,7 +5345,7 @@ var BCFormioPasteTable = function (e, t) {
       return i.style.backgroundColor = c, i;
     }
   }
-  function Ge(e) {
+  function Ke(e) {
     var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var n = arguments.length > 2 ? arguments[2] : undefined;
     var r = this.sanitizeHTML(e.getValue()) || 0,
@@ -5414,23 +5414,23 @@ var BCFormioPasteTable = function (e, t) {
       h.style.position = "absolute", h.style.top = 0, h.style.left = 0, h.style.textAlign = s, h.style.width = "100%", h.style.color = f, h.innerHTML = d;
     }
     return n(function () {
-      if (!(e instanceof te)) {
+      if (!(e instanceof ne)) {
         var t = document.createElement("div");
         t.style.position = "absolute", t.style.top = "4px", t.style.bottom = "4px", t.style.left = "4px", t.style.right = "4px", i.appendChild(t), i = t;
       }
       i.appendChild(m), m.appendChild(p), d && m.appendChild(h);
     }), "";
   }
-  function Ke(e, t, n) {
+  function qe(e, t, n) {
     return e.getElement().style.backgroundColor = this.sanitizeHTML(e.getValue()), "";
   }
-  function qe(e, t, n) {
+  function Je(e, t, n) {
     return "<svg enable-background=\"new 0 0 24 24\" height=\"14\" width=\"14\" viewBox=\"0 0 24 24\" xml:space=\"preserve\" ><path fill=\"#2DC214\" clip-rule=\"evenodd\" d=\"M21.652,3.211c-0.293-0.295-0.77-0.295-1.061,0L9.41,14.34  c-0.293,0.297-0.771,0.297-1.062,0L3.449,9.351C3.304,9.203,3.114,9.13,2.923,9.129C2.73,9.128,2.534,9.201,2.387,9.351  l-2.165,1.946C0.078,11.445,0,11.63,0,11.823c0,0.194,0.078,0.397,0.223,0.544l4.94,5.184c0.292,0.296,0.771,0.776,1.062,1.07  l2.124,2.141c0.292,0.293,0.769,0.293,1.062,0l14.366-14.34c0.293-0.294,0.293-0.777,0-1.071L21.652,3.211z\" fill-rule=\"evenodd\"/></svg>";
   }
-  function Je(e, t, n) {
+  function Ye(e, t, n) {
     return "<svg enable-background=\"new 0 0 24 24\" height=\"14\" width=\"14\" viewBox=\"0 0 24 24\" xml:space=\"preserve\" ><path fill=\"#CE1515\" d=\"M22.245,4.015c0.313,0.313,0.313,0.826,0,1.139l-6.276,6.27c-0.313,0.312-0.313,0.826,0,1.14l6.273,6.272  c0.313,0.313,0.313,0.826,0,1.14l-2.285,2.277c-0.314,0.312-0.828,0.312-1.142,0l-6.271-6.271c-0.313-0.313-0.828-0.313-1.141,0  l-6.276,6.267c-0.313,0.313-0.828,0.313-1.141,0l-2.282-2.28c-0.313-0.313-0.313-0.826,0-1.14l6.278-6.269  c0.313-0.312,0.313-0.826,0-1.14L1.709,5.147c-0.314-0.313-0.314-0.827,0-1.14l2.284-2.278C4.308,1.417,4.821,1.417,5.135,1.73  L11.405,8c0.314,0.314,0.828,0.314,1.141,0.001l6.276-6.267c0.312-0.312,0.826-0.312,1.141,0L22.245,4.015z\"/></svg>";
   }
-  function Ye(e, t, n) {
+  function Xe(e, t, n) {
     var r = e.getValue(),
       i = t.size || 15,
       a = i + "px",
@@ -5443,7 +5443,7 @@ var BCFormioPasteTable = function (e, t) {
       e.setValue(u ? l : c);
     }), s = document.createElement("div"), s.classList.add("tabulator-toggle-switch"), s.style.height = a, s.style.width = a, s.style.borderRadius = a, o.appendChild(s), o;
   }
-  function Xe(e, t, n) {
+  function Ze(e, t, n) {
     var r = document.createElement("span"),
       i = e.getRow(),
       a = e.getTable();
@@ -5451,10 +5451,10 @@ var BCFormioPasteTable = function (e, t) {
       t.relativeToPage && (e += a.modules.page.getPageSize() * (a.modules.page.getPage() - 1)), r.innerText = e;
     }), r;
   }
-  function Ze(e, t, n) {
+  function Qe(e, t, n) {
     return e.getElement().classList.add("tabulator-row-handle"), "<div class='tabulator-row-handle-box'><div class='tabulator-row-handle-bar'></div><div class='tabulator-row-handle-bar'></div><div class='tabulator-row-handle-bar'></div></div>";
   }
-  function Qe(e, t, n) {
+  function $e(e, t, n) {
     var r, i, a;
     function o(e) {
       var t = e.getValue(),
@@ -5471,7 +5471,7 @@ var BCFormioPasteTable = function (e, t) {
     }
     return r = t.formatterLookup ? t.formatterLookup(e) : o(e), t.paramsLookup && (a = _typeof(t.paramsLookup) == "function" ? t.paramsLookup(r, e) : t.paramsLookup[r]), i = this.table.modules.format.lookupFormatter(r), i.call(this, e, a || {}, n);
   }
-  function $e(e, t, n) {
+  function et(e, t, n) {
     var r = t.delimiter || ",",
       i = e.getValue(),
       a = this.table,
@@ -5482,38 +5482,38 @@ var BCFormioPasteTable = function (e, t) {
       });
     } : t.valueMap), Array.isArray(i) ? (o && (i = o(i)), i.join(r)) : i;
   }
-  function et(e, t, n) {
+  function tt(e, t, n) {
     var r = t.indent || "\t",
       i = t.multiline === void 0 ? !0 : t.multiline,
       a = t.replacer || null,
       o = e.getValue();
     return i && (e.getElement().style.whiteSpace = "pre-wrap"), JSON.stringify(o, a, r);
   }
-  var tt = {
-      plaintext: Ne,
-      html: Pe,
-      textarea: Fe,
-      money: Ie,
-      link: Le,
-      image: Re,
-      tickCross: ze,
-      datetime: Be,
-      datetimediff: Ve,
-      lookup: He,
-      star: Ue,
-      traffic: We,
-      progress: Ge,
-      color: Ke,
-      buttonTick: qe,
-      buttonCross: Je,
-      toggle: Ye,
-      rownum: Xe,
-      handle: Ze,
-      adaptable: Qe,
-      array: $e,
-      json: et
+  var nt = {
+      plaintext: Pe,
+      html: Fe,
+      textarea: Ie,
+      money: Le,
+      link: Re,
+      image: ze,
+      tickCross: Be,
+      datetime: Ve,
+      datetimediff: He,
+      lookup: Ue,
+      star: We,
+      traffic: Ge,
+      progress: Ke,
+      color: qe,
+      buttonTick: Je,
+      buttonCross: Ye,
+      toggle: Xe,
+      rownum: Ze,
+      handle: Qe,
+      adaptable: $e,
+      array: et,
+      json: tt
     },
-    nt = /*#__PURE__*/function (_u0) {
+    N = /*#__PURE__*/function (_u0) {
       function e(_e241) {
         var _this80;
         _classCallCheck(this, e);
@@ -5636,7 +5636,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(nt, "moduleName", "format"), a(nt, "formatters", tt);
+  a(N, "moduleName", "format"), a(N, "formatters", nt);
   var rt = /*#__PURE__*/function (_u1) {
     function rt(e) {
       var _this82;
@@ -6691,7 +6691,7 @@ var BCFormioPasteTable = function (e, t) {
         key: "_rebindRow",
         value: function _rebindRow(_e289, t) {
           this.history.forEach(function (n) {
-            if (n.component instanceof O) n.component === _e289 && (n.component = t);else if (n.component instanceof T && n.component.row === _e289) {
+            if (n.component instanceof D) n.component === _e289 && (n.component = t);else if (n.component instanceof w && n.component.row === _e289) {
               var r = n.component.column.getField();
               r && (n.component = t.getCell(r));
             }
@@ -6851,7 +6851,7 @@ var BCFormioPasteTable = function (e, t) {
       array: pt,
       xlsx: mt
     },
-    I = /*#__PURE__*/function (_u14) {
+    gt = /*#__PURE__*/function (_u14) {
       function e(_e290) {
         var _this101;
         _classCallCheck(this, e);
@@ -7017,12 +7017,12 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(I, "moduleName", "import"), a(I, "importers", ht);
-  var gt = /*#__PURE__*/function (_u15) {
-    function gt(e) {
+  a(gt, "moduleName", "import"), a(gt, "importers", ht);
+  var _t = /*#__PURE__*/function (_u15) {
+    function _t(e) {
       var _this110;
-      _classCallCheck(this, gt);
-      _this110 = _callSuper(this, gt, [e]), _this110.eventMap = {
+      _classCallCheck(this, _t);
+      _this110 = _callSuper(this, _t, [e]), _this110.eventMap = {
         rowClick: "row-click",
         rowDblClick: "row-dblclick",
         rowContext: "row-contextmenu",
@@ -7099,8 +7099,8 @@ var BCFormioPasteTable = function (e, t) {
       }, _this110.registerColumnOption("headerClick"), _this110.registerColumnOption("headerDblClick"), _this110.registerColumnOption("headerContext"), _this110.registerColumnOption("headerMouseEnter"), _this110.registerColumnOption("headerMouseLeave"), _this110.registerColumnOption("headerMouseOver"), _this110.registerColumnOption("headerMouseOut"), _this110.registerColumnOption("headerMouseMove"), _this110.registerColumnOption("headerMouseDown"), _this110.registerColumnOption("headerMouseUp"), _this110.registerColumnOption("headerTap"), _this110.registerColumnOption("headerDblTap"), _this110.registerColumnOption("headerTapHold"), _this110.registerColumnOption("cellClick"), _this110.registerColumnOption("cellDblClick"), _this110.registerColumnOption("cellContext"), _this110.registerColumnOption("cellMouseEnter"), _this110.registerColumnOption("cellMouseLeave"), _this110.registerColumnOption("cellMouseOver"), _this110.registerColumnOption("cellMouseOut"), _this110.registerColumnOption("cellMouseMove"), _this110.registerColumnOption("cellMouseDown"), _this110.registerColumnOption("cellMouseUp"), _this110.registerColumnOption("cellTap"), _this110.registerColumnOption("cellDblTap"), _this110.registerColumnOption("cellTapHold");
       return _this110;
     }
-    _inherits(gt, _u15);
-    return _createClass(gt, [{
+    _inherits(_t, _u15);
+    return _createClass(_t, [{
       key: "initialize",
       value: function initialize() {
         this.initializeExternalEvents(), this.subscribe("column-init", this.initializeColumn.bind(this)), this.subscribe("cell-dblclick", this.cellContentsSelectionFixer.bind(this)), this.subscribe("scroll-horizontal", this.clearTouchWatchers.bind(this)), this.subscribe("scroll-vertical", this.clearTouchWatchers.bind(this));
@@ -7184,12 +7184,12 @@ var BCFormioPasteTable = function (e, t) {
       value: function dispatchEvent(e, t, n) {
         var r = n.getComponent(),
           i;
-        this.columnSubscribers[e] && (n instanceof T ? i = n.column.definition[e] : n instanceof E && (i = n.definition[e]), i && i(t, r)), this.dispatchExternal(e, t, r);
+        this.columnSubscribers[e] && (n instanceof w ? i = n.column.definition[e] : n instanceof T && (i = n.definition[e]), i && i(t, r)), this.dispatchExternal(e, t, r);
       }
     }]);
   }(u);
-  a(gt, "moduleName", "interaction");
-  var _t = {
+  a(_t, "moduleName", "interaction");
+  var vt = {
       navPrev: "shift + 9",
       navNext: 9,
       navUp: 38,
@@ -7201,7 +7201,7 @@ var BCFormioPasteTable = function (e, t) {
       scrollToStart: 36,
       scrollToEnd: 35
     },
-    vt = {
+    yt = {
       keyBlock: function keyBlock(e) {
         e.stopPropagation(), e.preventDefault();
       },
@@ -7243,7 +7243,7 @@ var BCFormioPasteTable = function (e, t) {
         this.dispatch("keybinding-nav-down", e);
       }
     },
-    L = /*#__PURE__*/function (_u16) {
+    I = /*#__PURE__*/function (_u16) {
       function e(_e316) {
         var _this112;
         _classCallCheck(this, e);
@@ -7354,16 +7354,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(L, "moduleName", "keybindings"), a(L, "bindings", _t), a(L, "actions", vt);
-  var yt = /*#__PURE__*/function (_u17) {
-    function yt(e) {
+  a(I, "moduleName", "keybindings"), a(I, "bindings", vt), a(I, "actions", yt);
+  var bt = /*#__PURE__*/function (_u17) {
+    function bt(e) {
       var _this116;
-      _classCallCheck(this, yt);
-      _this116 = _callSuper(this, yt, [e]), _this116.menuContainer = null, _this116.nestedMenuBlock = !1, _this116.currentComponent = null, _this116.rootPopup = null, _this116.columnSubscribers = {}, _this116.registerTableOption("rowContextMenu", !1), _this116.registerTableOption("rowClickMenu", !1), _this116.registerTableOption("rowDblClickMenu", !1), _this116.registerTableOption("groupContextMenu", !1), _this116.registerTableOption("groupClickMenu", !1), _this116.registerTableOption("groupDblClickMenu", !1), _this116.registerColumnOption("headerContextMenu"), _this116.registerColumnOption("headerClickMenu"), _this116.registerColumnOption("headerDblClickMenu"), _this116.registerColumnOption("headerMenu"), _this116.registerColumnOption("headerMenuIcon"), _this116.registerColumnOption("contextMenu"), _this116.registerColumnOption("clickMenu"), _this116.registerColumnOption("dblClickMenu");
+      _classCallCheck(this, bt);
+      _this116 = _callSuper(this, bt, [e]), _this116.menuContainer = null, _this116.nestedMenuBlock = !1, _this116.currentComponent = null, _this116.rootPopup = null, _this116.columnSubscribers = {}, _this116.registerTableOption("rowContextMenu", !1), _this116.registerTableOption("rowClickMenu", !1), _this116.registerTableOption("rowDblClickMenu", !1), _this116.registerTableOption("groupContextMenu", !1), _this116.registerTableOption("groupClickMenu", !1), _this116.registerTableOption("groupDblClickMenu", !1), _this116.registerColumnOption("headerContextMenu"), _this116.registerColumnOption("headerClickMenu"), _this116.registerColumnOption("headerDblClickMenu"), _this116.registerColumnOption("headerMenu"), _this116.registerColumnOption("headerMenuIcon"), _this116.registerColumnOption("contextMenu"), _this116.registerColumnOption("clickMenu"), _this116.registerColumnOption("dblClickMenu");
       return _this116;
     }
-    _inherits(yt, _u17);
-    return _createClass(yt, [{
+    _inherits(bt, _u17);
+    return _createClass(bt, [{
       key: "initialize",
       value: function initialize() {
         this.deprecatedOptionsCheck(), this.initializeRowWatchers(), this.initializeGroupWatchers(), this.subscribe("column-init", this.initializeColumn.bind(this));
@@ -7448,16 +7448,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(yt, "moduleName", "menu");
-  var bt = /*#__PURE__*/function (_u18) {
-    function bt(e) {
+  a(bt, "moduleName", "menu");
+  var xt = /*#__PURE__*/function (_u18) {
+    function xt(e) {
       var _this119;
-      _classCallCheck(this, bt);
-      _this119 = _callSuper(this, bt, [e]), _this119.placeholderElement = _this119.createPlaceholderElement(), _this119.hoverElement = !1, _this119.checkTimeout = !1, _this119.checkPeriod = 250, _this119.moving = !1, _this119.toCol = !1, _this119.toColAfter = !1, _this119.startX = 0, _this119.autoScrollMargin = 40, _this119.autoScrollStep = 5, _this119.autoScrollTimeout = !1, _this119.touchMove = !1, _this119.moveHover = _this119.moveHover.bind(_assertThisInitialized(_this119)), _this119.endMove = _this119.endMove.bind(_assertThisInitialized(_this119)), _this119.registerTableOption("movableColumns", !1);
+      _classCallCheck(this, xt);
+      _this119 = _callSuper(this, xt, [e]), _this119.placeholderElement = _this119.createPlaceholderElement(), _this119.hoverElement = !1, _this119.checkTimeout = !1, _this119.checkPeriod = 250, _this119.moving = !1, _this119.toCol = !1, _this119.toColAfter = !1, _this119.startX = 0, _this119.autoScrollMargin = 40, _this119.autoScrollStep = 5, _this119.autoScrollTimeout = !1, _this119.touchMove = !1, _this119.moveHover = _this119.moveHover.bind(_assertThisInitialized(_this119)), _this119.endMove = _this119.endMove.bind(_assertThisInitialized(_this119)), _this119.registerTableOption("movableColumns", !1);
       return _this119;
     }
-    _inherits(bt, _u18);
-    return _createClass(bt, [{
+    _inherits(xt, _u18);
+    return _createClass(xt, [{
       key: "createPlaceholderElement",
       value: function createPlaceholderElement() {
         var e = document.createElement("div");
@@ -7571,13 +7571,13 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(bt, "moduleName", "moveColumn");
-  var xt = {
+  a(xt, "moduleName", "moveColumn");
+  var St = {
       delete: function _delete(e, t, n) {
         e.delete();
       }
     },
-    St = {
+    Ct = {
       insert: function insert(e, t, n) {
         return this.table.addRow(e.getData(), void 0, t), !0;
       },
@@ -7591,7 +7591,7 @@ var BCFormioPasteTable = function (e, t) {
         return t ? (this.table.addRow(e.getData(), void 0, t), t.delete(), !0) : !1;
       }
     },
-    R = /*#__PURE__*/function (_u19) {
+    L = /*#__PURE__*/function (_u19) {
       function e(_e324) {
         var _this122;
         _classCallCheck(this, e);
@@ -7834,9 +7834,9 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(R, "moduleName", "moveRow"), a(R, "senders", xt), a(R, "receivers", St);
-  var Ct = {},
-    z = /*#__PURE__*/function (_u20) {
+  a(L, "moduleName", "moveRow"), a(L, "senders", St), a(L, "receivers", Ct);
+  var wt = {},
+    R = /*#__PURE__*/function (_u20) {
       function e(_e352) {
         var _this125;
         _classCallCheck(this, e);
@@ -7924,8 +7924,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(z, "moduleName", "mutator"), a(z, "mutators", Ct);
-  function wt(e, t, n, r, i) {
+  a(R, "moduleName", "mutator"), a(R, "mutators", wt);
+  function Tt(e, t, n, r, i) {
     var a = document.createElement("span"),
       o = document.createElement("span"),
       s = document.createElement("span"),
@@ -7940,7 +7940,7 @@ var BCFormioPasteTable = function (e, t) {
       u.innerHTML = e;
     }), r ? (s.innerHTML = " " + t + "-" + Math.min(t + e - 1, r) + " ", l.innerHTML = " " + r + " ", a.appendChild(o), a.appendChild(s), a.appendChild(c), a.appendChild(l), a.appendChild(u)) : (s.innerHTML = " 0 ", a.appendChild(o), a.appendChild(s), a.appendChild(u)), a;
   }
-  function Tt(e, t, n, r, i) {
+  function Et(e, t, n, r, i) {
     var a = document.createElement("span"),
       o = document.createElement("span"),
       s = document.createElement("span"),
@@ -7955,11 +7955,11 @@ var BCFormioPasteTable = function (e, t) {
       u.innerHTML = e;
     }), a.appendChild(o), a.appendChild(s), a.appendChild(c), a.appendChild(l), a.appendChild(u), a;
   }
-  var Et = {
-      rows: wt,
-      pages: Tt
+  var Dt = {
+      rows: Tt,
+      pages: Et
     },
-    B = /*#__PURE__*/function (_u21) {
+    z = /*#__PURE__*/function (_u21) {
       function e(_e358) {
         var _this127;
         _classCallCheck(this, e);
@@ -8292,8 +8292,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(B, "moduleName", "page"), a(B, "pageCounters", Et);
-  var Dt = {
+  a(z, "moduleName", "page"), a(z, "pageCounters", Dt);
+  var Ot = {
       local: function local(e, t) {
         var n = localStorage.getItem(e + "-" + t);
         return n ? JSON.parse(n) : !1;
@@ -8307,7 +8307,7 @@ var BCFormioPasteTable = function (e, t) {
         return i > -1 && (n = n.slice(i), a = n.indexOf(";"), a > -1 && (n = n.slice(0, a)), o = n.replace(r + "=", "")), o ? JSON.parse(o) : !1;
       }
     },
-    Ot = {
+    kt = {
       local: function local(e, t, n) {
         localStorage.setItem(e + "-" + t, JSON.stringify(n));
       },
@@ -8316,7 +8316,7 @@ var BCFormioPasteTable = function (e, t) {
         r.setDate(r.getDate() + 1e4), document.cookie = e + "-" + t + "=" + JSON.stringify(n) + "; expires=" + r.toUTCString();
       }
     },
-    V = /*#__PURE__*/function (_u22) {
+    B = /*#__PURE__*/function (_u22) {
       function e(_e398) {
         var _this133;
         _classCallCheck(this, e);
@@ -8508,16 +8508,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(V, "moduleName", "persistence"), a(V, "moduleInitOrder", -10), a(V, "readers", Dt), a(V, "writers", Ot);
-  var kt = /*#__PURE__*/function (_u23) {
-    function kt(e) {
+  a(B, "moduleName", "persistence"), a(B, "moduleInitOrder", -10), a(B, "readers", Ot), a(B, "writers", kt);
+  var At = /*#__PURE__*/function (_u23) {
+    function At(e) {
       var _this137;
-      _classCallCheck(this, kt);
-      _this137 = _callSuper(this, kt, [e]), _this137.columnSubscribers = {}, _this137.registerTableOption("rowContextPopup", !1), _this137.registerTableOption("rowClickPopup", !1), _this137.registerTableOption("rowDblClickPopup", !1), _this137.registerTableOption("groupContextPopup", !1), _this137.registerTableOption("groupClickPopup", !1), _this137.registerTableOption("groupDblClickPopup", !1), _this137.registerColumnOption("headerContextPopup"), _this137.registerColumnOption("headerClickPopup"), _this137.registerColumnOption("headerDblClickPopup"), _this137.registerColumnOption("headerPopup"), _this137.registerColumnOption("headerPopupIcon"), _this137.registerColumnOption("contextPopup"), _this137.registerColumnOption("clickPopup"), _this137.registerColumnOption("dblClickPopup"), _this137.registerComponentFunction("cell", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("column", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("row", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("group", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137)));
+      _classCallCheck(this, At);
+      _this137 = _callSuper(this, At, [e]), _this137.columnSubscribers = {}, _this137.registerTableOption("rowContextPopup", !1), _this137.registerTableOption("rowClickPopup", !1), _this137.registerTableOption("rowDblClickPopup", !1), _this137.registerTableOption("groupContextPopup", !1), _this137.registerTableOption("groupClickPopup", !1), _this137.registerTableOption("groupDblClickPopup", !1), _this137.registerColumnOption("headerContextPopup"), _this137.registerColumnOption("headerClickPopup"), _this137.registerColumnOption("headerDblClickPopup"), _this137.registerColumnOption("headerPopup"), _this137.registerColumnOption("headerPopupIcon"), _this137.registerColumnOption("contextPopup"), _this137.registerColumnOption("clickPopup"), _this137.registerColumnOption("dblClickPopup"), _this137.registerComponentFunction("cell", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("column", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("row", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137))), _this137.registerComponentFunction("group", "popup", _this137._componentPopupCall.bind(_assertThisInitialized(_this137)));
       return _this137;
     }
-    _inherits(kt, _u23);
-    return _createClass(kt, [{
+    _inherits(At, _u23);
+    return _createClass(At, [{
       key: "initialize",
       value: function initialize() {
         this.initializeRowWatchers(), this.initializeGroupWatchers(), this.subscribe("column-init", this.initializeColumn.bind(this));
@@ -8587,16 +8587,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(kt, "moduleName", "popup");
-  var At = /*#__PURE__*/function (_u24) {
-    function At(e) {
+  a(At, "moduleName", "popup");
+  var jt = /*#__PURE__*/function (_u24) {
+    function jt(e) {
       var _this140;
-      _classCallCheck(this, At);
-      _this140 = _callSuper(this, At, [e]), _this140.element = !1, _this140.manualBlock = !1, _this140.beforeprintEventHandler = null, _this140.afterprintEventHandler = null, _this140.registerTableOption("printAsHtml", !1), _this140.registerTableOption("printFormatter", !1), _this140.registerTableOption("printHeader", !1), _this140.registerTableOption("printFooter", !1), _this140.registerTableOption("printStyled", !0), _this140.registerTableOption("printRowRange", "visible"), _this140.registerTableOption("printConfig", {}), _this140.registerColumnOption("print"), _this140.registerColumnOption("titlePrint");
+      _classCallCheck(this, jt);
+      _this140 = _callSuper(this, jt, [e]), _this140.element = !1, _this140.manualBlock = !1, _this140.beforeprintEventHandler = null, _this140.afterprintEventHandler = null, _this140.registerTableOption("printAsHtml", !1), _this140.registerTableOption("printFormatter", !1), _this140.registerTableOption("printHeader", !1), _this140.registerTableOption("printFooter", !1), _this140.registerTableOption("printStyled", !0), _this140.registerTableOption("printRowRange", "visible"), _this140.registerTableOption("printConfig", {}), _this140.registerColumnOption("print"), _this140.registerColumnOption("titlePrint");
       return _this140;
     }
-    _inherits(At, _u24);
-    return _createClass(At, [{
+    _inherits(jt, _u24);
+    return _createClass(jt, [{
       key: "initialize",
       value: function initialize() {
         this.table.options.printAsHtml && (this.beforeprintEventHandler = this.replaceTable.bind(this), this.afterprintEventHandler = this.cleanup.bind(this), window.addEventListener("beforeprint", this.beforeprintEventHandler), window.addEventListener("afterprint", this.afterprintEventHandler), this.subscribe("table-destroy", this.destroy.bind(this))), this.registerTableFunction("print", this.printFullscreen.bind(this));
@@ -8630,16 +8630,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(At, "moduleName", "print");
-  var jt = /*#__PURE__*/function (_u25) {
-    function jt(e) {
+  a(jt, "moduleName", "print");
+  var Mt = /*#__PURE__*/function (_u25) {
+    function Mt(e) {
       var _this141;
-      _classCallCheck(this, jt);
-      _this141 = _callSuper(this, jt, [e]), _this141.data = !1, _this141.blocked = !1, _this141.origFuncs = {}, _this141.currentVersion = 0, _this141.registerTableOption("reactiveData", !1);
+      _classCallCheck(this, Mt);
+      _this141 = _callSuper(this, Mt, [e]), _this141.data = !1, _this141.blocked = !1, _this141.origFuncs = {}, _this141.currentVersion = 0, _this141.registerTableOption("reactiveData", !1);
       return _this141;
     }
-    _inherits(jt, _u25);
-    return _createClass(jt, [{
+    _inherits(Mt, _u25);
+    return _createClass(Mt, [{
       key: "initialize",
       value: function initialize() {
         this.table.options.reactiveData && (this.subscribe("cell-value-save-before", this.block.bind(this, "cellsave")), this.subscribe("cell-value-save-after", this.unblock.bind(this, "cellsave")), this.subscribe("row-data-save-before", this.block.bind(this, "rowsave")), this.subscribe("row-data-save-after", this.unblock.bind(this, "rowsave")), this.subscribe("row-data-init-after", this.watchRow.bind(this)), this.subscribe("data-processing", this.watchData.bind(this)), this.subscribe("table-destroy", this.unwatchData.bind(this)));
@@ -8839,16 +8839,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(jt, "moduleName", "reactiveData");
-  var Mt = /*#__PURE__*/function (_u26) {
-    function Mt(e) {
+  a(Mt, "moduleName", "reactiveData");
+  var Nt = /*#__PURE__*/function (_u26) {
+    function Nt(e) {
       var _this143;
-      _classCallCheck(this, Mt);
-      _this143 = _callSuper(this, Mt, [e]), _this143.startColumn = !1, _this143.startX = !1, _this143.startWidth = !1, _this143.latestX = !1, _this143.handle = null, _this143.initialNextColumn = null, _this143.nextColumn = null, _this143.initialized = !1, _this143.registerColumnOption("resizable", !0), _this143.registerTableOption("resizableColumnFit", !1), _this143.registerTableOption("resizableColumnGuide", !1);
+      _classCallCheck(this, Nt);
+      _this143 = _callSuper(this, Nt, [e]), _this143.startColumn = !1, _this143.startX = !1, _this143.startWidth = !1, _this143.latestX = !1, _this143.handle = null, _this143.initialNextColumn = null, _this143.nextColumn = null, _this143.initialized = !1, _this143.registerColumnOption("resizable", !0), _this143.registerTableOption("resizableColumnFit", !1), _this143.registerTableOption("resizableColumnGuide", !1);
       return _this143;
     }
-    _inherits(Mt, _u26);
-    return _createClass(Mt, [{
+    _inherits(Nt, _u26);
+    return _createClass(Nt, [{
       key: "initialize",
       value: function initialize() {
         this.subscribe("column-rendered", this.layoutColumnHeader.bind(this));
@@ -8994,16 +8994,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(Mt, "moduleName", "resizeColumns");
-  var Nt = /*#__PURE__*/function (_u27) {
-    function Nt(e) {
+  a(Nt, "moduleName", "resizeColumns");
+  var Pt = /*#__PURE__*/function (_u27) {
+    function Pt(e) {
       var _this146;
-      _classCallCheck(this, Nt);
-      _this146 = _callSuper(this, Nt, [e]), _this146.startColumn = !1, _this146.startY = !1, _this146.startHeight = !1, _this146.handle = null, _this146.prevHandle = null, _this146.registerTableOption("resizableRows", !1), _this146.registerTableOption("resizableRowGuide", !1);
+      _classCallCheck(this, Pt);
+      _this146 = _callSuper(this, Pt, [e]), _this146.startColumn = !1, _this146.startY = !1, _this146.startHeight = !1, _this146.handle = null, _this146.prevHandle = null, _this146.registerTableOption("resizableRows", !1), _this146.registerTableOption("resizableRowGuide", !1);
       return _this146;
     }
-    _inherits(Nt, _u27);
-    return _createClass(Nt, [{
+    _inherits(Pt, _u27);
+    return _createClass(Pt, [{
       key: "initialize",
       value: function initialize() {
         this.table.options.resizableRows && this.subscribe("row-layout-after", this.initializeRow.bind(this));
@@ -9070,16 +9070,16 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(Nt, "moduleName", "resizeRows");
-  var Pt = /*#__PURE__*/function (_u28) {
-    function Pt(e) {
+  a(Pt, "moduleName", "resizeRows");
+  var Ft = /*#__PURE__*/function (_u28) {
+    function Ft(e) {
       var _this147;
-      _classCallCheck(this, Pt);
-      _this147 = _callSuper(this, Pt, [e]), _this147.binding = !1, _this147.visibilityObserver = !1, _this147.resizeObserver = !1, _this147.containerObserver = !1, _this147.tableHeight = 0, _this147.tableWidth = 0, _this147.containerHeight = 0, _this147.containerWidth = 0, _this147.autoResize = !1, _this147.visible = !1, _this147.initialized = !1, _this147.initialRedraw = !1, _this147.registerTableOption("autoResize", !0);
+      _classCallCheck(this, Ft);
+      _this147 = _callSuper(this, Ft, [e]), _this147.binding = !1, _this147.visibilityObserver = !1, _this147.resizeObserver = !1, _this147.containerObserver = !1, _this147.tableHeight = 0, _this147.tableWidth = 0, _this147.containerHeight = 0, _this147.containerWidth = 0, _this147.autoResize = !1, _this147.visible = !1, _this147.initialized = !1, _this147.initialRedraw = !1, _this147.registerTableOption("autoResize", !0);
       return _this147;
     }
-    _inherits(Pt, _u28);
-    return _createClass(Pt, [{
+    _inherits(Ft, _u28);
+    return _createClass(Ft, [{
       key: "initialize",
       value: function initialize() {
         var _this148 = this;
@@ -9128,8 +9128,8 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(Pt, "moduleName", "resizeTable");
-  function Ft(e, t, n) {
+  a(Ft, "moduleName", "resizeTable");
+  function It(e, t, n) {
     var r = document.createElement("div"),
       i = e.getRow()._row.modules.responsiveLayout;
     r.classList.add("tabulator-responsive-collapse-toggle"), r.innerHTML = "<svg class='tabulator-responsive-collapse-toggle-open' viewbox=\"0 0 24 24\">\n  <line x1=\"7\" y1=\"12\" x2=\"17\" y2=\"12\" fill=\"none\" stroke-width=\"3\" stroke-linecap=\"round\" />\n  <line y1=\"7\" x1=\"12\" y2=\"17\" x2=\"12\" fill=\"none\" stroke-width=\"3\" stroke-linecap=\"round\" />\n</svg>\n\n<svg class='tabulator-responsive-collapse-toggle-close' viewbox=\"0 0 24 24\">\n  <line x1=\"7\" y1=\"12\" x2=\"17\" y2=\"12\"  fill=\"none\" stroke-width=\"3\" stroke-linecap=\"round\" />\n</svg>", e.getElement().classList.add("tabulator-row-handle");
@@ -9141,22 +9141,22 @@ var BCFormioPasteTable = function (e, t) {
       t.stopImmediatePropagation(), a(!i.open), e.getTable().rowManager.adjustTableSize();
     }), a(i.open), r;
   }
-  var It = {
+  var Lt = {
       format: {
         formatters: {
-          responsiveCollapse: Ft
+          responsiveCollapse: It
         }
       }
     },
-    H = /*#__PURE__*/function (_u29) {
-      function H(e) {
+    V = /*#__PURE__*/function (_u29) {
+      function V(e) {
         var _this150;
-        _classCallCheck(this, H);
-        _this150 = _callSuper(this, H, [e]), _this150.columns = [], _this150.hiddenColumns = [], _this150.mode = "", _this150.index = 0, _this150.collapseFormatter = [], _this150.collapseStartOpen = !0, _this150.collapseHandleColumn = !1, _this150.registerTableOption("responsiveLayout", !1), _this150.registerTableOption("responsiveLayoutCollapseStartOpen", !0), _this150.registerTableOption("responsiveLayoutCollapseUseFormatters", !0), _this150.registerTableOption("responsiveLayoutCollapseFormatter", !1), _this150.registerColumnOption("responsive");
+        _classCallCheck(this, V);
+        _this150 = _callSuper(this, V, [e]), _this150.columns = [], _this150.hiddenColumns = [], _this150.mode = "", _this150.index = 0, _this150.collapseFormatter = [], _this150.collapseStartOpen = !0, _this150.collapseHandleColumn = !1, _this150.registerTableOption("responsiveLayout", !1), _this150.registerTableOption("responsiveLayoutCollapseStartOpen", !0), _this150.registerTableOption("responsiveLayoutCollapseUseFormatters", !0), _this150.registerTableOption("responsiveLayoutCollapseFormatter", !1), _this150.registerColumnOption("responsive");
         return _this150;
       }
-      _inherits(H, _u29);
-      return _createClass(H, [{
+      _inherits(V, _u29);
+      return _createClass(V, [{
         key: "initialize",
         value: function initialize() {
           this.table.options.responsiveLayout && (this.subscribe("column-layout", this.initializeColumn.bind(this)), this.subscribe("column-show", this.updateColumnVisibility.bind(this)), this.subscribe("column-hide", this.updateColumnVisibility.bind(this)), this.subscribe("columns-loaded", this.initializeResponsivity.bind(this)), this.subscribe("column-moved", this.initializeResponsivity.bind(this)), this.subscribe("column-add", this.initializeResponsivity.bind(this)), this.subscribe("column-delete", this.initializeResponsivity.bind(this)), this.subscribe("table-redrawing", this.tableRedraw.bind(this)), this.table.options.responsiveLayout === "collapse" && (this.subscribe("row-data-changed", this.generateCollapsedRowContent.bind(this)), this.subscribe("row-init", this.initializeRow.bind(this)), this.subscribe("row-layout", this.layoutRow.bind(this))));
@@ -9335,8 +9335,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(H, "moduleName", "responsiveLayout"), a(H, "moduleExtensions", It);
-  function Lt(e, t, n) {
+  a(V, "moduleName", "responsiveLayout"), a(V, "moduleExtensions", Lt);
+  function Rt(e, t, n) {
     var _this155 = this;
     var r = document.createElement("input"),
       i = !1;
@@ -9344,7 +9344,7 @@ var BCFormioPasteTable = function (e, t) {
       e.stopPropagation();
     }), _typeof(e.getRow) == "function") {
       var a = e.getRow();
-      a instanceof D ? (r.addEventListener("change", function (e) {
+      a instanceof E ? (r.addEventListener("change", function (e) {
         _this155.table.options.selectableRowsRangeMode === "click" && i ? i = !1 : a.toggleSelect();
       }), this.table.options.selectableRowsRangeMode === "click" && r.addEventListener("click", function (e) {
         i = !0, _this155.table.modules.selectRow.handleComplexRowClick(a._row, e);
@@ -9354,24 +9354,24 @@ var BCFormioPasteTable = function (e, t) {
     }), this.table.modules.selectRow.registerHeaderSelectCheckbox(r);
     return r;
   }
-  var Rt = {
+  var zt = {
       format: {
         formatters: {
-          rowSelection: Lt
+          rowSelection: Rt
         }
       }
     },
-    U = /*#__PURE__*/function (_u30) {
-      function U(e) {
+    H = /*#__PURE__*/function (_u30) {
+      function H(e) {
         var _this156;
-        _classCallCheck(this, U);
-        _this156 = _callSuper(this, U, [e]), _this156.selecting = !1, _this156.lastClickedRow = !1, _this156.selectPrev = [], _this156.selectedRows = [], _this156.headerCheckboxElement = null, _this156.registerTableOption("selectableRows", "highlight"), _this156.registerTableOption("selectableRowsRangeMode", "drag"), _this156.registerTableOption("selectableRowsRollingSelection", !0), _this156.registerTableOption("selectableRowsPersistence", !0), _this156.registerTableOption("selectableRowsCheck", function (e, t) {
+        _classCallCheck(this, H);
+        _this156 = _callSuper(this, H, [e]), _this156.selecting = !1, _this156.lastClickedRow = !1, _this156.selectPrev = [], _this156.selectedRows = [], _this156.headerCheckboxElement = null, _this156.registerTableOption("selectableRows", "highlight"), _this156.registerTableOption("selectableRowsRangeMode", "drag"), _this156.registerTableOption("selectableRowsRollingSelection", !0), _this156.registerTableOption("selectableRowsPersistence", !0), _this156.registerTableOption("selectableRowsCheck", function (e, t) {
           return !0;
         }), _this156.registerTableFunction("selectRow", _this156.selectRows.bind(_assertThisInitialized(_this156))), _this156.registerTableFunction("deselectRow", _this156.deselectRows.bind(_assertThisInitialized(_this156))), _this156.registerTableFunction("toggleSelectRow", _this156.toggleRow.bind(_assertThisInitialized(_this156))), _this156.registerTableFunction("getSelectedRows", _this156.getSelectedRows.bind(_assertThisInitialized(_this156))), _this156.registerTableFunction("getSelectedData", _this156.getSelectedData.bind(_assertThisInitialized(_this156))), _this156.registerComponentFunction("row", "select", _this156.selectRows.bind(_assertThisInitialized(_this156))), _this156.registerComponentFunction("row", "deselect", _this156.deselectRows.bind(_assertThisInitialized(_this156))), _this156.registerComponentFunction("row", "toggleSelect", _this156.toggleRow.bind(_assertThisInitialized(_this156))), _this156.registerComponentFunction("row", "isSelected", _this156.isRowSelected.bind(_assertThisInitialized(_this156)));
         return _this156;
       }
-      _inherits(U, _u30);
-      return _createClass(U, [{
+      _inherits(H, _u30);
+      return _createClass(H, [{
         key: "initialize",
         value: function initialize() {
           this.deprecatedOptionsCheck(), this.table.options.selectableRows === "highlight" && this.table.options.selectableRange && (this.table.options.selectableRows = !1), this.table.options.selectableRows !== !1 && (this.subscribe("row-init", this.initializeRow.bind(this)), this.subscribe("row-deleting", this.rowDeleted.bind(this)), this.subscribe("rows-wipe", this.clearSelectionData.bind(this)), this.subscribe("rows-retrieve", this.rowRetrieve.bind(this)), this.table.options.selectableRows && !this.table.options.selectableRowsPersistence && this.subscribe("data-refreshing", this.deselectRows.bind(this)));
@@ -9592,17 +9592,17 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(U, "moduleName", "selectRow"), a(U, "moduleExtensions", Rt);
-  var zt = /*#__PURE__*/function () {
-      function zt(e) {
-        _classCallCheck(this, zt);
+  a(H, "moduleName", "selectRow"), a(H, "moduleExtensions", zt);
+  var Bt = /*#__PURE__*/function () {
+      function Bt(e) {
+        _classCallCheck(this, Bt);
         return this._range = e, new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._range.table.componentFunctionBinder.handle("range", e._range, t) : e[t];
           }
         });
       }
-      return _createClass(zt, [{
+      return _createClass(Bt, [{
         key: "getElement",
         value: function getElement() {
           return this._range.element;
@@ -9688,11 +9688,11 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    Bt = /*#__PURE__*/function (_s7) {
-      function Bt(e, t, n, r) {
+    Vt = /*#__PURE__*/function (_s7) {
+      function Vt(e, t, n, r) {
         var _this160;
-        _classCallCheck(this, Bt);
-        _this160 = _callSuper(this, Bt, [e]), _this160.rangeManager = t, _this160.element = null, _this160.initialized = !1, _this160.initializing = {
+        _classCallCheck(this, Vt);
+        _this160 = _callSuper(this, Vt, [e]), _this160.rangeManager = t, _this160.element = null, _this160.initialized = !1, _this160.initializing = {
           start: !1,
           end: !1
         }, _this160.destroyed = !1, _this160.top = 0, _this160.bottom = 0, _this160.left = 0, _this160.right = 0, _this160.table = e, _this160.start = {
@@ -9706,8 +9706,8 @@ var BCFormioPasteTable = function (e, t) {
         });
         return _this160;
       }
-      _inherits(Bt, _s7);
-      return _createClass(Bt, [{
+      _inherits(Vt, _s7);
+      return _createClass(Vt, [{
         key: "initElement",
         value: function initElement() {
           this.element = document.createElement("div"), this.element.classList.add("tabulator-range");
@@ -9881,7 +9881,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getComponent",
         value: function getComponent() {
-          return this.component || (this.component = new zt(this)), this.component;
+          return this.component || (this.component = new Bt(this)), this.component;
         }
       }, {
         key: "destroy",
@@ -9895,7 +9895,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    Vt = {
+    Ht = {
       keybindings: {
         bindings: {
           rangeJumpUp: ["ctrl + 38", "meta + 38"],
@@ -10003,15 +10003,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }
     },
-    W = /*#__PURE__*/function (_u31) {
-      function W(e) {
+    U = /*#__PURE__*/function (_u31) {
+      function U(e) {
         var _this161;
-        _classCallCheck(this, W);
-        _this161 = _callSuper(this, W, [e]), _this161.selecting = "cell", _this161.mousedown = !1, _this161.ranges = [], _this161.overlay = null, _this161.rowHeader = null, _this161.layoutChangeTimeout = null, _this161.columnSelection = !1, _this161.rowSelection = !1, _this161.maxRanges = 0, _this161.activeRange = !1, _this161.blockKeydown = !1, _this161.keyDownEvent = _this161._handleKeyDown.bind(_assertThisInitialized(_this161)), _this161.mouseUpEvent = _this161._handleMouseUp.bind(_assertThisInitialized(_this161)), _this161.registerTableOption("selectableRange", !1), _this161.registerTableOption("selectableRangeColumns", !1), _this161.registerTableOption("selectableRangeRows", !1), _this161.registerTableOption("selectableRangeClearCells", !1), _this161.registerTableOption("selectableRangeClearCellsValue", void 0), _this161.registerTableOption("selectableRangeAutoFocus", !0), _this161.registerTableOption("selectableRangeBlurEditOnNavigate", void 0), _this161.registerTableFunction("getRangesData", _this161.getRangesData.bind(_assertThisInitialized(_this161))), _this161.registerTableFunction("getRanges", _this161.getRanges.bind(_assertThisInitialized(_this161))), _this161.registerTableFunction("addRange", _this161.addRangeFromComponent.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("cell", "getRanges", _this161.cellGetRanges.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("row", "getRanges", _this161.rowGetRanges.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("column", "getRanges", _this161.colGetRanges.bind(_assertThisInitialized(_this161)));
+        _classCallCheck(this, U);
+        _this161 = _callSuper(this, U, [e]), _this161.selecting = "cell", _this161.mousedown = !1, _this161.ranges = [], _this161.overlay = null, _this161.rowHeader = null, _this161.layoutChangeTimeout = null, _this161.columnSelection = !1, _this161.rowSelection = !1, _this161.maxRanges = 0, _this161.activeRange = !1, _this161.blockKeydown = !1, _this161.keyDownEvent = _this161._handleKeyDown.bind(_assertThisInitialized(_this161)), _this161.mouseUpEvent = _this161._handleMouseUp.bind(_assertThisInitialized(_this161)), _this161.registerTableOption("selectableRange", !1), _this161.registerTableOption("selectableRangeColumns", !1), _this161.registerTableOption("selectableRangeRows", !1), _this161.registerTableOption("selectableRangeClearCells", !1), _this161.registerTableOption("selectableRangeClearCellsValue", void 0), _this161.registerTableOption("selectableRangeAutoFocus", !0), _this161.registerTableOption("selectableRangeBlurEditOnNavigate", void 0), _this161.registerTableFunction("getRangesData", _this161.getRangesData.bind(_assertThisInitialized(_this161))), _this161.registerTableFunction("getRanges", _this161.getRanges.bind(_assertThisInitialized(_this161))), _this161.registerTableFunction("addRange", _this161.addRangeFromComponent.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("cell", "getRanges", _this161.cellGetRanges.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("row", "getRanges", _this161.rowGetRanges.bind(_assertThisInitialized(_this161))), _this161.registerComponentFunction("column", "getRanges", _this161.colGetRanges.bind(_assertThisInitialized(_this161)));
         return _this161;
       }
-      _inherits(W, _u31);
-      return _createClass(W, [{
+      _inherits(U, _u31);
+      return _createClass(U, [{
         key: "initialize",
         value: function initialize() {
           this.options("selectableRange") && (this.options("selectableRows") ? console.warn("SelectRange functionality cannot be used in conjunction with row selection") : (this.maxRanges = this.options("selectableRange"), this.initializeTable(), this.initializeWatchers()), this.options("columns").findIndex(function (e) {
@@ -10468,7 +10468,7 @@ var BCFormioPasteTable = function (e, t) {
         key: "addRange",
         value: function addRange(e, t) {
           var n;
-          return this.maxRanges !== !0 && this.ranges.length >= this.maxRanges && this.ranges.shift().destroy(), n = new Bt(this.table, this, e, t), this.activeRange = n, this.ranges.push(n), this.rangeContainer.appendChild(n.element), n;
+          return this.maxRanges !== !0 && this.ranges.length >= this.maxRanges && this.ranges.shift().destroy(), n = new Vt(this.table, this, e, t), this.activeRange = n, this.ranges.push(n), this.rangeContainer.appendChild(n.element), n;
         }
       }, {
         key: "resetRanges",
@@ -10511,8 +10511,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(W, "moduleName", "selectRange"), a(W, "moduleInitOrder", 1), a(W, "moduleExtensions", Vt);
-  function Ht(e, t, n, r, i, a, o) {
+  a(U, "moduleName", "selectRange"), a(U, "moduleInitOrder", 1), a(U, "moduleExtensions", Ht);
+  function Ut(e, t, n, r, i, a, o) {
     var s = o.alignEmptyValues,
       c = o.decimalSeparator,
       l = o.thousandSeparator,
@@ -10520,7 +10520,7 @@ var BCFormioPasteTable = function (e, t) {
     if (e = String(e), t = String(t), l && (e = e.split(l).join(""), t = t.split(l).join("")), c && (e = e.split(c).join("."), t = t.split(c).join(".")), e = parseFloat(e), t = parseFloat(t), isNaN(e)) u = isNaN(t) ? 0 : -1;else if (isNaN(t)) u = 1;else return e - t;
     return (s === "top" && a === "desc" || s === "bottom" && a === "asc") && (u *= -1), u;
   }
-  function Ut(e, t, n, r, i, a, o) {
+  function Wt(e, t, n, r, i, a, o) {
     var s = o.alignEmptyValues,
       c = 0,
       l;
@@ -10537,7 +10537,7 @@ var BCFormioPasteTable = function (e, t) {
     }
     return (s === "top" && a === "desc" || s === "bottom" && a === "asc") && (c *= -1), c;
   }
-  function G(e, t, n, r, i, a, o) {
+  function W(e, t, n, r, i, a, o) {
     var s = this.table.dependencyRegistry.lookup(["luxon", "DateTime"], "DateTime"),
       c = o.format || "dd/MM/yyyy HH:mm:ss",
       l = o.alignEmptyValues,
@@ -10547,16 +10547,16 @@ var BCFormioPasteTable = function (e, t) {
       return (l === "top" && a === "desc" || l === "bottom" && a === "asc") && (u *= -1), u;
     } else console.error("Sort Error - 'datetime' sorter is dependant on luxon.js");
   }
-  function Wt(e, t, n, r, i, a, o) {
-    return o.format || (o.format = "dd/MM/yyyy"), G.call(this, e, t, n, r, i, a, o);
-  }
   function Gt(e, t, n, r, i, a, o) {
-    return o.format || (o.format = "HH:mm"), G.call(this, e, t, n, r, i, a, o);
+    return o.format || (o.format = "dd/MM/yyyy"), W.call(this, e, t, n, r, i, a, o);
   }
   function Kt(e, t, n, r, i, a, o) {
-    return (e === !0 || e === "true" || e === "True" || e === 1 ? 1 : 0) - (t === !0 || t === "true" || t === "True" || t === 1 ? 1 : 0);
+    return o.format || (o.format = "HH:mm"), W.call(this, e, t, n, r, i, a, o);
   }
   function qt(e, t, n, r, i, a, o) {
+    return (e === !0 || e === "true" || e === "True" || e === 1 ? 1 : 0) - (t === !0 || t === "true" || t === "True" || t === 1 ? 1 : 0);
+  }
+  function Jt(e, t, n, r, i, a, o) {
     var s = o.type || "length",
       l = o.alignEmptyValues,
       u = 0,
@@ -10598,10 +10598,10 @@ var BCFormioPasteTable = function (e, t) {
     if (!Array.isArray(e)) u = Array.isArray(t) ? -1 : 0;else if (!Array.isArray(t)) u = 1;else if (s === "string") return String(p(e)).toLowerCase().localeCompare(String(p(t)).toLowerCase());else return p(t) - p(e);
     return (l === "top" && a === "desc" || l === "bottom" && a === "asc") && (u *= -1), u;
   }
-  function Jt(e, t, n, r, i, a, o) {
+  function Yt(e, t, n, r, i, a, o) {
     return (e === void 0 ? 0 : 1) - (t === void 0 ? 0 : 1);
   }
-  function Yt(e, t, n, r, i, a, o) {
+  function Xt(e, t, n, r, i, a, o) {
     var s,
       c,
       l,
@@ -10621,18 +10621,18 @@ var BCFormioPasteTable = function (e, t) {
     }
     return (h === "top" && a === "desc" || h === "bottom" && a === "asc") && (g *= -1), g;
   }
-  var Xt = {
-      number: Ht,
-      string: Ut,
-      date: Wt,
-      time: Gt,
-      datetime: G,
-      boolean: Kt,
-      array: qt,
-      exists: Jt,
-      alphanum: Yt
+  var Zt = {
+      number: Ut,
+      string: Wt,
+      date: Gt,
+      time: Kt,
+      datetime: W,
+      boolean: qt,
+      array: Jt,
+      exists: Yt,
+      alphanum: Xt
     },
-    K = /*#__PURE__*/function (_u32) {
+    G = /*#__PURE__*/function (_u32) {
       function e(_e424) {
         var _this165;
         _classCallCheck(this, e);
@@ -10862,13 +10862,13 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(K, "moduleName", "sort"), a(K, "sorters", Xt);
-  var Zt = /*#__PURE__*/function () {
-      function Zt(e, t) {
-        _classCallCheck(this, Zt);
+  a(G, "moduleName", "sort"), a(G, "sorters", Zt);
+  var Qt = /*#__PURE__*/function () {
+      function Qt(e, t) {
+        _classCallCheck(this, Qt);
         this.columnCount = e, this.rowCount = t, this.columnString = [], this.columns = [], this.rows = [];
       }
-      return _createClass(Zt, [{
+      return _createClass(Qt, [{
         key: "genColumns",
         value: function genColumns(e) {
           var t = Math.max(this.columnCount, Math.max.apply(Math, _toConsumableArray(e.map(function (e) {
@@ -10904,16 +10904,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    Qt = /*#__PURE__*/function () {
-      function Qt(e) {
-        _classCallCheck(this, Qt);
+    $t = /*#__PURE__*/function () {
+      function $t(e) {
+        _classCallCheck(this, $t);
         return this._sheet = e, new Proxy(this, {
           get: function get(e, t, n) {
             return e[t] === void 0 ? e._sheet.table.componentFunctionBinder.handle("sheet", e._sheet, t) : e[t];
           }
         });
       }
-      return _createClass(Qt, [{
+      return _createClass($t, [{
         key: "getTitle",
         value: function getTitle() {
           return this._sheet.title;
@@ -10970,19 +10970,19 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    $t = /*#__PURE__*/function (_s8) {
-      function $t(e, t) {
+    en = /*#__PURE__*/function (_s8) {
+      function en(e, t) {
         var _this169;
-        _classCallCheck(this, $t);
-        _this169 = _callSuper(this, $t, [e.table]), _this169.spreadsheetManager = e, _this169.definition = t, _this169.title = _this169.definition.title || "", _this169.key = _this169.definition.key || _this169.definition.title, _this169.rowCount = _this169.definition.rows, _this169.columnCount = _this169.definition.columns, _this169.data = _this169.definition.data || [], _this169.element = null, _this169.isActive = !1, _this169.grid = new Zt(_this169.columnCount, _this169.rowCount), _this169.defaultColumnDefinition = {
+        _classCallCheck(this, en);
+        _this169 = _callSuper(this, en, [e.table]), _this169.spreadsheetManager = e, _this169.definition = t, _this169.title = _this169.definition.title || "", _this169.key = _this169.definition.key || _this169.definition.title, _this169.rowCount = _this169.definition.rows, _this169.columnCount = _this169.definition.columns, _this169.data = _this169.definition.data || [], _this169.element = null, _this169.isActive = !1, _this169.grid = new Qt(_this169.columnCount, _this169.rowCount), _this169.defaultColumnDefinition = {
           width: 100,
           headerHozAlign: "center",
           headerSort: !1
         }, _this169.columnDefinition = Object.assign(_this169.defaultColumnDefinition, _this169.options("spreadsheetColumnDefinition")), _this169.columnDefs = [], _this169.rowDefs = [], _this169.columnFields = [], _this169.columns = [], _this169.rows = [], _this169.scrollTop = null, _this169.scrollLeft = null, _this169.initialize(), _this169.dispatchExternal("sheetAdded", _this169.getComponent());
         return _this169;
       }
-      _inherits($t, _s8);
-      return _createClass($t, [{
+      _inherits(en, _s8);
+      return _createClass(en, [{
         key: "initialize",
         value: function initialize() {
           this.initializeElement(), this.initializeColumns(), this.initializeRows();
@@ -11039,7 +11039,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getComponent",
         value: function getComponent() {
-          return new Qt(this);
+          return new $t(this);
         }
       }, {
         key: "getDefinition",
@@ -11117,15 +11117,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    en = /*#__PURE__*/function (_u33) {
-      function en(e) {
+    tn = /*#__PURE__*/function (_u33) {
+      function tn(e) {
         var _this174;
-        _classCallCheck(this, en);
-        _this174 = _callSuper(this, en, [e]), _this174.sheets = [], _this174.element = null, _this174.registerTableOption("spreadsheet", !1), _this174.registerTableOption("spreadsheetRows", 50), _this174.registerTableOption("spreadsheetColumns", 50), _this174.registerTableOption("spreadsheetColumnDefinition", {}), _this174.registerTableOption("spreadsheetOutputFull", !1), _this174.registerTableOption("spreadsheetData", !1), _this174.registerTableOption("spreadsheetSheets", !1), _this174.registerTableOption("spreadsheetSheetTabs", !1), _this174.registerTableOption("spreadsheetSheetTabsElement", !1), _this174.registerTableFunction("setSheets", _this174.setSheets.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("addSheet", _this174.addSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheets", _this174.getSheets.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheetDefinitions", _this174.getSheetDefinitions.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("setSheetData", _this174.setSheetData.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheet", _this174.getSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheetData", _this174.getSheetData.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("clearSheet", _this174.clearSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("removeSheet", _this174.removeSheetFunc.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("activeSheet", _this174.activeSheetFunc.bind(_assertThisInitialized(_this174)));
+        _classCallCheck(this, tn);
+        _this174 = _callSuper(this, tn, [e]), _this174.sheets = [], _this174.element = null, _this174.registerTableOption("spreadsheet", !1), _this174.registerTableOption("spreadsheetRows", 50), _this174.registerTableOption("spreadsheetColumns", 50), _this174.registerTableOption("spreadsheetColumnDefinition", {}), _this174.registerTableOption("spreadsheetOutputFull", !1), _this174.registerTableOption("spreadsheetData", !1), _this174.registerTableOption("spreadsheetSheets", !1), _this174.registerTableOption("spreadsheetSheetTabs", !1), _this174.registerTableOption("spreadsheetSheetTabsElement", !1), _this174.registerTableFunction("setSheets", _this174.setSheets.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("addSheet", _this174.addSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheets", _this174.getSheets.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheetDefinitions", _this174.getSheetDefinitions.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("setSheetData", _this174.setSheetData.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheet", _this174.getSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("getSheetData", _this174.getSheetData.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("clearSheet", _this174.clearSheet.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("removeSheet", _this174.removeSheetFunc.bind(_assertThisInitialized(_this174))), _this174.registerTableFunction("activeSheet", _this174.activeSheetFunc.bind(_assertThisInitialized(_this174)));
         return _this174;
       }
-      _inherits(en, _u33);
-      return _createClass(en, [{
+      _inherits(tn, _u33);
+      return _createClass(tn, [{
         key: "initialize",
         value: function initialize() {
           this.options("spreadsheet") && (this.subscribe("table-initialized", this.tableInitialized.bind(this)), this.subscribe("data-loaded", this.loadRemoteData.bind(this)), this.table.options.index = "_id", this.options("spreadsheetData") && this.options("spreadsheetSheets") && (console.warn("You cannot use spreadsheetData and spreadsheetSheets at the same time, ignoring spreadsheetData"), this.table.options.spreadsheetData = !1), this.compatibilityCheck(), this.options("spreadsheetSheetTabs") && this.initializeTabset());
@@ -11185,7 +11185,7 @@ var BCFormioPasteTable = function (e, t) {
         value: function newSheet() {
           var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
           var t;
-          return e.rows || (e.rows = this.options("spreadsheetRows")), e.columns || (e.columns = this.options("spreadsheetColumns")), t = new $t(this, e), this.sheets.push(t), this.element && this.element.appendChild(t.element), t;
+          return e.rows || (e.rows = this.options("spreadsheetRows")), e.columns || (e.columns = this.options("spreadsheetColumns")), t = new en(this, e), this.sheets.push(t), this.element && this.element.appendChild(t.element), t;
         }
       }, {
         key: "removeSheet",
@@ -11197,7 +11197,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "lookupSheet",
         value: function lookupSheet(e) {
-          return e ? e instanceof $t ? e : e instanceof Qt ? e._sheet : this.sheets.find(function (t) {
+          return e ? e instanceof en ? e : e instanceof $t ? e._sheet : this.sheets.find(function (t) {
             return t.key === e;
           }) || !1 : this.activeSheet;
         }
@@ -11264,16 +11264,16 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(en, "moduleName", "spreadsheet");
-  var tn = /*#__PURE__*/function (_u34) {
-    function tn(e) {
+  a(tn, "moduleName", "spreadsheet");
+  var nn = /*#__PURE__*/function (_u34) {
+    function nn(e) {
       var _this176;
-      _classCallCheck(this, tn);
-      _this176 = _callSuper(this, tn, [e]), _this176.tooltipSubscriber = null, _this176.headerSubscriber = null, _this176.timeout = null, _this176.popupInstance = null, _this176.registerTableOption("tooltipDelay", 300), _this176.registerColumnOption("tooltip"), _this176.registerColumnOption("headerTooltip");
+      _classCallCheck(this, nn);
+      _this176 = _callSuper(this, nn, [e]), _this176.tooltipSubscriber = null, _this176.headerSubscriber = null, _this176.timeout = null, _this176.popupInstance = null, _this176.registerTableOption("tooltipDelay", 300), _this176.registerColumnOption("tooltip"), _this176.registerColumnOption("headerTooltip");
       return _this176;
     }
-    _inherits(tn, _u34);
-    return _createClass(tn, [{
+    _inherits(nn, _u34);
+    return _createClass(nn, [{
       key: "initialize",
       value: function initialize() {
         this.deprecatedOptionsCheck(), this.subscribe("column-init", this.initializeColumn.bind(this));
@@ -11310,7 +11310,7 @@ var BCFormioPasteTable = function (e, t) {
         function o(e) {
           i = e;
         }
-        _typeof(n) == "function" && (n = n(e, t.getComponent(), o)), n instanceof HTMLElement ? r = n : (r = document.createElement("div"), n === !0 && (t instanceof T ? n = t.value : t.definition.field ? this.langBind("columns|" + t.definition.field, function (e) {
+        _typeof(n) == "function" && (n = n(e, t.getComponent(), o)), n instanceof HTMLElement ? r = n : (r = document.createElement("div"), n === !0 && (t instanceof w ? n = t.value : t.definition.field ? this.langBind("columns|" + t.definition.field, function (e) {
           r.innerHTML = n = e || t.definition.title;
         }) : n = t.definition.title), r.innerHTML = n), (n || n === 0 || n === !1) && (r.classList.add("tabulator-tooltip"), r.addEventListener("mousemove", function (e) {
           return e.preventDefault();
@@ -11320,8 +11320,8 @@ var BCFormioPasteTable = function (e, t) {
       }
     }]);
   }(u);
-  a(tn, "moduleName", "tooltip");
-  var nn = {
+  a(nn, "moduleName", "tooltip");
+  var rn = {
       integer: function integer(e, t, n) {
         return t === "" || t == null ? !0 : (t = Number(t), !isNaN(t) && isFinite(t) && Math.floor(t) === t);
       },
@@ -11375,7 +11375,7 @@ var BCFormioPasteTable = function (e, t) {
         return t !== "" && t != null;
       }
     },
-    q = /*#__PURE__*/function (_u35) {
+    K = /*#__PURE__*/function (_u35) {
       function e(_e444) {
         var _this178;
         _classCallCheck(this, e);
@@ -11520,48 +11520,48 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(q, "moduleName", "validate"), a(q, "validators", nn);
-  var J = Object.freeze({
+  a(K, "moduleName", "validate"), a(K, "validators", rn);
+  var q = Object.freeze({
       __proto__: null,
       AccessorModule: f,
       AjaxModule: b,
-      ClipboardModule: w,
-      ColumnCalcsModule: k,
-      DataTreeModule: ae,
-      DownloadModule: A,
-      EditModule: M,
-      ExportModule: N,
-      FilterModule: Me,
-      FormatModule: nt,
+      ClipboardModule: C,
+      ColumnCalcsModule: O,
+      DataTreeModule: oe,
+      DownloadModule: k,
+      EditModule: Oe,
+      ExportModule: j,
+      FilterModule: M,
+      FormatModule: N,
       FrozenColumnsModule: rt,
       FrozenRowsModule: it,
       GroupRowsModule: ot,
       HistoryModule: F,
       HtmlTableImportModule: ut,
-      ImportModule: I,
-      InteractionModule: gt,
-      KeybindingsModule: L,
-      MenuModule: yt,
-      MoveColumnsModule: bt,
-      MoveRowsModule: R,
-      MutatorModule: z,
-      PageModule: B,
-      PersistenceModule: V,
-      PopupModule: kt,
-      PrintModule: At,
-      ReactiveDataModule: jt,
-      ResizeColumnsModule: Mt,
-      ResizeRowsModule: Nt,
-      ResizeTableModule: Pt,
-      ResponsiveLayoutModule: H,
-      SelectRangeModule: W,
-      SelectRowModule: U,
-      SortModule: K,
-      SpreadsheetModule: en,
-      TooltipModule: tn,
-      ValidateModule: q
+      ImportModule: gt,
+      InteractionModule: _t,
+      KeybindingsModule: I,
+      MenuModule: bt,
+      MoveColumnsModule: xt,
+      MoveRowsModule: L,
+      MutatorModule: R,
+      PageModule: z,
+      PersistenceModule: B,
+      PopupModule: At,
+      PrintModule: jt,
+      ReactiveDataModule: Mt,
+      ResizeColumnsModule: Nt,
+      ResizeRowsModule: Pt,
+      ResizeTableModule: Ft,
+      ResponsiveLayoutModule: V,
+      SelectRangeModule: U,
+      SelectRowModule: H,
+      SortModule: G,
+      SpreadsheetModule: tn,
+      TooltipModule: nn,
+      ValidateModule: K
     }),
-    rn = {
+    an = {
       debugEventsExternal: !1,
       debugEventsInternal: !1,
       debugInvalidOptions: !0,
@@ -11606,13 +11606,13 @@ var BCFormioPasteTable = function (e, t) {
       dataReceiveParams: {},
       dependencies: {}
     },
-    an = /*#__PURE__*/function () {
-      function an(e, t) {
+    on = /*#__PURE__*/function () {
+      function on(e, t) {
         var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-        _classCallCheck(this, an);
+        _classCallCheck(this, on);
         this.table = e, this.msgType = t, this.registeredDefaults = Object.assign({}, n);
       }
-      return _createClass(an, [{
+      return _createClass(on, [{
         key: "register",
         value: function register(e, t) {
           this.registeredDefaults[e] = t;
@@ -11630,15 +11630,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    Y = /*#__PURE__*/function (_s9) {
-      function Y(e) {
+    J = /*#__PURE__*/function (_s9) {
+      function J(e) {
         var _this183;
-        _classCallCheck(this, Y);
-        _this183 = _callSuper(this, Y, [e]), _this183.elementVertical = e.rowManager.element, _this183.elementHorizontal = e.columnManager.element, _this183.tableElement = e.rowManager.tableElement, _this183.verticalFillMode = "fit";
+        _classCallCheck(this, J);
+        _this183 = _callSuper(this, J, [e]), _this183.elementVertical = e.rowManager.element, _this183.elementHorizontal = e.columnManager.element, _this183.tableElement = e.rowManager.tableElement, _this183.verticalFillMode = "fit";
         return _this183;
       }
-      _inherits(Y, _s9);
-      return _createClass(Y, [{
+      _inherits(J, _s9);
+      return _createClass(J, [{
         key: "initialize",
         value: function initialize() {}
       }, {
@@ -11744,13 +11744,13 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    on = /*#__PURE__*/function (_Y) {
-      function on(e) {
-        _classCallCheck(this, on);
-        return _callSuper(this, on, [e]);
+    sn = /*#__PURE__*/function (_J) {
+      function sn(e) {
+        _classCallCheck(this, sn);
+        return _callSuper(this, sn, [e]);
       }
-      _inherits(on, _Y);
-      return _createClass(on, [{
+      _inherits(sn, _J);
+      return _createClass(sn, [{
         key: "renderRowCells",
         value: function renderRowCells(e, t) {
           var n = document.createDocumentFragment();
@@ -11768,16 +11768,16 @@ var BCFormioPasteTable = function (e, t) {
           });
         }
       }]);
-    }(Y),
-    sn = /*#__PURE__*/function (_Y2) {
-      function sn(e) {
+    }(J),
+    cn = /*#__PURE__*/function (_J2) {
+      function cn(e) {
         var _this185;
-        _classCallCheck(this, sn);
-        _this185 = _callSuper(this, sn, [e]), _this185.leftCol = 0, _this185.rightCol = 0, _this185.scrollLeft = 0, _this185.vDomScrollPosLeft = 0, _this185.vDomScrollPosRight = 0, _this185.vDomPadLeft = 0, _this185.vDomPadRight = 0, _this185.fitDataColAvg = 0, _this185.windowBuffer = 200, _this185.visibleRows = null, _this185.initialized = !1, _this185.isFitData = !1, _this185.columns = [];
+        _classCallCheck(this, cn);
+        _this185 = _callSuper(this, cn, [e]), _this185.leftCol = 0, _this185.rightCol = 0, _this185.scrollLeft = 0, _this185.vDomScrollPosLeft = 0, _this185.vDomScrollPosRight = 0, _this185.vDomPadLeft = 0, _this185.vDomPadRight = 0, _this185.fitDataColAvg = 0, _this185.windowBuffer = 200, _this185.visibleRows = null, _this185.initialized = !1, _this185.isFitData = !1, _this185.columns = [];
         return _this185;
       }
-      _inherits(sn, _Y2);
-      return _createClass(sn, [{
+      _inherits(cn, _J2);
+      return _createClass(cn, [{
         key: "initialize",
         value: function initialize() {
           this.compatibilityCheck(), this.layoutCheck(), this.vertScrollListen();
@@ -12071,16 +12071,16 @@ var BCFormioPasteTable = function (e, t) {
           }
         }
       }]);
-    }(Y),
-    cn = /*#__PURE__*/function (_s0) {
-      function cn(e) {
+    }(J),
+    ln = /*#__PURE__*/function (_s0) {
+      function ln(e) {
         var _this195;
-        _classCallCheck(this, cn);
-        _this195 = _callSuper(this, cn, [e]), _this195.blockHozScrollEvent = !1, _this195.headersElement = null, _this195.contentsElement = null, _this195.rowHeader = null, _this195.element = null, _this195.columns = [], _this195.columnsByIndex = [], _this195.columnsByField = {}, _this195.scrollLeft = 0, _this195.optionsList = new an(_this195.table, "column definition", re), _this195.redrawBlock = !1, _this195.redrawBlockUpdate = null, _this195.renderer = null;
+        _classCallCheck(this, ln);
+        _this195 = _callSuper(this, ln, [e]), _this195.blockHozScrollEvent = !1, _this195.headersElement = null, _this195.contentsElement = null, _this195.rowHeader = null, _this195.element = null, _this195.columns = [], _this195.columnsByIndex = [], _this195.columnsByField = {}, _this195.scrollLeft = 0, _this195.optionsList = new on(_this195.table, "column definition", ie), _this195.redrawBlock = !1, _this195.redrawBlockUpdate = null, _this195.renderer = null;
         return _this195;
       }
-      _inherits(cn, _s0);
-      return _createClass(cn, [{
+      _inherits(ln, _s0);
+      return _createClass(ln, [{
         key: "initialize",
         value: function initialize() {
           this.initializeRenderer(), this.headersElement = this.createHeadersElement(), this.contentsElement = this.createHeaderContentsElement(), this.element = this.createHeaderElement(), this.contentsElement.insertBefore(this.headersElement, this.contentsElement.firstChild), this.element.insertBefore(this.contentsElement, this.element.firstChild), this.initializeScrollWheelWatcher(), this.subscribe("scroll-horizontal", this.scrollHorizontal.bind(this)), this.subscribe("scrollbar-vertical", this.padVerticalScrollbar.bind(this));
@@ -12095,8 +12095,8 @@ var BCFormioPasteTable = function (e, t) {
         value: function initializeRenderer() {
           var e,
             t = {
-              virtual: sn,
-              basic: on
+              virtual: cn,
+              basic: sn
             };
           e = _typeof(this.table.options.renderHorizontal) == "string" ? t[this.table.options.renderHorizontal] : this.table.options.renderHorizontal, e ? (this.renderer = new e(this.table, this.element, this.tableElement), this.renderer.initialize()) : console.error("Unable to find matching renderer:", this.table.options.renderHorizontal);
         }
@@ -12212,14 +12212,14 @@ var BCFormioPasteTable = function (e, t) {
         value: function setColumns(e, t) {
           var _this198 = this;
           for (; this.headersElement.firstChild;) this.headersElement.removeChild(this.headersElement.firstChild);
-          this.columns = [], this.columnsByIndex = [], this.columnsByField = {}, this.dispatch("columns-loading"), this.dispatchExternal("columnsLoading"), this.table.options.rowHeader && (this.rowHeader = new E(this.table.options.rowHeader === !0 ? {} : this.table.options.rowHeader, this, !0), this.columns.push(this.rowHeader), this.headersElement.appendChild(this.rowHeader.getElement()), this.rowHeader.columnRendered()), e.forEach(function (e, t) {
+          this.columns = [], this.columnsByIndex = [], this.columnsByField = {}, this.dispatch("columns-loading"), this.dispatchExternal("columnsLoading"), this.table.options.rowHeader && (this.rowHeader = new T(this.table.options.rowHeader === !0 ? {} : this.table.options.rowHeader, this, !0), this.columns.push(this.rowHeader), this.headersElement.appendChild(this.rowHeader.getElement()), this.rowHeader.columnRendered()), e.forEach(function (e, t) {
             _this198._addColumn(e);
           }), this._reIndexColumns(), this.dispatch("columns-loaded"), this.subscribedExternal("columnsLoaded") && this.dispatchExternal("columnsLoaded", this.getComponents()), this.rerenderColumns(!1, !0), this.redraw(!0);
         }
       }, {
         key: "_addColumn",
         value: function _addColumn(e, t, n) {
-          var r = new E(e, this),
+          var r = new T(e, this),
             i = r.getElement(),
             a = n && this.findColumnIndex(n);
           if (t && this.rowHeader && (!n || n === this.rowHeader) && (t = !1, n = this.rowHeader, a = 0), n && a > -1) {
@@ -12266,8 +12266,8 @@ var BCFormioPasteTable = function (e, t) {
         value: function findColumn(e) {
           var t;
           if (_typeof(e) == "object") {
-            if (e instanceof E) return e;
-            if (e instanceof ne) return e._getSelf() || !1;
+            if (e instanceof T) return e;
+            if (e instanceof re) return e._getSelf() || !1;
             if ((typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) < "u" && e instanceof HTMLElement) return t = [], this.columns.forEach(function (e) {
               t.push(e), t = t.concat(e.getColumns(!0));
             }), t.find(function (t) {
@@ -12469,15 +12469,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    ln = /*#__PURE__*/function (_Y3) {
-      function ln(e) {
+    un = /*#__PURE__*/function (_J3) {
+      function un(e) {
         var _this203;
-        _classCallCheck(this, ln);
-        _this203 = _callSuper(this, ln, [e]), _this203.verticalFillMode = "fill", _this203.scrollTop = 0, _this203.scrollLeft = 0, _this203.scrollTop = 0, _this203.scrollLeft = 0;
+        _classCallCheck(this, un);
+        _this203 = _callSuper(this, un, [e]), _this203.verticalFillMode = "fill", _this203.scrollTop = 0, _this203.scrollLeft = 0, _this203.scrollTop = 0, _this203.scrollLeft = 0;
         return _this203;
       }
-      _inherits(ln, _Y3);
-      return _createClass(ln, [{
+      _inherits(un, _J3);
+      return _createClass(un, [{
         key: "clearRows",
         value: function clearRows() {
           for (var e = this.tableElement; e.firstChild;) e.removeChild(e.firstChild);
@@ -12522,16 +12522,16 @@ var BCFormioPasteTable = function (e, t) {
           return this.rows();
         }
       }]);
-    }(Y),
-    un = /*#__PURE__*/function (_Y4) {
-      function un(e) {
+    }(J),
+    dn = /*#__PURE__*/function (_J4) {
+      function dn(e) {
         var _this205;
-        _classCallCheck(this, un);
-        _this205 = _callSuper(this, un, [e]), _this205.verticalFillMode = "fill", _this205.scrollTop = 0, _this205.scrollLeft = 0, _this205.vDomRowHeight = 20, _this205.vDomTop = 0, _this205.vDomBottom = 0, _this205.vDomScrollPosTop = 0, _this205.vDomScrollPosBottom = 0, _this205.vDomTopPad = 0, _this205.vDomBottomPad = 0, _this205.vDomMaxRenderChain = 90, _this205.vDomWindowBuffer = 0, _this205.vDomWindowMinTotalRows = 20, _this205.vDomWindowMinMarginRows = 5, _this205.vDomTopNewRows = [], _this205.vDomBottomNewRows = [];
+        _classCallCheck(this, dn);
+        _this205 = _callSuper(this, dn, [e]), _this205.verticalFillMode = "fill", _this205.scrollTop = 0, _this205.scrollLeft = 0, _this205.vDomRowHeight = 20, _this205.vDomTop = 0, _this205.vDomBottom = 0, _this205.vDomScrollPosTop = 0, _this205.vDomScrollPosBottom = 0, _this205.vDomTopPad = 0, _this205.vDomBottomPad = 0, _this205.vDomMaxRenderChain = 90, _this205.vDomWindowBuffer = 0, _this205.vDomWindowMinTotalRows = 20, _this205.vDomWindowMinMarginRows = 5, _this205.vDomTopNewRows = [], _this205.vDomBottomNewRows = [];
         return _this205;
       }
-      _inherits(un, _Y4);
-      return _createClass(un, [{
+      _inherits(dn, _J4);
+      return _createClass(dn, [{
         key: "clearRows",
         value: function clearRows() {
           for (var e = this.tableElement; e.firstChild;) e.removeChild(e.firstChild);
@@ -12624,7 +12624,7 @@ var BCFormioPasteTable = function (e, t) {
             b = this.table.rowManager.fixedHeight,
             x = this.elementVertical.clientHeight,
             S = this.table.options.rowHeight,
-            C = !0;
+            ee = !0;
           if (e = e || 0, n = n || 0, !e) this.clear();else {
             for (; r.firstChild;) r.removeChild(r.firstChild);
             l = (p - e + 1) * this.vDomRowHeight, l < x && (e -= Math.ceil((x - l) / this.vDomRowHeight), e < 0 && (e = 0)), a = Math.min(Math.max(Math.floor(this.vDomWindowBuffer / this.vDomRowHeight), this.vDomWindowMinMarginRows), e), e -= a;
@@ -12643,7 +12643,7 @@ var BCFormioPasteTable = function (e, t) {
                 e.setCellHeight();
               }), _.forEach(function (e) {
                 s = e.getHeight(), v < a ? u += s : o += s, s > _this206.vDomWindowBuffer && (_this206.vDomWindowBuffer = s * 2), v++;
-              }), C = _this206.table.rowManager.adjustTableSize(), x = _this206.elementVertical.clientHeight, C && (b || _this206.table.options.maxHeight) && (S = o / v, y = Math.max(_this206.vDomWindowMinTotalRows, Math.ceil(x / S + _this206.vDomWindowBuffer / S)));
+              }), ee = _this206.table.rowManager.adjustTableSize(), x = _this206.elementVertical.clientHeight, ee && (b || _this206.table.options.maxHeight) && (S = o / v, y = Math.max(_this206.vDomWindowMinTotalRows, Math.ceil(x / S + _this206.vDomWindowBuffer / S)));
             };
             for (this.vDomTop = e, this.vDomBottom = e - 1, b || this.table.options.maxHeight ? (S && (y = x / S + this.vDomWindowBuffer / S), y = Math.max(this.vDomWindowMinTotalRows, Math.ceil(y))) : y = p; (y == p || o <= x + this.vDomWindowBuffer || v < this.vDomWindowMinTotalRows) && this.vDomBottom < p - 1;) {
               if (_loop7()) break;
@@ -12740,16 +12740,16 @@ var BCFormioPasteTable = function (e, t) {
           }
         }
       }]);
-    }(Y),
-    dn = /*#__PURE__*/function (_s11) {
-      function dn(e) {
+    }(J),
+    fn = /*#__PURE__*/function (_s11) {
+      function fn(e) {
         var _this207;
-        _classCallCheck(this, dn);
-        _this207 = _callSuper(this, dn, [e]), _this207.element = _this207.createHolderElement(), _this207.tableElement = _this207.createTableElement(), _this207.heightFixer = _this207.createTableElement(), _this207.placeholder = null, _this207.placeholderContents = null, _this207.firstRender = !1, _this207.renderMode = "virtual", _this207.fixedHeight = !1, _this207.rows = [], _this207.activeRowsPipeline = [], _this207.activeRows = [], _this207.activeRowsCount = 0, _this207.displayRows = [], _this207.displayRowsCount = 0, _this207.scrollTop = 0, _this207.scrollLeft = 0, _this207.redrawBlock = !1, _this207.redrawBlockRestoreConfig = !1, _this207.redrawBlockRenderInPosition = !1, _this207.dataPipeline = [], _this207.displayPipeline = [], _this207.scrollbarWidth = 0, _this207.renderer = null;
+        _classCallCheck(this, fn);
+        _this207 = _callSuper(this, fn, [e]), _this207.element = _this207.createHolderElement(), _this207.tableElement = _this207.createTableElement(), _this207.heightFixer = _this207.createTableElement(), _this207.placeholder = null, _this207.placeholderContents = null, _this207.firstRender = !1, _this207.renderMode = "virtual", _this207.fixedHeight = !1, _this207.rows = [], _this207.activeRowsPipeline = [], _this207.activeRows = [], _this207.activeRowsCount = 0, _this207.displayRows = [], _this207.displayRowsCount = 0, _this207.scrollTop = 0, _this207.scrollLeft = 0, _this207.redrawBlock = !1, _this207.redrawBlockRestoreConfig = !1, _this207.redrawBlockRenderInPosition = !1, _this207.dataPipeline = [], _this207.displayPipeline = [], _this207.scrollbarWidth = 0, _this207.renderer = null;
         return _this207;
       }
-      _inherits(dn, _s11);
-      return _createClass(dn, [{
+      _inherits(fn, _s11);
+      return _createClass(fn, [{
         key: "createHolderElement",
         value: function createHolderElement() {
           var e = document.createElement("div");
@@ -12801,8 +12801,8 @@ var BCFormioPasteTable = function (e, t) {
         value: function findRow(e) {
           var _this209 = this;
           if (_typeof(e) == "object") {
-            if (e instanceof O) return e;
-            if (e instanceof D) return e._getSelf() || !1;
+            if (e instanceof D) return e;
+            if (e instanceof E) return e._getSelf() || !1;
             if ((typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) < "u" && e instanceof HTMLElement) return this.rows.find(function (t) {
               return t.getElement() === e;
             }) || !1;
@@ -12847,7 +12847,7 @@ var BCFormioPasteTable = function (e, t) {
           var _this211 = this;
           this.dispatchExternal("dataProcessing", e), this._wipeElements(), Array.isArray(e) ? (this.dispatch("data-processing", e), e.forEach(function (e, t) {
             if (e && _typeof(e) == "object") {
-              var n = new O(e, _this211);
+              var n = new D(e, _this211);
               _this211.rows.push(n);
             } else console.warn("Data Loading Warning - Invalid row data detected and ignored, expecting object but received:", e);
           }), this.refreshActiveData(!1, !1, t), this.dispatch("data-processed", e), this.dispatchExternal("dataProcessed", e)) : console.error("Data Loading Error - Unable to process data due to invalid data type \nExpecting: array \nReceived: ", _typeof(e), "\nData:     ", e);
@@ -12899,7 +12899,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "addRowActual",
         value: function addRowActual(e, t, n, r) {
-          var i = e instanceof O ? e : new O(e || {}, this),
+          var i = e instanceof D ? e : new D(e || {}, this),
             a = this.findAddRowPos(t),
             o = -1,
             s,
@@ -12959,14 +12959,14 @@ var BCFormioPasteTable = function (e, t) {
         value: function nextDisplayRow(e, t) {
           var n = this.getDisplayRowIndex(e),
             r = !1;
-          return n !== !1 && n < this.displayRowsCount - 1 && (r = this.getDisplayRows()[n + 1]), r && (!(r instanceof O) || r.type != "row") ? this.nextDisplayRow(r, t) : r;
+          return n !== !1 && n < this.displayRowsCount - 1 && (r = this.getDisplayRows()[n + 1]), r && (!(r instanceof D) || r.type != "row") ? this.nextDisplayRow(r, t) : r;
         }
       }, {
         key: "prevDisplayRow",
         value: function prevDisplayRow(e, t) {
           var n = this.getDisplayRowIndex(e),
             r = !1;
-          return n && (r = this.getDisplayRows()[n - 1]), t && r && (!(r instanceof O) || r.type != "row") ? this.prevDisplayRow(r, t) : r;
+          return n && (r = this.getDisplayRows()[n - 1]), t && r && (!(r instanceof D) || r.type != "row") ? this.prevDisplayRow(r, t) : r;
         }
       }, {
         key: "findRowIndex",
@@ -13148,8 +13148,8 @@ var BCFormioPasteTable = function (e, t) {
         value: function initializeRenderer() {
           var e,
             t = {
-              virtual: un,
-              basic: ln
+              virtual: dn,
+              basic: un
             };
           e = _typeof(this.table.options.renderVertical) == "string" ? t[this.table.options.renderVertical] : this.table.options.renderVertical, e ? (this.renderMode = this.table.options.renderVertical, this.renderer = new e(this.table, this.element, this.tableElement), this.renderer.initialize(), (this.table.element.clientHeight || this.table.options.height) && !(this.table.options.minHeight && this.table.options.maxHeight) ? this.fixedHeight = !0 : this.fixedHeight = !1) : console.error("Unable to find matching renderer:", this.table.options.renderVertical);
         }
@@ -13260,15 +13260,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    fn = /*#__PURE__*/function (_s12) {
-      function fn(e) {
+    pn = /*#__PURE__*/function (_s12) {
+      function pn(e) {
         var _this214;
-        _classCallCheck(this, fn);
-        _this214 = _callSuper(this, fn, [e]), _this214.active = !1, _this214.element = _this214.createElement(), _this214.containerElement = _this214.createContainerElement(), _this214.external = !1;
+        _classCallCheck(this, pn);
+        _this214 = _callSuper(this, pn, [e]), _this214.active = !1, _this214.element = _this214.createElement(), _this214.containerElement = _this214.createContainerElement(), _this214.external = !1;
         return _this214;
       }
-      _inherits(fn, _s12);
-      return _createClass(fn, [{
+      _inherits(pn, _s12);
+      return _createClass(pn, [{
         key: "initialize",
         value: function initialize() {
           this.initializeElement();
@@ -13334,11 +13334,11 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    pn = /*#__PURE__*/function (_s13) {
-      function pn(e) {
+    mn = /*#__PURE__*/function (_s13) {
+      function mn(e) {
         var _this215;
-        _classCallCheck(this, pn);
-        _this215 = _callSuper(this, pn, [e]), _this215.el = null, _this215.abortClasses = ["tabulator-headers", "tabulator-table"], _this215.previousTargets = {}, _this215.listeners = ["click", "dblclick", "contextmenu", "mouseenter", "mouseleave", "mouseover", "mouseout", "mousemove", "mouseup", "mousedown", "touchstart", "touchend"], _this215.componentMap = {
+        _classCallCheck(this, mn);
+        _this215 = _callSuper(this, mn, [e]), _this215.el = null, _this215.abortClasses = ["tabulator-headers", "tabulator-table"], _this215.previousTargets = {}, _this215.listeners = ["click", "dblclick", "contextmenu", "mouseenter", "mouseleave", "mouseover", "mouseout", "mousemove", "mouseup", "mousedown", "touchstart", "touchend"], _this215.componentMap = {
           "tabulator-cell": "cell",
           "tabulator-row": "row",
           "tabulator-group": "group",
@@ -13363,8 +13363,8 @@ var BCFormioPasteTable = function (e, t) {
         }, _this215.pseudoTracking = !1;
         return _this215;
       }
-      _inherits(pn, _s13);
-      return _createClass(pn, [{
+      _inherits(mn, _s13);
+      return _createClass(mn, [{
         key: "initialize",
         value: function initialize() {
           this.el = this.table.element, this.buildListenerMap(), this.bindSubscriptionWatchers();
@@ -13522,7 +13522,7 @@ var BCFormioPasteTable = function (e, t) {
                   r.components.includes("column") && (n = _this219.table.columnManager.findColumn(a));
                   break;
                 case "cell":
-                  r.components.includes("cell") && (i.row instanceof O ? n = i.row.findCell(a) : t.row && console.warn("Event Target Lookup Error - The row this cell is attached to cannot be found, has the table been reinitialized without being destroyed first?"));
+                  r.components.includes("cell") && (i.row instanceof D ? n = i.row.findCell(a) : t.row && console.warn("Event Target Lookup Error - The row this cell is attached to cannot be found, has the table been reinitialized without being destroyed first?"));
                   break;
               }
               n && (i[e] = n, o[e] = {
@@ -13558,12 +13558,12 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    mn = /*#__PURE__*/function () {
-      function mn(e) {
-        _classCallCheck(this, mn);
+    hn = /*#__PURE__*/function () {
+      function hn(e) {
+        _classCallCheck(this, hn);
         this.table = e, this.bindings = {};
       }
-      return _createClass(mn, [{
+      return _createClass(hn, [{
         key: "bind",
         value: function bind(e, t, n) {
           this.bindings[e] || (this.bindings[e] = {}), this.bindings[e][t] ? console.warn("Unable to bind component handler, a matching function name is already bound", e, t, n) : this.bindings[e][t] = n;
@@ -13576,15 +13576,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    hn = /*#__PURE__*/function (_s14) {
-      function hn(e) {
+    gn = /*#__PURE__*/function (_s14) {
+      function gn(e) {
         var _this220;
-        _classCallCheck(this, hn);
-        _this220 = _callSuper(this, hn, [e]), _this220.requestOrder = 0, _this220.loading = !1;
+        _classCallCheck(this, gn);
+        _this220 = _callSuper(this, gn, [e]), _this220.requestOrder = 0, _this220.loading = !1;
         return _this220;
       }
-      _inherits(hn, _s14);
-      return _createClass(hn, [{
+      _inherits(gn, _s14);
+      return _createClass(gn, [{
         key: "initialize",
         value: function initialize() {}
       }, {
@@ -13642,12 +13642,12 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    gn = /*#__PURE__*/function () {
-      function gn(e, t, n) {
-        _classCallCheck(this, gn);
+    _n = /*#__PURE__*/function () {
+      function _n(e, t, n) {
+        _classCallCheck(this, _n);
         this.table = e, this.events = {}, this.optionsList = t || {}, this.subscriptionNotifiers = {}, this.dispatch = n ? this._debugDispatch.bind(this) : this._dispatch.bind(this), this.debug = n;
       }
-      return _createClass(gn, [{
+      return _createClass(_n, [{
         key: "subscriptionChange",
         value: function subscriptionChange(e, t) {
           this.subscriptionNotifiers[e] || (this.subscriptionNotifiers[e] = []), this.subscriptionNotifiers[e].push(t), this.subscribed(e) && this._notifySubscriptionChange(e, !0);
@@ -13711,12 +13711,12 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    _n = /*#__PURE__*/function () {
-      function _n(e) {
-        _classCallCheck(this, _n);
+    vn = /*#__PURE__*/function () {
+      function vn(e) {
+        _classCallCheck(this, vn);
         this.events = {}, this.subscriptionNotifiers = {}, this.dispatch = e ? this._debugDispatch.bind(this) : this._dispatch.bind(this), this.chain = e ? this._debugChain.bind(this) : this._chain.bind(this), this.confirm = e ? this._debugConfirm.bind(this) : this._confirm.bind(this), this.debug = e;
       }
-      return _createClass(_n, [{
+      return _createClass(vn, [{
         key: "subscriptionChange",
         value: function subscriptionChange(e, t) {
           this.subscriptionNotifiers[e] || (this.subscriptionNotifiers[e] = []), this.subscriptionNotifiers[e].push(t), this.subscribed(e) && this._notifySubscriptionChange(e, !0);
@@ -13816,13 +13816,13 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(),
-    vn = /*#__PURE__*/function (_s15) {
-      function vn(e) {
-        _classCallCheck(this, vn);
-        return _callSuper(this, vn, [e]);
+    yn = /*#__PURE__*/function (_s15) {
+      function yn(e) {
+        _classCallCheck(this, yn);
+        return _callSuper(this, yn, [e]);
       }
-      _inherits(vn, _s15);
-      return _createClass(vn, [{
+      _inherits(yn, _s15);
+      return _createClass(yn, [{
         key: "_warnUser",
         value: function _warnUser() {
           var _console5;
@@ -13846,15 +13846,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s),
-    yn = /*#__PURE__*/function (_s16) {
-      function yn(e) {
+    bn = /*#__PURE__*/function (_s16) {
+      function bn(e) {
         var _this226;
-        _classCallCheck(this, yn);
-        _this226 = _callSuper(this, yn, [e]), _this226.deps = {}, _this226.props = {};
+        _classCallCheck(this, bn);
+        _this226 = _callSuper(this, bn, [e]), _this226.deps = {}, _this226.props = {};
         return _this226;
       }
-      _inherits(yn, _s16);
-      return _createClass(yn, [{
+      _inherits(bn, _s16);
+      return _createClass(bn, [{
         key: "initialize",
         value: function initialize() {
           this.deps = Object.assign({}, this.options("dependencies"));
@@ -13900,15 +13900,15 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(s);
-  function bn(e, t) {
+  function xn(e, t) {
     t && this.table.columnManager.renderer.reinitializeColumnWidths(e), this.table.options.responsiveLayout && this.table.modExists("responsiveLayout", !0) && this.table.modules.responsiveLayout.update();
   }
-  function xn(e, t) {
+  function Sn(e, t) {
     e.forEach(function (e) {
       e.reinitializeWidth();
     }), this.table.options.responsiveLayout && this.table.modExists("responsiveLayout", !0) && this.table.modules.responsiveLayout.update();
   }
-  function Sn(e, t) {
+  function Cn(e, t) {
     var _this227 = this;
     var n = 0,
       r = this.table.rowManager.element.clientWidth,
@@ -13918,7 +13918,7 @@ var BCFormioPasteTable = function (e, t) {
       e.widthFixed || e.reinitializeWidth(), (_this227.table.options.responsiveLayout ? e.modules.responsive.visible : e.visible) && (a = e), e.visible && (n += e.getWidth());
     }), a ? (i = r - n + a.getWidth(), this.table.options.responsiveLayout && this.table.modExists("responsiveLayout", !0) && (a.setWidth(0), this.table.modules.responsiveLayout.update()), i > 0 ? a.setWidth(i) : a.reinitializeWidth()) : this.table.options.responsiveLayout && this.table.modExists("responsiveLayout", !0) && this.table.modules.responsiveLayout.update();
   }
-  function Cn(e, t) {
+  function wn(e, t) {
     var n = this.table.rowManager.element.getBoundingClientRect().width,
       r = 0,
       i = 0,
@@ -13973,14 +13973,14 @@ var BCFormioPasteTable = function (e, t) {
       e.column.setWidth(e.width);
     });
   }
-  var wn = {
-      fitData: bn,
-      fitDataFill: xn,
-      fitDataTable: xn,
-      fitDataStretch: Sn,
-      fitColumns: Cn
+  var Tn = {
+      fitData: xn,
+      fitDataFill: Sn,
+      fitDataTable: Sn,
+      fitDataStretch: Cn,
+      fitColumns: wn
     },
-    X = /*#__PURE__*/function (_u38) {
+    Y = /*#__PURE__*/function (_u38) {
       function e(_e483) {
         var _this228;
         _classCallCheck(this, e);
@@ -14014,8 +14014,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(X, "moduleName", "layout"), a(X, "modes", wn);
-  var Tn = {
+  a(Y, "moduleName", "layout"), a(Y, "modes", Tn);
+  var En = {
       default: {
         groups: {
           item: "item",
@@ -14051,7 +14051,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }
     },
-    En = /*#__PURE__*/function (_u39) {
+    X = /*#__PURE__*/function (_u39) {
       function e(_e486) {
         var _this229;
         _classCallCheck(this, e);
@@ -14139,7 +14139,7 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(u);
-  a(En, "moduleName", "localize"), a(En, "langs", Tn);
+  a(X, "moduleName", "localize"), a(X, "langs", En);
   var Dn = /*#__PURE__*/function (_u40) {
     function Dn(e) {
       _classCallCheck(this, Dn);
@@ -14181,8 +14181,8 @@ var BCFormioPasteTable = function (e, t) {
   var On = Object.freeze({
       __proto__: null,
       CommsModule: Dn,
-      LayoutModule: X,
-      LocalizeModule: En
+      LayoutModule: Y,
+      LocalizeModule: X
     }),
     kn = /*#__PURE__*/function () {
       function e() {
@@ -14347,7 +14347,7 @@ var BCFormioPasteTable = function (e, t) {
       function e(t, n, r) {
         var _this234;
         _classCallCheck(this, e);
-        _this234 = _callSuper(this, e), e.initializeModuleBinder(r), _this234.options = {}, _this234.columnManager = null, _this234.rowManager = null, _this234.footerManager = null, _this234.alertManager = null, _this234.vdomHoz = null, _this234.externalEvents = null, _this234.eventBus = null, _this234.interactionMonitor = !1, _this234.browser = "", _this234.browserSlow = !1, _this234.browserMobile = !1, _this234.rtl = !1, _this234.originalElement = null, _this234.componentFunctionBinder = new mn(_assertThisInitialized(_this234)), _this234.dataLoader = !1, _this234.modules = {}, _this234.modulesCore = [], _this234.modulesRegular = [], _this234.deprecationAdvisor = new vn(_assertThisInitialized(_this234)), _this234.optionsList = new an(_assertThisInitialized(_this234), "table constructor"), _this234.dependencyRegistry = new yn(_assertThisInitialized(_this234)), _this234.initialized = !1, _this234.destroyed = !1, _this234.initializeElement(t) && (_this234.initializeCoreSystems(n), setTimeout(function () {
+        _this234 = _callSuper(this, e), e.initializeModuleBinder(r), _this234.options = {}, _this234.columnManager = null, _this234.rowManager = null, _this234.footerManager = null, _this234.alertManager = null, _this234.vdomHoz = null, _this234.externalEvents = null, _this234.eventBus = null, _this234.interactionMonitor = !1, _this234.browser = "", _this234.browserSlow = !1, _this234.browserMobile = !1, _this234.rtl = !1, _this234.originalElement = null, _this234.componentFunctionBinder = new hn(_assertThisInitialized(_this234)), _this234.dataLoader = !1, _this234.modules = {}, _this234.modulesCore = [], _this234.modulesRegular = [], _this234.deprecationAdvisor = new yn(_assertThisInitialized(_this234)), _this234.optionsList = new on(_assertThisInitialized(_this234), "table constructor"), _this234.dependencyRegistry = new bn(_assertThisInitialized(_this234)), _this234.initialized = !1, _this234.destroyed = !1, _this234.initializeElement(t) && (_this234.initializeCoreSystems(n), setTimeout(function () {
           _this234._create();
         })), _this234.constructor.registry.register(_assertThisInitialized(_this234));
         return _this234;
@@ -14361,7 +14361,7 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "initializeCoreSystems",
         value: function initializeCoreSystems(t) {
-          this.columnManager = new cn(this), this.rowManager = new dn(this), this.footerManager = new fn(this), this.dataLoader = new hn(this), this.alertManager = new An(this), this._bindModules(), this.options = this.optionsList.generate(e.defaultOptions, t), this._clearObjectPointers(), this._mapDeprecatedFunctionality(), this.externalEvents = new gn(this, this.options, this.options.debugEventsExternal), this.eventBus = new _n(this.options.debugEventsInternal), this.interactionMonitor = new pn(this), this.dataLoader.initialize(), this.footerManager.initialize(), this.dependencyRegistry.initialize();
+          this.columnManager = new ln(this), this.rowManager = new fn(this), this.footerManager = new pn(this), this.dataLoader = new gn(this), this.alertManager = new An(this), this._bindModules(), this.options = this.optionsList.generate(e.defaultOptions, t), this._clearObjectPointers(), this._mapDeprecatedFunctionality(), this.externalEvents = new _n(this, this.options, this.options.debugEventsExternal), this.eventBus = new vn(this.options.debugEventsInternal), this.interactionMonitor = new mn(this), this.dataLoader.initialize(), this.footerManager.initialize(), this.dependencyRegistry.initialize();
         }
       }, {
         key: "_mapDeprecatedFunctionality",
@@ -14763,27 +14763,224 @@ var BCFormioPasteTable = function (e, t) {
         }
       }]);
     }(Z);
-  a(Q, "defaultOptions", rn);
+  a(Q, "defaultOptions", an);
   var jn = /*#__PURE__*/function (_Q) {
-      function jn(e, t, n) {
-        _classCallCheck(this, jn);
-        return _callSuper(this, jn, [e, t, J]);
+    function jn(e, t, n) {
+      _classCallCheck(this, jn);
+      return _callSuper(this, jn, [e, t, q]);
+    }
+    _inherits(jn, _Q);
+    return _createClass(jn, null, [{
+      key: "extendModule",
+      value: function extendModule() {
+        Q.initializeModuleBinder(q), Q._extendModule.apply(Q, arguments);
       }
-      _inherits(jn, _Q);
-      return _createClass(jn, null, [{
-        key: "extendModule",
-        value: function extendModule() {
-          Q.initializeModuleBinder(J), Q._extendModule.apply(Q, arguments);
-        }
+    }, {
+      key: "registerModule",
+      value: function registerModule() {
+        Q.initializeModuleBinder(q), Q._registerModule.apply(Q, arguments);
+      }
+    }]);
+  }(Q);
+  function Mn(e) {
+    return e === "alphabet" || e === "numeric" || e === "alphanumeric" || e === "email";
+  }
+  function Nn(e) {
+    return /<|>|javascript:|vbscript:|data:text\/html|on\w+\s*=|<script|<img|<svg|<iframe|&lt;|&gt;/i.test(e);
+  }
+  function Pn(e) {
+    return e === "alphabet" ? "Alphabet" : e === "numeric" ? "Numeric" : e === "alphanumeric" ? "Alphabet and Numeric" : "Email";
+  }
+  function Fn(e, t) {
+    return t === "alphabet" ? /^[A-Za-z\s''-]+$/.test(e) : t === "numeric" ? /^\d+(\.\d{1,2})?$/.test(e) : t === "alphanumeric" ? /^[A-Za-z0-9\s''-]+$/.test(e) : /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(e);
+  }
+  function In(e, t, n) {
+    var r = e == null ? "" : String(e);
+    return r === "" ? {
+      isValid: !0,
+      message: "",
+      severity: "none"
+    } : Nn(r) ? {
+      isValid: !1,
+      severity: "security",
+      message: "\"".concat(t.header, "\" contains characters that aren't supported.")
+    } : r.length > t.maxChars ? {
+      isValid: !1,
+      severity: "business",
+      message: " \"".concat(t.header, "\"  can be no longer than ").concat(t.maxChars, " characters.")
+    } : Fn(r, t.dataType) ? {
+      isValid: !0,
+      message: "",
+      severity: "none"
+    } : {
+      isValid: !1,
+      severity: "business",
+      message: "\"".concat(t.header, "\"  must be a (").concat(Pn(t.dataType), ").")
+    };
+  }
+  var Ln = {
+    components: [{
+      type: "tabs",
+      key: "tabs",
+      components: [{
+        label: "Display",
+        key: "display",
+        components: [{
+          type: "textfield",
+          key: "label",
+          label: "Label",
+          input: !0
+        }, {
+          type: "textfield",
+          key: "key",
+          label: "Property Name",
+          input: !0
+        }, {
+          type: "checkbox",
+          key: "validate.required",
+          label: "Required",
+          input: !0,
+          defaultValue: !0
+        }, {
+          type: "number",
+          key: "maxRows",
+          label: "Maximum number of Rows in the table",
+          input: !0,
+          defaultValue: 10,
+          validate: {
+            min: 1,
+            integer: !0
+          }
+        }, {
+          type: "textfield",
+          key: "customMessage",
+          label: "Custom error message",
+          input: !0,
+          defaultValue: "Add table content to continue."
+        }, {
+          type: "textarea",
+          key: "userInformation",
+          label: "User Information",
+          input: !0,
+          rows: 3
+        }, {
+          type: "datagrid",
+          key: "tableHeaders",
+          label: "Table Column Headers",
+          input: !0,
+          addAnother: "Add Header",
+          components: [{
+            type: "textfield",
+            key: "value",
+            label: "Header Name",
+            input: !0
+          }, {
+            type: "number",
+            key: "maxChars",
+            label: "Maximum characters allowed",
+            input: !0,
+            defaultValue: 20,
+            validate: {
+              min: 1,
+              integer: !0
+            }
+          }, {
+            type: "select",
+            key: "dataType",
+            label: "Data type allowed",
+            input: !0,
+            defaultValue: "alphabet",
+            dataSrc: "values",
+            data: {
+              values: [{
+                label: "Alphabet",
+                value: "alphabet"
+              }, {
+                label: "Numeric",
+                value: "numeric"
+              }, {
+                label: "Alphabet and Numeric",
+                value: "alphanumeric"
+              }, {
+                label: "Email",
+                value: "email"
+              }]
+            }
+          }]
+        }]
       }, {
-        key: "registerModule",
-        value: function registerModule() {
-          Q.initializeModuleBinder(J), Q._registerModule.apply(Q, arguments);
-        }
-      }]);
-    }(Q),
-    Mn = t.Components.components.base,
-    $ = /*#__PURE__*/function (_Mn) {
+        label: "API",
+        key: "api",
+        components: [{
+          type: "checkbox",
+          key: "input",
+          label: "Input",
+          input: !0
+        }]
+      }]
+    }]
+  };
+  function Rn(e) {
+    return e.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").filter(function (e) {
+      return e.trim() !== "";
+    }).map(function (e) {
+      return e.split("\t").map(function (e) {
+        return e.trim();
+      });
+    });
+  }
+  function $(e) {
+    var t = {};
+    return e.forEach(function (e) {
+      t[e] = "";
+    }), t;
+  }
+  function zn(e, t) {
+    return t.map(function (t) {
+      var n = e[t];
+      return n == null ? "" : String(n);
+    });
+  }
+  function Bn(e, t) {
+    var n = {};
+    return t.forEach(function (t, r) {
+      var i;
+      n[t] = (i = e[r]) == null ? "" : i;
+    }), n;
+  }
+  function Vn(e, t) {
+    var n = 0;
+    for (n = 0; n < t.length; n += 1) if (t[n].header === e) return t[n];
+    return null;
+  }
+  function Hn(e) {
+    if (!e.length) return !1;
+    var t = 0;
+    for (t = 0; t < e.length; t += 1) if (String(e[t] || "").trim() === "") return !1;
+    return !0;
+  }
+  function Un(e) {
+    var t = e.some(function (e) {
+        return String(e || "").trim() !== "";
+      }),
+      n = e.some(function (e) {
+        return String(e || "").trim() === "";
+      });
+    return t && n;
+  }
+  function Wn(e) {
+    return !e || !Array.isArray(e.rows) ? [] : e.rows.map(function (e) {
+      return Array.isArray(e) ? e.map(function (e) {
+        return e == null ? "" : String(e);
+      }) : [];
+    }).filter(function (e) {
+      return e.some(function (e) {
+        return String(e).trim() !== "";
+      });
+    });
+  }
+  var Gn = t.Components.components.base,
+    Kn = /*#__PURE__*/function (_Gn) {
       function e() {
         var _this242;
         _classCallCheck(this, e);
@@ -14812,7 +15009,7 @@ var BCFormioPasteTable = function (e, t) {
           var i = ((t = _e566.clipboardData) == null ? void 0 : t.getData("text")) || "";
           if (!i) return;
           _e566.preventDefault();
-          var a = _this242.parseClipboard(i);
+          var a = Rn(i);
           if (!a.length) {
             _this242.showError("Please paste at least one row of data.");
             return;
@@ -14850,7 +15047,7 @@ var BCFormioPasteTable = function (e, t) {
             _this242.updateAddRowButtonVisibility();
             return;
           }
-          _this242._table.addRow(_this242.createBlankRow(_e572)).then(function () {
+          _this242._table.addRow($(_e572)).then(function () {
             _this242.updateAddRowButtonVisibility(), _this242.updateDeleteRowButtonVisibility();
           });
         }), a(_assertThisInitialized(_this242), "handleDeleteRow", function () {
@@ -14866,7 +15063,7 @@ var BCFormioPasteTable = function (e, t) {
         });
         return _this242;
       }
-      _inherits(e, _Mn);
+      _inherits(e, _Gn);
       return _createClass(e, [{
         key: "defaultValue",
         get: function get() {
@@ -14912,7 +15109,6 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "getConfiguredColumnRules",
         value: function getConfiguredColumnRules() {
-          var _this243 = this;
           return (this.component.tableHeaders || []).map(function (_e583) {
             if (_typeof(_e583) == "string") {
               var _t31 = _e583.trim();
@@ -14926,7 +15122,7 @@ var BCFormioPasteTable = function (e, t) {
             var t = Number(_e583.maxChars),
               n = t && t > 0 ? Math.floor(t) : 20,
               r = String(_e583.dataType || "").trim().toLowerCase(),
-              i = _this243.isValidDataType(r) ? r : "alphabet";
+              i = Mn(r) ? r : "alphabet";
             return {
               header: String(_e583.value).trim(),
               maxChars: n,
@@ -14935,23 +15131,18 @@ var BCFormioPasteTable = function (e, t) {
           }).filter(Boolean);
         }
       }, {
-        key: "isValidDataType",
-        value: function isValidDataType(_e584) {
-          return _e584 === "alphabet" || _e584 === "numeric" || _e584 === "alphanumeric" || _e584 === "email";
-        }
-      }, {
         key: "render",
         value: function render() {
-          var _e585 = this.component.label ? String(this.component.label) : "",
+          var _e584 = this.component.label ? String(this.component.label) : "",
             t = !!(this.component.validate && this.component.validate.required),
             n = this.getUserInformation();
-          return _superPropGet(e, "render", this, 3)(["\n      <div class=\"paste-table-root\">\n        ".concat(_e585 ? "<label class=\"control-label paste-table-label\" ref=\"labelEl\">\n                ".concat(_e585).concat(t ? " <span class=\"field-required\">*</span>" : "", "\n              </label>") : "", "\n\n        ").concat(n ? "<div class=\"paste-table-userinfo\" ref=\"userInfoEl\">".concat(n, "</div>") : "", "       \n\n        <div class=\"paste-error text-danger\" ref=\"errorMsg\" style=\"display:none;\"></div>\n\n        <div class=\"paste-table-wrap\" style=\"overflow-x: auto; -webkit-overflow-scrolling: touch;\">\n          <div ref=\"tabulatorTarget\"></div>\n        </div>\n\n         ").concat(this.isReadOnlyMode() ? "" : "<div class=\"paste-table-add-row-footer\">\n              <button type=\"button\" class=\"btn btn-secondary btn-sm paste-table-add-row-btn\" ref=\"addRowBtn\">+ Add Row</button>\n              <button type=\"button\" class=\"btn btn-warning btn-sm paste-table-delete-row-btn\" ref=\"deleteRowBtn\" style=\"display:none;\">Delete Row</button>\n              <div class=\"paste-table-max-row-msg text-muted\" ref=\"maxRowMsg\" style=\"display:none;\">Maximum row limit of ".concat(this.getMaxRows(), " has been reached.</div>\n              <div class=\"paste-table-delete-hint text-muted\" ref=\"deleteHint\">Select a row, then click Delete row.</div>\n            </div>"), "\n      </div>\n    ")]);
+          return _superPropGet(e, "render", this, 3)(["\n      <div class=\"paste-table-root\">\n        ".concat(_e584 ? "<label class=\"control-label paste-table-label\" ref=\"labelEl\">\n                ".concat(_e584).concat(t ? " <span class=\"field-required\">*</span>" : "", "\n              </label>") : "", "\n\n        ").concat(n ? "<div class=\"paste-table-userinfo\" ref=\"userInfoEl\">".concat(n, "</div>") : "", "\n\n        <div class=\"paste-error text-danger\" ref=\"errorMsg\" style=\"display:none;\"></div>\n\n        <div class=\"paste-table-wrap\" style=\"overflow-x: auto; -webkit-overflow-scrolling: touch;\">\n          <div ref=\"tabulatorTarget\"></div>\n        </div>\n\n         ").concat(this.isReadOnlyMode() ? "" : "<div class=\"paste-table-add-row-footer\">\n              <button type=\"button\" class=\"btn btn-secondary btn-sm paste-table-add-row-btn\" ref=\"addRowBtn\">+ Add Row</button>\n              <button type=\"button\" class=\"btn btn-warning btn-sm paste-table-delete-row-btn\" ref=\"deleteRowBtn\" style=\"display:none;\">Delete Row</button>\n              <div class=\"paste-table-max-row-msg text-muted\" ref=\"maxRowMsg\" style=\"display:none;\">Maximum row limit of ".concat(this.getMaxRows(), " has been reached.</div>\n              <div class=\"paste-table-delete-hint text-muted\" ref=\"deleteHint\">Select a row, then click Delete row.</div>\n            </div>"), "\n      </div>\n    ")]);
         }
       }, {
         key: "attach",
-        value: function attach(_e586) {
-          var t = _superPropGet(e, "attach", this, 3)([_e586]);
-          if (this._isDetached = !1, this._initAttemptId += 1, this.loadRefs(_e586, {
+        value: function attach(_e585) {
+          var t = _superPropGet(e, "attach", this, 3)([_e585]);
+          if (this._isDetached = !1, this._initAttemptId += 1, this.loadRefs(_e585, {
             labelEl: "single",
             userInfoEl: "single",
             infoMsg: "single",
@@ -14972,40 +15163,40 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "detach",
         value: function detach() {
-          var _e587, t, n, r, i, a, o;
-          if (this._isDetached = !0, this._initAttemptId += 1, (_e587 = this.refs.tabulatorTarget) == null || _e587.removeEventListener("paste", this.handleNativePaste), (t = this.refs.tabulatorTarget) == null || t.removeEventListener("keydown", this.handleTableKeyDown), (n = this.refs.tabulatorTarget) == null || n.removeEventListener("pointerup", this.handlePointerUp), (r = this.refs.tabulatorTarget) == null || r.removeEventListener("click", this.handleCaptureClick, !0), (i = this.refs.addRowBtn) == null || i.removeEventListener("click", this.handleAddRow), (a = this.refs.deleteRowBtn) == null || a.removeEventListener("click", this.handleDeleteRow), (o = this.refs.deleteRowBtn) == null || o.removeEventListener("keydown", this.handleDeleteButtonKeyDown), this._table) {
+          var _e586, t, n, r, i, a, o;
+          if (this._isDetached = !0, this._initAttemptId += 1, (_e586 = this.refs.tabulatorTarget) == null || _e586.removeEventListener("paste", this.handleNativePaste), (t = this.refs.tabulatorTarget) == null || t.removeEventListener("keydown", this.handleTableKeyDown), (n = this.refs.tabulatorTarget) == null || n.removeEventListener("pointerup", this.handlePointerUp), (r = this.refs.tabulatorTarget) == null || r.removeEventListener("click", this.handleCaptureClick, !0), (i = this.refs.addRowBtn) == null || i.removeEventListener("click", this.handleAddRow), (a = this.refs.deleteRowBtn) == null || a.removeEventListener("click", this.handleDeleteRow), (o = this.refs.deleteRowBtn) == null || o.removeEventListener("keydown", this.handleDeleteButtonKeyDown), this._table) {
             try {
               this._table.destroy();
-            } catch (_e588) {}
+            } catch (_e587) {}
             this._table = null;
           }
           return this._selectedRow = null, _superPropGet(e, "detach", this, 3)([]);
         }
       }, {
         key: "scheduleSafeInit",
-        value: function scheduleSafeInit(_e589, t) {
+        value: function scheduleSafeInit(_e588, t) {
           var n = this;
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
-              if (!(n._isDetached || _e589 !== n._initAttemptId)) {
+              if (!(n._isDetached || _e588 !== n._initAttemptId)) {
                 if (n.isTargetReadyForInit()) {
                   n.initTableFromConfiguredHeaders();
                   return;
                 }
-                t < 12 && n.scheduleSafeInit(_e589, t + 1);
+                t < 12 && n.scheduleSafeInit(_e588, t + 1);
               }
             });
           });
         }
       }, {
         key: "scheduleSafeHydrate",
-        value: function scheduleSafeHydrate(_e590, t) {
+        value: function scheduleSafeHydrate(_e589, t) {
           var n = this;
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
-              if (!(n._isDetached || _e590 !== n._initAttemptId)) {
+              if (!(n._isDetached || _e589 !== n._initAttemptId)) {
                 if (!n._table || !n.isTargetReadyForInit()) {
-                  t < 12 && n.scheduleSafeHydrate(_e590, t + 1);
+                  t < 12 && n.scheduleSafeHydrate(_e589, t + 1);
                   return;
                 }
                 n.applyStoredValueToTable();
@@ -15016,126 +15207,55 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "isTargetReadyForInit",
         value: function isTargetReadyForInit() {
-          var _e591 = this.refs.tabulatorTarget;
-          if (!_e591 || !_e591.isConnected) return !1;
-          var t = _e591.getBoundingClientRect(),
+          var _e590 = this.refs.tabulatorTarget;
+          if (!_e590 || !_e590.isConnected) return !1;
+          var t = _e590.getBoundingClientRect(),
             n = t.width > 0 || t.height > 0,
-            r = !!_e591.offsetParent || !!_e591.closest("body");
+            r = !!_e590.offsetParent || !!_e590.closest("body");
           return !!(n && r);
         }
       }, {
         key: "isEmpty",
-        value: function isEmpty(_e592) {
-          var _this244 = this;
-          return this.getEnteredRowsFromValue(_e592).filter(function (_e593) {
-            return _this244.isCompleteRowArray(_e593);
+        value: function isEmpty(_e591) {
+          return Wn(_e591).filter(function (_e592) {
+            return Hn(_e592);
           }).length === 0;
         }
       }, {
         key: "checkValidity",
-        value: function checkValidity(_e594, t, n, r, i) {
-          var a = Mn.prototype.checkValidity.call(this, _e594, t, n, r, i),
+        value: function checkValidity(_e593, t, n, r, i) {
+          var a = Gn.prototype.checkValidity.call(this, _e593, t, n, r, i),
             o = this.getValue(),
             s = this.getComponentValidationMessage(o);
           return this.setCustomValidity && this.setCustomValidity(s || "", t), i || (s ? this.showError(s) : this.hideError()), a && !s;
         }
       }, {
         key: "getComponentValidationMessage",
-        value: function getComponentValidationMessage(_e595) {
-          var _this245 = this;
+        value: function getComponentValidationMessage(_e594) {
           var t = !!(this.component.validate && this.component.validate.required),
-            n = this.getEnteredRowsFromValue(_e595),
-            r = n.some(function (_e596) {
-              return _this245.isCompleteRowArray(_e596);
+            n = Wn(_e594),
+            r = n.some(function (_e595) {
+              return Hn(_e595);
             }),
-            i = n.some(function (_e597) {
-              return _this245.isPartiallyFilledRowArray(_e597);
+            i = n.some(function (_e596) {
+              return Un(_e596);
             });
           return t && !r || i ? this.getValidationMessage() : "";
         }
       }, {
-        key: "getEnteredRowsFromValue",
-        value: function getEnteredRowsFromValue(_e598) {
-          return !_e598 || !Array.isArray(_e598.rows) ? [] : _e598.rows.map(function (_e599) {
-            return Array.isArray(_e599) ? _e599.map(function (_e600) {
-              return _e600 == null ? "" : String(_e600);
-            }) : [];
-          }).filter(function (_e601) {
-            return _e601.some(function (_e602) {
-              return String(_e602).trim() !== "";
-            });
-          });
-        }
-      }, {
-        key: "isCompleteRowArray",
-        value: function isCompleteRowArray(_e603) {
-          if (!_e603.length) return !1;
-          var t = 0;
-          for (t = 0; t < _e603.length; t += 1) if (String(_e603[t] || "").trim() === "") return !1;
-          return !0;
-        }
-      }, {
-        key: "isPartiallyFilledRowArray",
-        value: function isPartiallyFilledRowArray(_e604) {
-          var t = _e604.some(function (_e605) {
-              return String(_e605 || "").trim() !== "";
-            }),
-            n = _e604.some(function (_e606) {
-              return String(_e606 || "").trim() === "";
-            });
-          return t && n;
-        }
-      }, {
-        key: "createBlankRow",
-        value: function createBlankRow(_e607) {
-          var t = {};
-          return _e607.forEach(function (_e608) {
-            t[_e608] = "";
-          }), t;
-        }
-      }, {
-        key: "parseClipboard",
-        value: function parseClipboard(_e609) {
-          return _e609.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").filter(function (_e610) {
-            return _e610.trim() !== "";
-          }).map(function (_e611) {
-            return _e611.split("\t").map(function (_e612) {
-              return _e612.trim();
-            });
-          });
-        }
-      }, {
-        key: "mapRowObjectToArray",
-        value: function mapRowObjectToArray(_e613, t) {
-          return t.map(function (t) {
-            var n = _e613[t];
-            return n == null ? "" : String(n);
-          });
-        }
-      }, {
-        key: "mapRowArrayToObject",
-        value: function mapRowArrayToObject(_e614, t) {
-          var n = {};
-          return t.forEach(function (t, r) {
-            var i;
-            n[t] = (i = _e614[r]) == null ? "" : i;
-          }), n;
-        }
-      }, {
         key: "setStoredValue",
-        value: function setStoredValue(_e615, t) {
-          this._tableValue = _e615, this.dataValue = _e615, t && this.triggerChange();
+        value: function setStoredValue(_e597, t) {
+          this._tableValue = _e597, this.dataValue = _e597, t && this.triggerChange();
         }
       }, {
         key: "syncValueFromTable",
-        value: function syncValueFromTable(_e616) {
-          var _this246 = this;
+        value: function syncValueFromTable(_e598) {
           if (!this._table) return;
           var t = this._table.getData().map(function (t) {
-            return _this246.mapRowObjectToArray(t, _e616);
-          }).filter(function (_e617) {
-            return _e617.some(function (_e618) {
-              return String(_e618).trim() !== "";
+            return zn(t, _e598);
+          }).filter(function (_e599) {
+            return _e599.some(function (_e600) {
+              return String(_e600).trim() !== "";
             });
           });
           if (!t.length) {
@@ -15144,74 +15264,25 @@ var BCFormioPasteTable = function (e, t) {
             return;
           }
           this.setStoredValue({
-            headers: _e616,
+            headers: _e598,
             rows: t
           }, !this.isBuilderPreview()), this.updateAddRowButtonVisibility();
         }
       }, {
-        key: "validateCellValue",
-        value: function validateCellValue(_e619, t, n) {
-          var r = _e619 == null ? "" : String(_e619);
-          return r === "" ? {
-            isValid: !0,
-            message: "",
-            severity: "none"
-          } : this.containsUnsafePattern(r) ? {
-            isValid: !1,
-            severity: "security",
-            message: "\"".concat(t.header, "\" contains characters that aren\u2019t supported.")
-          } : r.length > t.maxChars ? {
-            isValid: !1,
-            severity: "business",
-            message: " \"".concat(t.header, "\"  can be no longer than ").concat(t.maxChars, " characters.")
-          } : this.matchesDataType(r, t.dataType) ? {
-            isValid: !0,
-            message: "",
-            severity: "none"
-          } : {
-            isValid: !1,
-            severity: "business",
-            message: "\"".concat(t.header, "\"  must be a (").concat(this.getDataTypeLabel(t.dataType), ").")
-          };
-        }
-      }, {
-        key: "containsUnsafePattern",
-        value: function containsUnsafePattern(_e620) {
-          return /<|>|javascript:|vbscript:|data:text\/html|on\w+\s*=|<script|<img|<svg|<iframe|&lt;|&gt;/i.test(_e620);
-        }
-      }, {
-        key: "getDataTypeLabel",
-        value: function getDataTypeLabel(_e621) {
-          return _e621 === "alphabet" ? "Alphabet" : _e621 === "numeric" ? "Numeric" : _e621 === "alphanumeric" ? "Alphabet and Numeric" : "Email";
-        }
-      }, {
-        key: "matchesDataType",
-        value: function matchesDataType(_e622, t) {
-          return t === "alphabet" ? /^[A-Za-z\s'’-]+$/.test(_e622) : t === "numeric" ? /^\d+(\.\d{1,2})?$/.test(_e622) : t === "alphanumeric" ? /^[A-Za-z0-9\s'’-]+$/.test(_e622) : /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(_e622);
-        }
-      }, {
-        key: "getRuleByHeader",
-        value: function getRuleByHeader(_e623, t) {
-          var n = 0;
-          for (n = 0; n < t.length; n += 1) if (t[n].header === _e623) return t[n];
-          return null;
-        }
-      }, {
         key: "clearComponentToEmpty",
         value: function clearComponentToEmpty() {
-          var _this247 = this;
-          var _e624;
-          this._tableValue = null, this.dataValue = (_e624 = this.emptyValue) == null ? null : _e624, this.isBuilderPreview() || this.triggerChange(), this._table && (this._isMutatingTable = !0, this._table.setData([]).finally(function () {
-            _this247._isMutatingTable = !1, _this247.clearSelectedRow(), _this247.updateAddRowButtonVisibility(), _this247.updateDeleteRowButtonVisibility();
+          var _this243 = this;
+          var _e601;
+          this._tableValue = null, this.dataValue = (_e601 = this.emptyValue) == null ? null : _e601, this.isBuilderPreview() || this.triggerChange(), this._table && (this._isMutatingTable = !0, this._table.setData([]).finally(function () {
+            _this243._isMutatingTable = !1, _this243.clearSelectedRow(), _this243.updateAddRowButtonVisibility(), _this243.updateDeleteRowButtonVisibility();
           }));
         }
       }, {
         key: "createInputEditor",
-        value: function createInputEditor(_e625, t, n, r, i) {
+        value: function createInputEditor(_e602, t, n, r, i) {
           var a = document.createElement("input"),
-            o = _e625.getValue() == null ? "" : String(_e625.getValue()),
-            s = String(_e625.getField() || ""),
-            c = this.getRuleByHeader(s, i);
+            o = _e602.getValue() == null ? "" : String(_e602.getValue()),
+            s = Vn(String(_e602.getField() || ""), i);
           a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function () {
             (typeof navigator === "undefined" ? "undefined" : _typeof(navigator)) < "u" && navigator.maxTouchPoints > 0 ? a.focus() : setTimeout(function () {
               a.focus();
@@ -15221,68 +15292,67 @@ var BCFormioPasteTable = function (e, t) {
           }), a.addEventListener("click", function (e) {
             "ontouchstart" in window || e.stopPropagation();
           });
-          var l = this;
-          function u() {
+          var c = this;
+          function l() {
             var e = a.value;
             if (e === o) {
               r();
               return;
             }
-            if (c) {
-              var _t32 = l.validateCellValue(e, c, "manual");
+            if (s) {
+              var _t32 = In(e, s, "manual");
               if (!_t32.isValid) {
-                l.showError(_t32.message), _t32.severity === "security" && l.clearComponentToEmpty(), r();
+                c.showError(_t32.message), _t32.severity === "security" && c.clearComponentToEmpty(), r();
                 return;
               }
             }
-            l.hideError(), n(e);
+            c.hideError(), n(e);
           }
-          return a.addEventListener("blur", u), a.addEventListener("keydown", function (e) {
-            e.key === "Enter" && u(), e.key === "Escape" && r();
+          return a.addEventListener("blur", l), a.addEventListener("keydown", function (e) {
+            e.key === "Enter" && l(), e.key === "Escape" && r();
           }), a;
         }
       }, {
         key: "buildRowsFromValue",
-        value: function buildRowsFromValue(_e626, t, n) {
-          var _this248 = this;
-          return _e626 && Array.isArray(_e626.rows) && _e626.rows.length ? _e626.rows.slice(0, this.getMaxRows()).map(function (_e627) {
-            return _this248.mapRowArrayToObject(_e627, t);
-          }) : !n && t.length ? [this.createBlankRow(t)] : [];
+        value: function buildRowsFromValue(_e603, t, n) {
+          return _e603 && Array.isArray(_e603.rows) && _e603.rows.length ? _e603.rows.slice(0, this.getMaxRows()).map(function (_e604) {
+            return Bn(_e604, t);
+          }) : !n && t.length ? [$(t)] : [];
         }
       }, {
         key: "getInitialTableData",
-        value: function getInitialTableData(_e628, t) {
+        value: function getInitialTableData(_e605, t) {
           var n;
           var r = this.dataValue || this.getValue();
           if (r) {
             this._tableValue = r, this.dataValue = r;
-            var _n25 = this.buildRowsFromValue(r, _e628, t);
-            return !t && _n25.length === 0 ? [this.createBlankRow(_e628)] : _n25;
+            var _n25 = this.buildRowsFromValue(r, _e605, t);
+            return !t && _n25.length === 0 ? [$(_e605)] : _n25;
           }
-          return this._tableValue = null, this.dataValue = (n = this.emptyValue) == null ? null : n, !t && _e628.length ? [this.createBlankRow(_e628)] : [];
+          return this._tableValue = null, this.dataValue = (n = this.emptyValue) == null ? null : n, !t && _e605.length ? [$(_e605)] : [];
         }
       }, {
         key: "applyStoredValueToTable",
         value: function applyStoredValueToTable() {
-          var _this249 = this;
+          var _this244 = this;
           if (!this._table) return;
-          var _e629 = this.getConfiguredColumnRules().map(function (_e630) {
-              return _e630.header;
+          var _e606 = this.getConfiguredColumnRules().map(function (_e607) {
+              return _e607.header;
             }),
             t = this.isReadOnlyMode(),
             n = this.dataValue || this._tableValue,
-            r = this.buildRowsFromValue(n, _e629, t);
+            r = this.buildRowsFromValue(n, _e606, t);
           this._isMutatingTable = !0, this._table.setData(r).finally(function () {
-            _this249._isMutatingTable = !1, _this249.clearSelectedRow(), _this249.updateAddRowButtonVisibility(), _this249.updateDeleteRowButtonVisibility();
+            _this244._isMutatingTable = !1, _this244.clearSelectedRow(), _this244.updateAddRowButtonVisibility(), _this244.updateDeleteRowButtonVisibility();
           });
         }
       }, {
         key: "initTableFromConfiguredHeaders",
         value: function initTableFromConfiguredHeaders() {
-          var _this250 = this;
-          var _e631 = this.getConfiguredColumnRules(),
-            t = _e631.map(function (_e632) {
-              return _e632.header;
+          var _this245 = this;
+          var _e608 = this.getConfiguredColumnRules(),
+            t = _e608.map(function (_e609) {
+              return _e609.header;
             });
           if (!this.refs.tabulatorTarget || this._isDetached) return;
           if (!t.length) {
@@ -15292,7 +15362,7 @@ var BCFormioPasteTable = function (e, t) {
           if (this.hideError(), this._table) {
             try {
               this._table.destroy();
-            } catch (_e633) {}
+            } catch (_e610) {}
             this._table = null;
           }
           var n = this.isReadOnlyMode(),
@@ -15321,32 +15391,32 @@ var BCFormioPasteTable = function (e, t) {
                   title: t,
                   field: t,
                   editor: n ? void 0 : function (t, n, i, a) {
-                    return r.createInputEditor(t, n, i, a, _e631);
+                    return r.createInputEditor(t, n, i, a, _e608);
                   }
                 };
               })
             };
-          this._table = new jn(this.refs.tabulatorTarget, i), n || (this._table.on("cellClick", function (_e634, t) {
-            _this250.handleRowSelection(t.getRow());
-          }), this._table.on("cellTap", function (_e635, t) {
-            _this250.handleRowSelection(t.getRow()), t.edit(!0);
-          }), this._table.on("rowClick", function (_e636, t) {
-            _this250.handleRowSelection(t);
-          }), this._table.on("rowTap", function (_e637, t) {
-            _this250.handleRowSelection(t);
+          this._table = new jn(this.refs.tabulatorTarget, i), n || (this._table.on("cellClick", function (_e611, t) {
+            _this245.handleRowSelection(t.getRow());
+          }), this._table.on("cellTap", function (_e612, t) {
+            _this245.handleRowSelection(t.getRow()), t.edit(!0);
+          }), this._table.on("rowClick", function (_e613, t) {
+            _this245.handleRowSelection(t);
+          }), this._table.on("rowTap", function (_e614, t) {
+            _this245.handleRowSelection(t);
           }), this._table.on("cellEdited", function () {
-            _this250._isMutatingTable || _this250._isDetached || _this250.syncValueFromTable(t);
+            _this245._isMutatingTable || _this245._isDetached || _this245.syncValueFromTable(t);
           }), this._table.on("dataChanged", function () {
-            _this250._isMutatingTable || _this250._isDetached || _this250.syncValueFromTable(t);
+            _this245._isMutatingTable || _this245._isDetached || _this245.syncValueFromTable(t);
           })), this.clearSelectedRow(), this.updateAddRowButtonVisibility(), this.updateDeleteRowButtonVisibility();
         }
       }, {
         key: "validatePastedRows",
-        value: function validatePastedRows(_e638, t) {
+        value: function validatePastedRows(_e615, t) {
           var n = 0,
             r = 0;
-          for (n = 0; n < _e638.length; n += 1) {
-            var _a4 = _e638[n];
+          for (n = 0; n < _e615.length; n += 1) {
+            var _a4 = _e615[n];
             if (_a4.length > t.length) return {
               isValid: !1,
               severity: "business",
@@ -15354,10 +15424,9 @@ var BCFormioPasteTable = function (e, t) {
             };
             for (r = 0; r < _a4.length; r += 1) {
               var i;
-              var _e639 = t[r],
-                _n26 = (i = _a4[r]) == null ? "" : i,
-                _o6 = this.validateCellValue(_n26, _e639, "paste");
-              if (!_o6.isValid) return _o6;
+              var _e616 = t[r],
+                _n26 = In((i = _a4[r]) == null ? "" : i, _e616, "paste");
+              if (!_n26.isValid) return _n26;
             }
           }
           return {
@@ -15368,24 +15437,24 @@ var BCFormioPasteTable = function (e, t) {
         }
       }, {
         key: "appendRowsFromClipboard",
-        value: function appendRowsFromClipboard(_e640, t) {
-          var _this251 = this;
+        value: function appendRowsFromClipboard(_e617, t) {
+          var _this246 = this;
           if (!this._table) return;
           var n = this.getMaxRows(),
             r = this._table.getData().map(function (t) {
-              return _this251.mapRowArrayToObject(_this251.mapRowObjectToArray(t, _e640), _e640);
+              return Bn(zn(t, _e617), _e617);
             }),
             i = t.map(function (t) {
-              return _this251.mapRowArrayToObject(_e640.map(function (_e641, n) {
+              return Bn(_e617.map(function (_e618, n) {
                 var r;
                 return (r = t[n]) == null ? "" : r;
-              }), _e640);
+              }), _e617);
             }),
             a = r.slice(),
             o = 0,
             s = 0;
-          for (s = 0; s < a.length && o < i.length; s += 1) this.mapRowObjectToArray(a[s], _e640).every(function (_e642) {
-            return String(_e642).trim() === "";
+          for (s = 0; s < a.length && o < i.length; s += 1) zn(a[s], _e617).every(function (_e619) {
+            return String(_e619).trim() === "";
           }) && (a[s] = i[o], o += 1);
           for (; o < i.length;) a.push(i[o]), o += 1;
           if (a.length > n) {
@@ -15393,36 +15462,36 @@ var BCFormioPasteTable = function (e, t) {
             return;
           }
           this._isMutatingTable = !0, this._table.setData(a).finally(function () {
-            _this251._isMutatingTable = !1, _this251.clearSelectedRow(), _this251.syncValueFromTable(_e640), _this251.updateAddRowButtonVisibility(), _this251.updateDeleteRowButtonVisibility();
+            _this246._isMutatingTable = !1, _this246.clearSelectedRow(), _this246.syncValueFromTable(_e617), _this246.updateAddRowButtonVisibility(), _this246.updateDeleteRowButtonVisibility();
           });
         }
       }, {
         key: "updateAddRowButtonVisibility",
         value: function updateAddRowButtonVisibility() {
           if (!this.refs.addRowBtn && !this.refs.maxRowMsg) return;
-          var _e643 = this.getMaxRows();
-          (this._table ? this._table.getData() : []).length >= _e643 ? (this.refs.addRowBtn && (this.refs.addRowBtn.style.display = "none"), this.refs.maxRowMsg && (this.refs.maxRowMsg.style.display = "block")) : (this.refs.addRowBtn && (this.refs.addRowBtn.style.display = ""), this.refs.maxRowMsg && (this.refs.maxRowMsg.style.display = "none"));
+          var _e620 = this.getMaxRows();
+          (this._table ? this._table.getData() : []).length >= _e620 ? (this.refs.addRowBtn && (this.refs.addRowBtn.style.display = "none"), this.refs.maxRowMsg && (this.refs.maxRowMsg.style.display = "block")) : (this.refs.addRowBtn && (this.refs.addRowBtn.style.display = ""), this.refs.maxRowMsg && (this.refs.maxRowMsg.style.display = "none"));
         }
       }, {
         key: "clearSelectedRow",
         value: function clearSelectedRow() {
           if (this._selectedRow) try {
-            var _e644 = this._selectedRow.getElement();
-            _e644 && _e644.classList.remove("paste-table-row-selected");
-          } catch (_e645) {}
+            var _e621 = this._selectedRow.getElement();
+            _e621 && _e621.classList.remove("paste-table-row-selected");
+          } catch (_e622) {}
           this._selectedRow = null, this.updateDeleteRowButtonVisibility();
         }
       }, {
         key: "updateDeleteRowButtonVisibility",
         value: function updateDeleteRowButtonVisibility() {
           if (!this.refs.deleteRowBtn) return;
-          var _e646 = !!this._selectedRow;
-          this.refs.deleteRowBtn.style.display = !this.isReadOnlyMode() && _e646 ? "" : "none";
+          var _e623 = !!this._selectedRow;
+          this.refs.deleteRowBtn.style.display = !this.isReadOnlyMode() && _e623 ? "" : "none";
         }
       }, {
         key: "showError",
-        value: function showError(_e647) {
-          this.refs.errorMsg && (this.refs.errorMsg.textContent = _e647, this.refs.errorMsg.style.display = "block");
+        value: function showError(_e624) {
+          this.refs.errorMsg && (this.refs.errorMsg.textContent = _e624, this.refs.errorMsg.style.display = "block");
         }
       }, {
         key: "hideError",
@@ -15436,8 +15505,8 @@ var BCFormioPasteTable = function (e, t) {
         }
       }, {
         key: "setValue",
-        value: function setValue(_e648) {
-          return this._tableValue = _e648, this.dataValue = _e648, this._table && this.scheduleSafeHydrate(this._initAttemptId, 0), !0;
+        value: function setValue(_e625) {
+          return this._tableValue = _e625, this.dataValue = _e625, this._table && this.scheduleSafeHydrate(this._initAttemptId, 0), !0;
         }
       }], [{
         key: "schema",
@@ -15445,7 +15514,7 @@ var BCFormioPasteTable = function (e, t) {
           for (var _len2 = arguments.length, _e576 = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
             _e576[_key2] = arguments[_key2];
           }
-          return Mn.schema.apply(Mn, [{
+          return Gn.schema.apply(Gn, [{
             type: "pasteTable",
             label: "Paste Table",
             key: "pasteTable",
@@ -15473,110 +15542,9 @@ var BCFormioPasteTable = function (e, t) {
       }, {
         key: "editForm",
         value: function editForm() {
-          return {
-            components: [{
-              type: "tabs",
-              key: "tabs",
-              components: [{
-                label: "Display",
-                key: "display",
-                components: [{
-                  type: "textfield",
-                  key: "label",
-                  label: "Label",
-                  input: !0
-                }, {
-                  type: "textfield",
-                  key: "key",
-                  label: "Property Name",
-                  input: !0
-                }, {
-                  type: "checkbox",
-                  key: "validate.required",
-                  label: "Required",
-                  input: !0,
-                  defaultValue: !0
-                }, {
-                  type: "number",
-                  key: "maxRows",
-                  label: "Maximum number of Rows in the table",
-                  input: !0,
-                  defaultValue: 10,
-                  validate: {
-                    min: 1,
-                    integer: !0
-                  }
-                }, {
-                  type: "textfield",
-                  key: "customMessage",
-                  label: "Custom error message",
-                  input: !0,
-                  defaultValue: "Add table content to continue."
-                }, {
-                  type: "textarea",
-                  key: "userInformation",
-                  label: "User Information",
-                  input: !0,
-                  rows: 3
-                }, {
-                  type: "datagrid",
-                  key: "tableHeaders",
-                  label: "Table Column Headers",
-                  input: !0,
-                  addAnother: "Add Header",
-                  components: [{
-                    type: "textfield",
-                    key: "value",
-                    label: "Header Name",
-                    input: !0
-                  }, {
-                    type: "number",
-                    key: "maxChars",
-                    label: "Maximum characters allowed",
-                    input: !0,
-                    defaultValue: 20,
-                    validate: {
-                      min: 1,
-                      integer: !0
-                    }
-                  }, {
-                    type: "select",
-                    key: "dataType",
-                    label: "Data type allowed",
-                    input: !0,
-                    defaultValue: "alphabet",
-                    dataSrc: "values",
-                    data: {
-                      values: [{
-                        label: "Alphabet",
-                        value: "alphabet"
-                      }, {
-                        label: "Numeric",
-                        value: "numeric"
-                      }, {
-                        label: "Alphabet and Numeric",
-                        value: "alphanumeric"
-                      }, {
-                        label: "Email",
-                        value: "email"
-                      }]
-                    }
-                  }]
-                }]
-              }, {
-                label: "API",
-                key: "api",
-                components: [{
-                  type: "checkbox",
-                  key: "input",
-                  label: "Input",
-                  input: !0
-                }]
-              }]
-            }]
-          };
+          return Ln;
         }
       }]);
-    }(Mn);
-  return t.Components.addComponent("pasteTable", $), e.PasteTableComponent = $, e.default = $, e;
+    }(Gn);
+  return t.Components.addComponent("pasteTable", Kn), e.PasteTableComponent = Kn, e.default = Kn, e;
 }({}, Formio);

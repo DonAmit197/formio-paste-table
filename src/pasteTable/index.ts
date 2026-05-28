@@ -3,57 +3,26 @@
 import { Components } from 'formiojs';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import 'tabulator-tables/dist/css/tabulator.min.css';
-
-type PasteTableValue = {
-  headers: string[];
-  rows: string[][];
-} | null;
-
-type PasteTableRefs = {
-  labelEl?: HTMLLabelElement;
-  userInfoEl?: HTMLDivElement;
-  infoMsg?: HTMLDivElement;
-  errorMsg?: HTMLDivElement;
-  tabulatorTarget?: HTMLDivElement;
-  addRowBtn?: HTMLButtonElement;
-  deleteRowBtn?: HTMLButtonElement;
-  maxRowMsg?: HTMLDivElement;
-  deleteHint?: HTMLDivElement;
-};
-
-type PasteTableDataType = 'alphabet' | 'numeric' | 'alphanumeric' | 'email';
-
-type PasteTableHeaderSetting = {
-  value?: string;
-  maxChars?: number;
-  dataType?: PasteTableDataType;
-};
-
-type PasteTableColumnRule = {
-  header: string;
-  maxChars: number;
-  dataType: PasteTableDataType;
-};
-
-type PasteTableSchema = {
-  label?: string;
-  tableHeaders?: Array<PasteTableHeaderSetting | string>;
-  maxRows?: number;
-  customMessage?: string;
-  userInformation?: string;
-  validate?: {
-    required?: boolean;
-    [key: string]: any;
-  };
-  disabled?: boolean;
-  [key: string]: any;
-};
-
-type CellValidationResult = {
-  isValid: boolean;
-  message: string;
-  severity: 'none' | 'business' | 'security';
-};
+import type {
+  PasteTableValue,
+  PasteTableRefs,
+  PasteTableDataType,
+  PasteTableColumnRule,
+  PasteTableSchema,
+  CellValidationResult,
+} from './types';
+import { isValidDataType, validateCellValue } from './validation';
+import { pasteTableEditForm } from './editForm';
+import {
+  parseClipboard,
+  createBlankRow,
+  mapRowObjectToArray,
+  mapRowArrayToObject,
+  getRuleByHeader,
+  isCompleteRowArray,
+  isPartiallyFilledRowArray,
+  getEnteredRowsFromValue,
+} from './rowUtils';
 
 const BaseComponent = Components.components.base;
 
@@ -132,123 +101,7 @@ export default class PasteTableComponent
   }
 
   static editForm() {
-    return {
-      components: [
-        {
-          type: 'tabs',
-          key: 'tabs',
-          components: [
-            {
-              label: 'Display',
-              key: 'display',
-              components: [
-                {
-                  type: 'textfield',
-                  key: 'label',
-                  label: 'Label',
-                  input: true,
-                },
-                {
-                  type: 'textfield',
-                  key: 'key',
-                  label: 'Property Name',
-                  input: true,
-                },
-                {
-                  type: 'checkbox',
-                  key: 'validate.required',
-                  label: 'Required',
-                  input: true,
-                  defaultValue: true,
-                },
-                {
-                  type: 'number',
-                  key: 'maxRows',
-                  label: 'Maximum number of Rows in the table',
-                  input: true,
-                  defaultValue: 10,
-                  validate: {
-                    min: 1,
-                    integer: true,
-                  },
-                },
-                {
-                  type: 'textfield',
-                  key: 'customMessage',
-                  label: 'Custom error message',
-                  input: true,
-                  defaultValue: 'Add table content to continue.',
-                },
-                {
-                  type: 'textarea',
-                  key: 'userInformation',
-                  label: 'User Information',
-                  input: true,
-                  rows: 3,
-                },
-                {
-                  type: 'datagrid',
-                  key: 'tableHeaders',
-                  label: 'Table Column Headers',
-                  input: true,
-                  addAnother: 'Add Header',
-                  components: [
-                    {
-                      type: 'textfield',
-                      key: 'value',
-                      label: 'Header Name',
-                      input: true,
-                    },
-                    {
-                      type: 'number',
-                      key: 'maxChars',
-                      label: 'Maximum characters allowed',
-                      input: true,
-                      defaultValue: 20,
-                      validate: {
-                        min: 1,
-                        integer: true,
-                      },
-                    },
-                    {
-                      type: 'select',
-                      key: 'dataType',
-                      label: 'Data type allowed',
-                      input: true,
-                      defaultValue: 'alphabet',
-                      dataSrc: 'values',
-                      data: {
-                        values: [
-                          { label: 'Alphabet', value: 'alphabet' },
-                          { label: 'Numeric', value: 'numeric' },
-                          {
-                            label: 'Alphabet and Numeric',
-                            value: 'alphanumeric',
-                          },
-                          { label: 'Email', value: 'email' },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              label: 'API',
-              key: 'api',
-              components: [
-                {
-                  type: 'checkbox',
-                  key: 'input',
-                  label: 'Input',
-                  input: true,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
+    return pasteTableEditForm;
   }
 
   get defaultValue() {
@@ -328,7 +181,7 @@ export default class PasteTableComponent
           .trim()
           .toLowerCase();
 
-        const dataType = this.isValidDataType(normalizedDataType)
+        const dataType = isValidDataType(normalizedDataType)
           ? normalizedDataType
           : 'alphabet';
 
@@ -339,15 +192,6 @@ export default class PasteTableComponent
         };
       })
       .filter(Boolean) as PasteTableColumnRule[];
-  }
-
-  private isValidDataType(value: any): value is PasteTableDataType {
-    return (
-      value === 'alphabet' ||
-      value === 'numeric' ||
-      value === 'alphanumeric' ||
-      value === 'email'
-    );
   }
 
   render() {
@@ -372,7 +216,7 @@ export default class PasteTableComponent
           userInformation
             ? `<div class="paste-table-userinfo" ref="userInfoEl">${userInformation}</div>`
             : ''
-        }       
+        }
 
         <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
 
@@ -492,6 +336,7 @@ export default class PasteTableComponent
       e.stopPropagation();
     }
   };
+
   private handleDeleteButtonKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Delete') {
       e.preventDefault();
@@ -566,10 +411,8 @@ export default class PasteTableComponent
   }
 
   isEmpty(value: PasteTableValue) {
-    const enteredRows = this.getEnteredRowsFromValue(value);
-    const completeRows = enteredRows.filter((row) =>
-      this.isCompleteRowArray(row),
-    );
+    const enteredRows = getEnteredRowsFromValue(value);
+    const completeRows = enteredRows.filter((row) => isCompleteRowArray(row));
 
     return completeRows.length === 0;
   }
@@ -613,12 +456,12 @@ export default class PasteTableComponent
       this.component.validate && this.component.validate.required
     );
 
-    const enteredRows = this.getEnteredRowsFromValue(value);
+    const enteredRows = getEnteredRowsFromValue(value);
     const hasAtLeastOneCompleteRow = enteredRows.some((row) =>
-      this.isCompleteRowArray(row),
+      isCompleteRowArray(row),
     );
     const hasIncompleteRows = enteredRows.some((row) =>
-      this.isPartiallyFilledRowArray(row),
+      isPartiallyFilledRowArray(row),
     );
 
     if (required && !hasAtLeastOneCompleteRow) {
@@ -630,83 +473,6 @@ export default class PasteTableComponent
     }
 
     return '';
-  }
-
-  private getEnteredRowsFromValue(value: PasteTableValue): string[][] {
-    if (!value || !Array.isArray(value.rows)) {
-      return [];
-    }
-
-    return value.rows
-      .map((row) => {
-        if (!Array.isArray(row)) return [];
-        return row.map((cell) => {
-          return cell == null ? '' : String(cell);
-        });
-      })
-      .filter((row) => row.some((cell) => String(cell).trim() !== ''));
-  }
-
-  private isCompleteRowArray(row: string[]): boolean {
-    if (!row.length) return false;
-
-    let i = 0;
-    for (i = 0; i < row.length; i += 1) {
-      if (String(row[i] || '').trim() === '') {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  private isPartiallyFilledRowArray(row: string[]): boolean {
-    const hasAny = row.some((cell) => String(cell || '').trim() !== '');
-    const hasAnyEmpty = row.some((cell) => String(cell || '').trim() === '');
-
-    return hasAny && hasAnyEmpty;
-  }
-
-  private createBlankRow(headers: string[]): Record<string, string> {
-    const row: Record<string, string> = {};
-
-    headers.forEach((header) => {
-      row[header] = '';
-    });
-
-    return row;
-  }
-
-  private parseClipboard(text: string): string[][] {
-    return text
-      .replace(/\r\n/g, '\n')
-      .replace(/\r/g, '\n')
-      .split('\n')
-      .filter((line) => line.trim() !== '')
-      .map((line) => line.split('\t').map((cell) => cell.trim()));
-  }
-
-  private mapRowObjectToArray(
-    rowObj: Record<string, any>,
-    headers: string[],
-  ): string[] {
-    return headers.map((header) => {
-      const value = rowObj[header];
-      return value == null ? '' : String(value);
-    });
-  }
-
-  private mapRowArrayToObject(
-    row: string[],
-    headers: string[],
-  ): Record<string, string> {
-    const record: Record<string, string> = {};
-
-    headers.forEach((header, index) => {
-      record[header] = row[index] ?? '';
-    });
-
-    return record;
   }
 
   private setStoredValue(value: PasteTableValue, emitChange: boolean) {
@@ -724,7 +490,7 @@ export default class PasteTableComponent
     const tableData = this._table.getData() as Record<string, any>[];
 
     const rows = tableData
-      .map((rowObj) => this.mapRowObjectToArray(rowObj, headers))
+      .map((rowObj) => mapRowObjectToArray(rowObj, headers))
       .filter((row) => row.some((cell) => String(cell).trim() !== ''));
 
     if (!rows.length) {
@@ -747,109 +513,6 @@ export default class PasteTableComponent
       !this.isBuilderPreview(),
     );
     this.updateAddRowButtonVisibility();
-  }
-
-  /**
-   * Security patterns should trigger hard-clear behavior.
-   * Business-rule mismatches should not.
-   */
-  private validateCellValue(
-    value: string,
-    rule: PasteTableColumnRule,
-    mode: 'paste' | 'manual',
-  ): CellValidationResult {
-    const trimmedValue = value == null ? '' : String(value);
-
-    if (trimmedValue === '') {
-      return { isValid: true, message: '', severity: 'none' };
-    }
-
-    if (this.containsUnsafePattern(trimmedValue)) {
-      return {
-        isValid: false,
-        severity: 'security',
-        message:
-          mode === 'paste'
-            ? `"${rule.header}" contains characters that aren’t supported.`
-            : `"${rule.header}" contains characters that aren’t supported.`,
-      };
-    }
-
-    if (trimmedValue.length > rule.maxChars) {
-      return {
-        isValid: false,
-        severity: 'business',
-        message:
-          mode === 'paste'
-            ? ` "${rule.header}"  can be no longer than ${rule.maxChars} characters.`
-            : ` "${rule.header}"  can be no longer than ${rule.maxChars} characters.`,
-      };
-    }
-
-    if (!this.matchesDataType(trimmedValue, rule.dataType)) {
-      return {
-        isValid: false,
-        severity: 'business',
-        message:
-          mode === 'paste'
-            ? `"${rule.header}"  must be a (${this.getDataTypeLabel(rule.dataType)}).`
-            : `"${rule.header}"  must be a (${this.getDataTypeLabel(rule.dataType)}).`,
-      };
-    }
-
-    return { isValid: true, message: '', severity: 'none' };
-  }
-
-  private containsUnsafePattern(value: string): boolean {
-    return /<|>|javascript:|vbscript:|data:text\/html|on\w+\s*=|<script|<img|<svg|<iframe|&lt;|&gt;/i.test(
-      value,
-    );
-  }
-
-  private getDataTypeLabel(dataType: PasteTableDataType): string {
-    if (dataType === 'alphabet') return 'Alphabet';
-    if (dataType === 'numeric') return 'Numeric';
-    if (dataType === 'alphanumeric') return 'Alphabet and Numeric';
-    return 'Email';
-  }
-
-  private matchesDataType(
-    value: string,
-    dataType: PasteTableDataType,
-  ): boolean {
-    const alphabetRegex = /^[A-Za-z\s'’-]+$/;
-    const numericRegex = /^\d+(\.\d{1,2})?$/;
-    const alphaNumericRegex = /^[A-Za-z0-9\s'’-]+$/;
-    const emailRegex = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
-
-    if (dataType === 'alphabet') {
-      return alphabetRegex.test(value);
-    }
-
-    if (dataType === 'numeric') {
-      return numericRegex.test(value);
-    }
-
-    if (dataType === 'alphanumeric') {
-      return alphaNumericRegex.test(value);
-    }
-
-    return emailRegex.test(value);
-  }
-
-  private getRuleByHeader(
-    header: string,
-    rules: PasteTableColumnRule[],
-  ): PasteTableColumnRule | null {
-    let i = 0;
-
-    for (i = 0; i < rules.length; i += 1) {
-      if (rules[i].header === header) {
-        return rules[i];
-      }
-    }
-
-    return null;
   }
 
   /**
@@ -888,7 +551,7 @@ export default class PasteTableComponent
     const input = document.createElement('input');
     const currentValue = cell.getValue() == null ? '' : String(cell.getValue());
     const field = String(cell.getField() || '');
-    const rule = this.getRuleByHeader(field, rules);
+    const rule = getRuleByHeader(field, rules);
 
     input.setAttribute('type', 'text');
     input.value = currentValue;
@@ -938,7 +601,7 @@ export default class PasteTableComponent
       }
 
       if (rule) {
-        const validation = self.validateCellValue(nextValue, rule, 'manual');
+        const validation = validateCellValue(nextValue, rule, 'manual');
 
         if (!validation.isValid) {
           self.showError(validation.message);
@@ -979,11 +642,11 @@ export default class PasteTableComponent
     if (value && Array.isArray(value.rows) && value.rows.length) {
       return value.rows
         .slice(0, this.getMaxRows())
-        .map((row) => this.mapRowArrayToObject(row, headers));
+        .map((row) => mapRowArrayToObject(row, headers));
     }
 
     if (!isReadOnly && headers.length) {
-      return [this.createBlankRow(headers)];
+      return [createBlankRow(headers)];
     }
 
     return [];
@@ -1007,7 +670,7 @@ export default class PasteTableComponent
       );
 
       if (!isReadOnly && seededRows.length === 0) {
-        return [this.createBlankRow(headers)];
+        return [createBlankRow(headers)];
       }
 
       return seededRows;
@@ -1017,7 +680,7 @@ export default class PasteTableComponent
     this.dataValue = (this as any).emptyValue ?? null;
 
     if (!isReadOnly && headers.length) {
-      return [this.createBlankRow(headers)];
+      return [createBlankRow(headers)];
     }
 
     return [];
@@ -1153,7 +816,6 @@ export default class PasteTableComponent
         if (this._isMutatingTable || this._isDetached) return;
         // normalizeTableRows calls setData which re-renders the whole table,
         // destroying any editor that just opened on an adjacent cell.
-        // a change done
         this.syncValueFromTable(headers);
       });
 
@@ -1183,7 +845,7 @@ export default class PasteTableComponent
 
     e.preventDefault();
 
-    const parsedRows = this.parseClipboard(text);
+    const parsedRows = parseClipboard(text);
 
     if (!parsedRows.length) {
       this.showError('Please paste at least one row of data.');
@@ -1234,7 +896,7 @@ export default class PasteTableComponent
       for (colIndex = 0; colIndex < row.length; colIndex += 1) {
         const rule = rules[colIndex];
         const value = row[colIndex] ?? '';
-        const validation = this.validateCellValue(value, rule, 'paste');
+        const validation = validateCellValue(value, rule, 'paste');
 
         if (!validation.isValid) {
           return validation;
@@ -1252,14 +914,11 @@ export default class PasteTableComponent
     const existingRows = this._table.getData() as Record<string, any>[];
 
     const normalizedExistingRows = existingRows.map((rowObj) =>
-      this.mapRowArrayToObject(
-        this.mapRowObjectToArray(rowObj, headers),
-        headers,
-      ),
+      mapRowArrayToObject(mapRowObjectToArray(rowObj, headers), headers),
     );
 
     const normalizedIncomingRows = dataRows.map((row) =>
-      this.mapRowArrayToObject(
+      mapRowArrayToObject(
         headers.map((_, index) => row[index] ?? ''),
         headers,
       ),
@@ -1276,10 +935,7 @@ export default class PasteTableComponent
       incomingIndex < normalizedIncomingRows.length;
       rowIndex += 1
     ) {
-      const currentRowArray = this.mapRowObjectToArray(
-        nextRows[rowIndex],
-        headers,
-      );
+      const currentRowArray = mapRowObjectToArray(nextRows[rowIndex], headers);
       const isBlankRow = currentRowArray.every(
         (cell) => String(cell).trim() === '',
       );
@@ -1337,6 +993,7 @@ export default class PasteTableComponent
 
     this.updateDeleteRowButtonVisibility();
   };
+
   private handleAddRow = () => {
     const rules = this.getConfiguredColumnRules();
     const headers = rules.map((r) => r.header);
@@ -1353,7 +1010,7 @@ export default class PasteTableComponent
       return;
     }
 
-    this._table.addRow(this.createBlankRow(headers)).then(() => {
+    this._table.addRow(createBlankRow(headers)).then(() => {
       this.updateAddRowButtonVisibility();
       this.updateDeleteRowButtonVisibility();
     });
