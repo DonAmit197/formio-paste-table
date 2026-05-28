@@ -15225,9 +15225,7 @@ var BCFormioPasteTable = function (e, t) {
             o = _e626.getValue() == null ? "" : String(_e626.getValue()),
             s = String(_e626.getField() || ""),
             c = this.getRuleByHeader(s, i);
-          a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function () {
-            a.focus();
-          }), a.addEventListener("mousedown", function (e) {
+          a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function () {}), a.addEventListener("mousedown", function (e) {
             "ontouchstart" in window || e.stopPropagation();
           }), a.addEventListener("click", function (e) {
             "ontouchstart" in window || e.stopPropagation();
@@ -15341,7 +15339,7 @@ var BCFormioPasteTable = function (e, t) {
               columns: a
             };
           this._table = new jn(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", function (_e635, t) {
-            o || _this251.handleRowSelection(t.getRow());
+            o || (console.log("cell click"), _this251.handleRowSelection(t.getRow()));
           }), this._table.on("cellTap", function (_e636, t) {
             o && t.edit(!0);
           }), this._table.on("rowClick", function (_e637, t) {

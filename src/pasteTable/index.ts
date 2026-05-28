@@ -925,7 +925,7 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      input.focus();
+      //input.focus();
     });
 
     input.addEventListener('mousedown', function (e) {
@@ -1147,7 +1147,7 @@ export default class PasteTableComponent
         if (isTouchDevice) {
           return;
         }
-
+        console.log('cell click');
         this.handleRowSelection(cell.getRow());
       });
 
