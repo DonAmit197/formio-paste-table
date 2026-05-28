@@ -15226,9 +15226,7 @@ var BCFormioPasteTable = function (e, t) {
             s = String(_e626.getField() || ""),
             c = this.getRuleByHeader(s, i);
           a.setAttribute("type", "text"), a.value = o, a.style.padding = "8px 10px", a.style.minHeight = "36px", a.style.width = "100%", a.style.height = "100%", a.style.boxSizing = "border-box", a.style.border = "none", a.style.outline = "none", a.style.background = "transparent", t(function () {
-            (typeof navigator === "undefined" ? "undefined" : _typeof(navigator)) < "u" && navigator.maxTouchPoints > 0 ? a.focus() : setTimeout(function () {
-              a.focus();
-            }, 0);
+            a.focus();
           }), a.addEventListener("mousedown", function (e) {
             "ontouchstart" in window || e.stopPropagation();
           }), a.addEventListener("click", function (e) {
@@ -15325,8 +15323,7 @@ var BCFormioPasteTable = function (e, t) {
               data: i,
               layout: "fitDataStretch",
               renderHorizontal: "basic",
-              selectableRange: !1,
-              editTriggerEvent: "dblclick",
+              editTriggerEvent: "click",
               clipboard: !1,
               rowHeader: {
                 resizable: !1,
@@ -15344,7 +15341,7 @@ var BCFormioPasteTable = function (e, t) {
               columns: a
             };
           this._table = new jn(this.refs.tabulatorTarget, s), n || (this._table.on("cellClick", function (_e635, t) {
-            o || (_this251.handleRowSelection(t.getRow()), t.edit(!0));
+            o || _this251.handleRowSelection(t.getRow());
           }), this._table.on("cellTap", function (_e636, t) {
             o && t.edit(!0);
           }), this._table.on("rowClick", function (_e637, t) {

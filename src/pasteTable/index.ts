@@ -925,15 +925,7 @@ export default class PasteTableComponent
     input.style.background = 'transparent';
 
     onRendered(function () {
-      const isTouch =
-        typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
-      if (isTouch) {
-        input.focus();
-      } else {
-        setTimeout(() => {
-          input.focus();
-        }, 0);
-      }
+      input.focus();
     });
 
     input.addEventListener('mousedown', function (e) {
@@ -1127,9 +1119,9 @@ export default class PasteTableComponent
       // selectableRangeClearCells: false,
       // selectableRangeAutoFocus: false,
       // selectableRangeBlurEditOnNavigate: false,
-      selectableRange: false,
-      // editTriggerEvent: 'click',
-      editTriggerEvent: 'dblclick',
+      //selectableRange: false,
+      editTriggerEvent: 'click',
+      // editTriggerEvent: 'dblclick',
       clipboard: false,
       rowHeader: {
         resizable: false,
@@ -1157,7 +1149,6 @@ export default class PasteTableComponent
         }
 
         this.handleRowSelection(cell.getRow());
-        cell.edit(true);
       });
 
       this._table.on('cellTap', (_e: any, cell: any) => {
