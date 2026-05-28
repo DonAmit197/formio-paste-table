@@ -1091,9 +1091,6 @@ export default class PasteTableComponent
       };
     });
 
-    const isTouchDevice =
-      typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
-
     const tableOptions: any = {
       data: initialData,
       layout: 'fitDataStretch',
@@ -1105,8 +1102,8 @@ export default class PasteTableComponent
       // selectableRangeAutoFocus: false,
       // selectableRangeBlurEditOnNavigate: false,
       //selectableRange: false,
-      // editTriggerEvent: 'click',
-      editTriggerEvent: 'dblclick',
+      editTriggerEvent: 'click',
+      // editTriggerEvent: 'dblclick',
       clipboard: false,
       rowHeader: {
         resizable: false,
@@ -1129,25 +1126,22 @@ export default class PasteTableComponent
 
     if (!isReadOnly) {
       this._table.on('cellClick', (_e: any, cell: any) => {
-        if (isTouchDevice) {
-          return;
-        }
-
+        // No isTouchDevice guard needed — handleCaptureClick suppresses touch-sourced
+        // clicks in capture phase, so cellClick only fires for mouse/pen inputs.
         this.handleRowSelection(cell.getRow());
         // const clickedCell = cell;
         // setTimeout(() => clickedCell.edit(true), 0);
       });
 
       this._table.on('cellTap', (_e: any, cell: any) => {
-        if (!isTouchDevice) {
-          return;
-        }
-
+        // Tabulator only fires cellTap for genuine touch events — no isTouchDevice guard needed.
+        // Select the row (shows Delete button) and open the editor.
+        this.handleRowSelection(cell.getRow());
         cell.edit(true);
       });
 
       this._table.on('rowClick', (_e: any, row: any) => {
-        if (isTouchDevice) return;
+        // No isTouchDevice guard — touch row clicks are suppressed by handleCaptureClick.
         this.handleRowSelection(row);
       });
 
