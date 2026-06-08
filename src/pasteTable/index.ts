@@ -3,6 +3,7 @@
 import { Components } from 'formiojs';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import './pasteTable.css';
 import type {
   PasteTableValue,
   PasteTableRefs,
@@ -155,6 +156,21 @@ export default class PasteTableComponent
     return info && String(info).trim() ? String(info).trim() : '';
   }
 
+  private applyTableAriaLabel(): void {
+    if (!this.refs.tabulatorTarget) return;
+    const label = this.component.label ? String(this.component.label) : '';
+    const info = this.getUserInformation();
+    const ariaLabel = [label, info].filter(Boolean).join(', ');
+    if (!ariaLabel) return;
+    // Tabulator places role="grid" on the main .tabulator element and, in some
+    // versions, on .tabulator-tableholder. We stamp both so screen readers pick
+    // up the component label + user information when the user tabs into the grid.
+    const tabulatorEl = this.refs.tabulatorTarget.querySelector('.tabulator');
+    const tableholderEl = this.refs.tabulatorTarget.querySelector('.tabulator-tableholder');
+    if (tabulatorEl) tabulatorEl.setAttribute('aria-label', ariaLabel);
+    if (tableholderEl) tableholderEl.setAttribute('aria-label', ariaLabel);
+  }
+
   private getConfiguredColumnRules(): PasteTableColumnRule[] {
     return (this.component.tableHeaders || [])
       .map((item) => {
@@ -218,7 +234,7 @@ export default class PasteTableComponent
             : ''
         }
 
-        <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
+        <div class="paste-error text-danger" ref="errorMsg" role="alert" aria-atomic="true"></div>
 
         <div class="paste-table-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <div ref="tabulatorTarget"></div>
@@ -334,6 +350,25 @@ export default class PasteTableComponent
     if (e.key === 'Delete') {
       e.preventDefault();
       e.stopPropagation();
+    }
+
+    // Escape when NOT inside an editing input: move keyboard focus to the
+    // Add Row button so the user can exit the grid without using the mouse.
+    // When an editor input is active, Escape is consumed by createInputEditor
+    // (calls cancel()) before bubbling, but by the time this handler fires
+    // the input is already removed, so we check the active element.
+    if (e.key === 'Escape') {
+      const activeEl = document.activeElement;
+      const isEditingInput =
+        activeEl instanceof HTMLInputElement &&
+        !!this.refs.tabulatorTarget?.contains(activeEl);
+      if (!isEditingInput && !this.isReadOnlyMode()) {
+        const addRowBtn = this.refs.addRowBtn;
+        if (addRowBtn && addRowBtn.style.display !== 'none') {
+          e.preventDefault();
+          addRowBtn.focus();
+        }
+      }
     }
   };
 
@@ -768,6 +803,14 @@ export default class PasteTableComponent
       editTriggerEvent: 'click',
       // editTriggerEvent: 'dblclick',
       clipboard: false,
+      // Tabulator built-in accessibility: adds role="grid", role="row",
+      // role="gridcell", role="columnheader", aria-rowindex, aria-colindex.
+      accessibility: true,
+      // Tabulator built-in keyboard navigation: arrow keys move between cells,
+      // Enter starts editing the active cell, Escape cancels editing.
+      // Implements the roving tabIndex pattern so Tab exits the grid to the
+      // Add Row button rather than looping through every cell.
+      keybindings: true,
       rowHeader: {
         resizable: false,
         frozen: true,
@@ -786,6 +829,14 @@ export default class PasteTableComponent
       columns,
     };
     this._table = new Tabulator(this.refs.tabulatorTarget, tableOptions);
+
+    // After the grid DOM is ready, stamp an aria-label on both the Tabulator
+    // root element (role="grid") and the tableholder (role="grid" in some
+    // Tabulator versions) so screen readers announce the component label and
+    // user information when the user tabs into the table.
+    this._table.on('tableBuilt', () => {
+      this.applyTableAriaLabel();
+    });
 
     if (!isReadOnly) {
       this._table.on('cellClick', (_e: any, cell: any) => {
@@ -1086,8 +1137,11 @@ export default class PasteTableComponent
 
   private showError(msg: string) {
     if (!this.refs.errorMsg) return;
-    this.refs.errorMsg.textContent = msg;
+    // Make element visible before setting text so role="alert" live region
+    // fires correctly in all screen readers (content change must happen while
+    // the element is in the accessibility tree).
     this.refs.errorMsg.style.display = 'block';
+    this.refs.errorMsg.textContent = msg;
   }
 
   private hideError() {

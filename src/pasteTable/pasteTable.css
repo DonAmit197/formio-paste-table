@@ -1,0 +1,42 @@
+/** @format */
+
+/*
+ * UK GOV Design System (GDS) yellow focus ring for keyboard-focused Tabulator cells.
+ * Overrides Tabulator's default outline:none on cells.
+ */
+.paste-table-wrap .tabulator-row .tabulator-cell:focus,
+.paste-table-wrap .tabulator-row .tabulator-cell:focus-visible {
+  outline: 3px solid #ffdd00 !important;
+  outline-offset: 0 !important;
+  box-shadow: inset 0 0 0 2px #0b0c0c !important;
+}
+
+/*
+ * Override Tabulator's blue #1d68cd editing-cell border with GDS focus style
+ * so the visual indication is consistent between navigation and editing states.
+ */
+.paste-table-wrap .tabulator-row .tabulator-cell.tabulator-editing {
+  border: 2px solid #0b0c0c !important;
+  outline: 3px solid #ffdd00 !important;
+  outline-offset: 0 !important;
+}
+
+/*
+ * The tableholder gets tabIndex=0 from Tabulator's accessibility module.
+ * We show focus on individual cells, not the container, so suppress its ring.
+ */
+.paste-table-wrap .tabulator .tabulator-tableholder:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Error div: kept permanently in the DOM (as a live region) so screen readers
+ * register the aria-live attribute before any error fires. Hidden via :empty
+ * so it is invisible when there is no message, without using display:none
+ * which would remove it from the accessibility tree.
+ * showError / hideError still set inline display for browsers that ignore :empty.
+ */
+.paste-table-root .paste-error:empty {
+  display: none;
+}

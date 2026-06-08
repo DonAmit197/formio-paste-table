@@ -1,5 +1,6 @@
 /** @format */
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import './pasteTable.css';
 import type { PasteTableValue, PasteTableRefs, PasteTableSchema } from './types';
 interface BaseComponentInstance {
     component: PasteTableSchema;
@@ -149,6 +150,7 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     private getMaxRows;
     private getValidationMessage;
     private getUserInformation;
+    private applyTableAriaLabel;
     private getConfiguredColumnRules;
     render(): string;
     attach(element: HTMLElement): void | Promise<void>;

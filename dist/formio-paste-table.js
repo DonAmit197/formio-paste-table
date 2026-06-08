@@ -10399,7 +10399,14 @@ var Wn = e.components.base, Gn = class e extends Wn {
 		}), i(this, "handleCaptureClick", (e) => {
 			this._lastPointerType === "touch" && (this._lastPointerType = "", e.stopPropagation(), e.stopImmediatePropagation());
 		}), i(this, "handleTableKeyDown", (e) => {
-			e.key === "Delete" && (e.preventDefault(), e.stopPropagation());
+			if (e.key === "Delete" && (e.preventDefault(), e.stopPropagation()), e.key === "Escape") {
+				var t;
+				let n = document.activeElement;
+				if (!(n instanceof HTMLInputElement && (t = this.refs.tabulatorTarget) != null && t.contains(n)) && !this.isReadOnlyMode()) {
+					let t = this.refs.addRowBtn;
+					t && t.style.display !== "none" && (e.preventDefault(), t.focus());
+				}
+			}
 		}), i(this, "handleDeleteButtonKeyDown", (e) => {
 			if (e.key === "Delete") {
 				e.preventDefault(), e.stopPropagation();
@@ -10513,6 +10520,13 @@ var Wn = e.components.base, Gn = class e extends Wn {
 		let e = this.component.userInformation;
 		return e && String(e).trim() ? String(e).trim() : "";
 	}
+	applyTableAriaLabel() {
+		if (!this.refs.tabulatorTarget) return;
+		let e = [this.component.label ? String(this.component.label) : "", this.getUserInformation()].filter(Boolean).join(", ");
+		if (!e) return;
+		let t = this.refs.tabulatorTarget.querySelector(".tabulator"), n = this.refs.tabulatorTarget.querySelector(".tabulator-tableholder");
+		t && t.setAttribute("aria-label", e), n && n.setAttribute("aria-label", e);
+	}
 	getConfiguredColumnRules() {
 		return (this.component.tableHeaders || []).map((e) => {
 			if (typeof e == "string") {
@@ -10542,7 +10556,7 @@ var Wn = e.components.base, Gn = class e extends Wn {
 
         ${n ? `<div class="paste-table-userinfo" ref="userInfoEl">${n}</div>` : ""}
 
-        <div class="paste-error text-danger" ref="errorMsg" style="display:none;"></div>
+        <div class="paste-error text-danger" ref="errorMsg" role="alert" aria-atomic="true"></div>
 
         <div class="paste-table-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <div ref="tabulatorTarget"></div>
@@ -10722,6 +10736,8 @@ var Wn = e.components.base, Gn = class e extends Wn {
 			renderHorizontal: "basic",
 			editTriggerEvent: "click",
 			clipboard: !1,
+			accessibility: !0,
+			keybindings: !0,
 			rowHeader: {
 				resizable: !1,
 				frozen: !0,
@@ -10743,7 +10759,9 @@ var Wn = e.components.base, Gn = class e extends Wn {
 				}
 			}))
 		};
-		this._table = new An(this.refs.tabulatorTarget, i), n || (this._table.on("cellClick", (e, t) => {
+		this._table = new An(this.refs.tabulatorTarget, i), this._table.on("tableBuilt", () => {
+			this.applyTableAriaLabel();
+		}), n || (this._table.on("cellClick", (e, t) => {
 			this.handleRowSelection(t.getRow());
 		}), this._table.on("cellTap", (e, t) => {
 			this.handleRowSelection(t.getRow()), t.edit(!0);
@@ -10812,7 +10830,7 @@ var Wn = e.components.base, Gn = class e extends Wn {
 		this.refs.deleteRowBtn.style.display = !this.isReadOnlyMode() && e ? "" : "none";
 	}
 	showError(e) {
-		this.refs.errorMsg && (this.refs.errorMsg.textContent = e, this.refs.errorMsg.style.display = "block");
+		this.refs.errorMsg && (this.refs.errorMsg.style.display = "block", this.refs.errorMsg.textContent = e);
 	}
 	hideError() {
 		this.refs.errorMsg && (this.refs.errorMsg.textContent = "", this.refs.errorMsg.style.display = "none");
