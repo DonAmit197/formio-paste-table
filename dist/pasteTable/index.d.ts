@@ -151,6 +151,8 @@ export default class PasteTableComponent extends PasteTableComponent_base implem
     private getValidationMessage;
     private getUserInformation;
     private applyTableAriaLabel;
+    private applyTabIndexToCells;
+    private focusAdjacentCell;
     private getConfiguredColumnRules;
     render(): string;
     attach(element: HTMLElement): void | Promise<void>;

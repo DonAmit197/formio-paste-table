@@ -171,6 +171,45 @@ export default class PasteTableComponent
     if (tableholderEl) tableholderEl.setAttribute('aria-label', ariaLabel);
   }
 
+  private applyTabIndexToCells(): void {
+    if (!this.refs.tabulatorTarget || this.isReadOnlyMode()) return;
+    // Give every editable data cell a tabIndex so the browser's Tab key
+    // moves focus from cell to cell. Frozen cells (row-number column) are
+    // intentionally skipped — they are not editable.
+    const cells = this.refs.tabulatorTarget.querySelectorAll<HTMLElement>(
+      '.tabulator-row:not(.tabulator-calcs) .tabulator-cell:not(.tabulator-frozen)',
+    );
+    cells.forEach((cell) => {
+      cell.tabIndex = 0;
+    });
+  }
+
+  private focusAdjacentCell(currentCell: any, reverse: boolean): void {
+    if (!this.refs.tabulatorTarget) return;
+    const allCells = Array.from(
+      this.refs.tabulatorTarget.querySelectorAll<HTMLElement>(
+        '.tabulator-row:not(.tabulator-calcs) .tabulator-cell:not(.tabulator-frozen)',
+      ),
+    );
+    const currentEl = currentCell.getElement() as HTMLElement;
+    const idx = allCells.indexOf(currentEl);
+    if (idx === -1) return;
+    const nextIdx = reverse ? idx - 1 : idx + 1;
+    if (nextIdx >= 0 && nextIdx < allCells.length) {
+      // setTimeout lets Tabulator finish tearing down the current editor
+      // before the next cell receives focus and opens its own editor.
+      setTimeout(() => allCells[nextIdx].focus(), 0);
+    } else if (!reverse) {
+      // Past the last cell — move focus to Add Row button if visible.
+      const addBtn = this.refs.addRowBtn;
+      if (addBtn && addBtn.style.display !== 'none') {
+        setTimeout(() => addBtn.focus(), 0);
+      }
+    }
+    // Shift+Tab from the first cell: do nothing; the browser moves focus
+    // to the element before the table naturally.
+  }
+
   private getConfiguredColumnRules(): PasteTableColumnRule[] {
     return (this.component.tableHeaders || [])
       .map((item) => {
@@ -664,6 +703,16 @@ export default class PasteTableComponent
       if (e.key === 'Escape') {
         cancel();
       }
+
+      if (e.key === 'Tab') {
+        // Prevent the browser from moving focus while the editor input is
+        // still in the DOM. Confirm/cancel the current edit first, then
+        // explicitly focus the adjacent cell so editTriggerEvent:'focus'
+        // opens its editor automatically.
+        e.preventDefault();
+        onChange();
+        self.focusAdjacentCell(cell, e.shiftKey);
+      }
     });
 
     return input;
@@ -800,17 +849,15 @@ export default class PasteTableComponent
       // selectableRangeAutoFocus: false,
       // selectableRangeBlurEditOnNavigate: false,
       //selectableRange: false,
-      editTriggerEvent: 'click',
+      // Open the editor whenever a cell receives focus (keyboard Tab OR click).
+      // Combined with tabIndex=0 on each cell (applied in applyTabIndexToCells)
+      // this lets the user Tab between cells and type immediately.
+      editTriggerEvent: 'focus',
       // editTriggerEvent: 'dblclick',
       clipboard: false,
       // Tabulator built-in accessibility: adds role="grid", role="row",
       // role="gridcell", role="columnheader", aria-rowindex, aria-colindex.
       accessibility: true,
-      // Tabulator built-in keyboard navigation: arrow keys move between cells,
-      // Enter starts editing the active cell, Escape cancels editing.
-      // Implements the roving tabIndex pattern so Tab exits the grid to the
-      // Add Row button rather than looping through every cell.
-      keybindings: true,
       rowHeader: {
         resizable: false,
         frozen: true,
@@ -830,15 +877,26 @@ export default class PasteTableComponent
     };
     this._table = new Tabulator(this.refs.tabulatorTarget, tableOptions);
 
-    // After the grid DOM is ready, stamp an aria-label on both the Tabulator
-    // root element (role="grid") and the tableholder (role="grid" in some
-    // Tabulator versions) so screen readers announce the component label and
-    // user information when the user tabs into the table.
+    // After the grid DOM is ready, stamp aria-label and apply tabIndex to cells.
     this._table.on('tableBuilt', () => {
       this.applyTableAriaLabel();
+      this.applyTabIndexToCells();
+    });
+
+    // Re-apply tabIndex after every render cycle (rows added, pasted, deleted).
+    this._table.on('renderComplete', () => {
+      if (!this._isDetached) {
+        this.applyTabIndexToCells();
+      }
     });
 
     if (!isReadOnly) {
+      // editTriggerEvent:'focus' covers mouse, keyboard and touch, but row
+      // selection must still be wired for all paths.
+      this._table.on('cellEditing', (cell: any) => {
+        this.handleRowSelection(cell.getRow());
+      });
+
       this._table.on('cellClick', (_e: any, cell: any) => {
         // No isTouchDevice guard needed — handleCaptureClick suppresses touch-sourced
         // clicks in capture phase, so cellClick only fires for mouse/pen inputs.

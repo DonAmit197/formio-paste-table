@@ -10527,6 +10527,22 @@ var Wn = e.components.base, Gn = class e extends Wn {
 		let t = this.refs.tabulatorTarget.querySelector(".tabulator"), n = this.refs.tabulatorTarget.querySelector(".tabulator-tableholder");
 		t && t.setAttribute("aria-label", e), n && n.setAttribute("aria-label", e);
 	}
+	applyTabIndexToCells() {
+		!this.refs.tabulatorTarget || this.isReadOnlyMode() || this.refs.tabulatorTarget.querySelectorAll(".tabulator-row:not(.tabulator-calcs) .tabulator-cell:not(.tabulator-frozen)").forEach((e) => {
+			e.tabIndex = 0;
+		});
+	}
+	focusAdjacentCell(e, t) {
+		if (!this.refs.tabulatorTarget) return;
+		let n = Array.from(this.refs.tabulatorTarget.querySelectorAll(".tabulator-row:not(.tabulator-calcs) .tabulator-cell:not(.tabulator-frozen)")), r = e.getElement(), i = n.indexOf(r);
+		if (i === -1) return;
+		let a = t ? i - 1 : i + 1;
+		if (a >= 0 && a < n.length) setTimeout(() => n[a].focus(), 0);
+		else if (!t) {
+			let e = this.refs.addRowBtn;
+			e && e.style.display !== "none" && setTimeout(() => e.focus(), 0);
+		}
+	}
 	getConfiguredColumnRules() {
 		return (this.component.tableHeaders || []).map((e) => {
 			if (typeof e == "string") {
@@ -10693,8 +10709,8 @@ var Wn = e.components.base, Gn = class e extends Wn {
 			}
 			c.hideError(), n(e);
 		}
-		return a.addEventListener("blur", l), a.addEventListener("keydown", function(e) {
-			e.key === "Enter" && l(), e.key === "Escape" && r();
+		return a.addEventListener("blur", l), a.addEventListener("keydown", function(t) {
+			t.key === "Enter" && l(), t.key === "Escape" && r(), t.key === "Tab" && (t.preventDefault(), l(), c.focusAdjacentCell(e, t.shiftKey));
 		}), a;
 	}
 	buildRowsFromValue(e, t, n) {
@@ -10734,10 +10750,9 @@ var Wn = e.components.base, Gn = class e extends Wn {
 			data: this.getInitialTableData(t, n),
 			layout: "fitDataStretch",
 			renderHorizontal: "basic",
-			editTriggerEvent: "click",
+			editTriggerEvent: "focus",
 			clipboard: !1,
 			accessibility: !0,
-			keybindings: !0,
 			rowHeader: {
 				resizable: !1,
 				frozen: !0,
@@ -10760,8 +10775,12 @@ var Wn = e.components.base, Gn = class e extends Wn {
 			}))
 		};
 		this._table = new An(this.refs.tabulatorTarget, i), this._table.on("tableBuilt", () => {
-			this.applyTableAriaLabel();
-		}), n || (this._table.on("cellClick", (e, t) => {
+			this.applyTableAriaLabel(), this.applyTabIndexToCells();
+		}), this._table.on("renderComplete", () => {
+			this._isDetached || this.applyTabIndexToCells();
+		}), n || (this._table.on("cellEditing", (e) => {
+			this.handleRowSelection(e.getRow());
+		}), this._table.on("cellClick", (e, t) => {
 			this.handleRowSelection(t.getRow());
 		}), this._table.on("cellTap", (e, t) => {
 			this.handleRowSelection(t.getRow()), t.edit(!0);
